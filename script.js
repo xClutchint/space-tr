@@ -153,10 +153,15 @@ if(expertiseWordTransition){
   const expertiseWordHeading=expertiseWordTransition.querySelector('h2');
   const expertiseWords=[...expertiseWordHeading.querySelectorAll('span')];
   const updateExpertiseWordLabel=()=>expertiseWordHeading.setAttribute('aria-label',[...expertiseWordHeading.querySelectorAll('span')].map(word=>word.textContent.trim()).join(' '));
+  const resetExpertiseWords=()=>expertiseWords.forEach(word=>word.classList.remove('is-word-visible'));
   const expertiseWordObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    entry.target.classList.toggle('is-word-visible',entry.isIntersecting);
+    if(entry.isIntersecting)entry.target.classList.add('is-word-visible');
   }),{threshold:.35,rootMargin:'-12% 0px -32% 0px'});
+  const expertiseSectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(!entry.isIntersecting)resetExpertiseWords();
+  }),{threshold:0});
   expertiseWords.forEach(word=>expertiseWordObserver.observe(word));
+  expertiseSectionObserver.observe(expertiseWordTransition);
   addEventListener('space:languagechange',updateExpertiseWordLabel);
   updateExpertiseWordLabel();
 }
