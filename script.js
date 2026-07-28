@@ -49,7 +49,7 @@ const localeCopy={
     expertiseStewardshipLong:'Space supports consistent brand presentation, pricing discipline and established brand standards across local markets. Our teams work with partners to maintain each brand\u2019s identity while adapting execution to the commercial realities and consumer expectations of individual markets.',
     expertiseMarketingLong:'Space supports launches, campaigns, visual merchandising, beauty advisor training and consumer-facing activations. These activities are planned around each brand\u2019s positioning and adapted to local retail environments, helping partners deliver coherent and relevant experiences at every consumer touchpoint.',
     expertiseOperationsLong:'Space coordinates inventory planning, warehousing, order fulfilment and regional supply requirements. Strategic stock holdings and experienced local teams support dependable operations across markets, helping partners manage product availability, smaller orders and access to a broader brand portfolio.',
-    navAbout:'About',navExpertise:'Expertise',navBrands:'Brands',navTeam:'Team',navCareers:'Careers',navContact:'Contact Us',
+    navAbout:'About',navExpertise:'Expertise',navBrands:'Brands',navTeam:'Team',navCareers:'Careers',navContact:'Contact Us',openNavigation:'Open navigation',closeNavigation:'Close navigation',
     heroHeadline:'Bringing the best of global beauty brands to local audiences.',viewBrands:'View all brands',
     brandsEyebrow:'Our portfolio',brandsTitle:'Brands',brandsHeadline:'Trusted with brands that define beauty.',
     brandsIntro:'The portfolio of brands that we proudly partner with.',brandsCount:'International fragrance & beauty partners',
@@ -90,7 +90,7 @@ const localeCopy={
     expertiseStewardshipLong:'Space veille \u00e0 la coh\u00e9rence de la pr\u00e9sentation, \u00e0 la discipline tarifaire et au respect des standards de marque sur les march\u00e9s locaux. Nos \u00e9quipes travaillent avec les partenaires pour pr\u00e9server l\u2019identit\u00e9 de chaque marque tout en adaptant son ex\u00e9cution aux r\u00e9alit\u00e9s commerciales locales.',
     expertiseMarketingLong:'Space accompagne les lancements, les campagnes, le merchandising visuel, la formation des conseillers beaut\u00e9 et les activations destin\u00e9es aux consommateurs. Ces actions respectent le positionnement de chaque marque et s\u2019adaptent aux environnements retail locaux afin de proposer des exp\u00e9riences coh\u00e9rentes et pertinentes.',
     expertiseOperationsLong:'Space coordonne la planification des stocks, l\u2019entreposage, l\u2019ex\u00e9cution des commandes et les besoins d\u2019approvisionnement r\u00e9gionaux. Les stocks strat\u00e9giques et les \u00e9quipes locales soutiennent des op\u00e9rations fiables, la disponibilit\u00e9 des produits, les commandes de plus petite taille et l\u2019acc\u00e8s \u00e0 un portefeuille de marques plus large.',
-    navAbout:'À propos',navExpertise:'Expertise',navBrands:'Marques',navTeam:'Équipe',navCareers:'Carrières',navContact:'Nous contacter',
+    navAbout:'À propos',navExpertise:'Expertise',navBrands:'Marques',navTeam:'Équipe',navCareers:'Carrières',navContact:'Nous contacter',openNavigation:'Ouvrir la navigation',closeNavigation:'Fermer la navigation',
     heroHeadline:'Les plus grandes marques de beauté internationales, au plus près des marchés locaux.',viewBrands:'Découvrir nos marques',
     brandsEyebrow:'Notre portefeuille',brandsTitle:'Marques',brandsHeadline:'La confiance des marques qui façonnent la beauté.',
     brandsIntro:'Les marques avec lesquelles nous sommes fiers de collaborer.',brandsCount:'Partenaires internationaux de la parfumerie & de la beauté',
@@ -145,6 +145,31 @@ function applyLocale(language){
 }
 setLanguage=applyLocale;
 setLanguage(currentLanguage);
+const fluidNav=document.querySelector('[data-fluid-nav]');
+if(fluidNav){
+  const fluidNavTrigger=fluidNav.querySelector('.fluid-slide-nav-trigger'),fluidNavLabel=fluidNavTrigger.querySelector('.sr-only'),fluidNavLinks=[...fluidNav.querySelectorAll('.fluid-slide-nav-menu a')];
+  const setFluidNav=open=>{
+    fluidNav.classList.toggle('is-open',open);
+    fluidNavTrigger.setAttribute('aria-expanded',String(open));
+    fluidNavLabel.textContent=localeCopy[currentLanguage][open?'closeNavigation':'openNavigation'];
+  };
+  fluidNavTrigger.addEventListener('click',()=>setFluidNav(!fluidNav.classList.contains('is-open')));
+  fluidNavLinks.forEach(link=>link.addEventListener('click',()=>setFluidNav(false)));
+  document.addEventListener('click',event=>{if(!fluidNav.contains(event.target))setFluidNav(false)});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){setFluidNav(false);fluidNavTrigger.focus()}});
+  const fluidHeroObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    fluidNav.classList.toggle('is-over-hero',entry.isIntersecting);
+    if(entry.isIntersecting)setFluidNav(false);
+  }),{threshold:.18});
+  if(hero)fluidHeroObserver.observe(hero);else fluidNav.classList.remove('is-over-hero');
+  const fluidSectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(!entry.isIntersecting||!entry.target.id)return;
+    fluidNavLinks.forEach(link=>link.classList.toggle('is-current',link.getAttribute('href')===`#${entry.target.id}`));
+  }),{rootMargin:'-32% 0px -58% 0px',threshold:0});
+  document.querySelectorAll('#about,#expertise,#brands,#regional-operations,#team,#contact').forEach(section=>fluidSectionObserver.observe(section));
+  addEventListener('space:languagechange',()=>setFluidNav(fluidNav.classList.contains('is-open')));
+  setFluidNav(false);
+}
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
