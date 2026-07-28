@@ -1,8 +1,11 @@
 .edge-preview/
+.git/
 node_modules/
 .env
 .env.*
 *.zip
 *-check*.png
 brand kit/Brand Guide line.pdf
-.vercel
+server.js
+package.json
+README.md
