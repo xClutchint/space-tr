@@ -6,6 +6,9 @@ node_modules/
 *.zip
 *-check*.png
 brand kit/Brand Guide line.pdf
+brand kit/gif_2.gif
+brand kit/gif_3.gif
+france.avif
 server.js
 package.json
 README.md

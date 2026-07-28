@@ -7,8 +7,10 @@
   <title>Space | Global Brands, Local Reach</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="brand%20kit/gif_2-poster.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="brand%20kit/gif_3-poster.webp" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=regional-operations-1">
+  <link rel="stylesheet" href="styles.css?v=performance-1">
 </head>
 <body>
   <header class="site-header landing-header" data-header>
@@ -25,7 +27,7 @@
   <main>
     <section class="hero">
       <div class="hero-copy reveal">
-        <img class="hero-copy-campaign" src="brand%20kit/gif_2.gif" alt="" aria-hidden="true">
+        <video class="hero-copy-campaign" autoplay muted loop playsinline preload="auto" poster="brand%20kit/gif_2-poster.webp" data-managed-media aria-hidden="true" tabindex="-1"><source src="brand%20kit/gif_2.webm" type="video/webm"><source src="brand%20kit/gif_2.mp4" type="video/mp4"></video>
         <h1 data-i18n="heroHeadline">Bringing the best of global beauty brands to local audiences.</h1>
         <div class="hero-brand-proof" aria-label="Selected brands">
           <img src="brand%20kit/brand_1_mark.png" alt="Parfums de Marly">
@@ -38,7 +40,7 @@
         <a class="hero-view-all" href="#brands" data-i18n="viewBrands">View all brands</a>
       </div>
       <div class="hero-media" data-hero-media aria-label="Space brand campaigns">
-        <div class="hero-slide is-active"><img src="brand%20kit/gif_3.gif" alt="Premium fragrance campaign"></div>
+        <div class="hero-slide is-active"><video autoplay muted loop playsinline preload="auto" poster="brand%20kit/gif_3-poster.webp" data-managed-media aria-label="Premium fragrance campaign"><source src="brand%20kit/gif_3.webm" type="video/webm"><source src="brand%20kit/gif_3.mp4" type="video/mp4"></video></div>
         <div class="hero-slide"><img src="brand%20kit/gif_4.avif" alt="Premium fragrance campaign"></div>
       </div>
     </section>
@@ -64,20 +66,6 @@
         <a class="presence-bar presence-india" href="#about"><span>04</span><strong data-i18n="india">India</strong><small data-i18n="indiaRole">Local market access</small></a>
       </aside>
       <img class="presence-watermark" src="brand%20kit/Space%20Logo-20-transparent.png" alt="" aria-hidden="true">
-      <div class="presence-editorial reveal">
-        <p class="presence-chapter">About Space <span>02</span></p>
-        <h2>Global vision.<br>Local command.</h2>
-        <p class="presence-lead">Space builds international fragrance and beauty brands through market knowledge, distribution infrastructure and local execution.</p>
-        <a class="presence-link" href="#about">Discover Space</a>
-      </div>
-      <div class="presence-stage reveal">
-        <svg class="presence-silhouette" role="img" aria-label="Africa" data-presence-shape></svg>
-        <div class="presence-region-copy" aria-live="polite"><span data-presence-number>01 / 04</span><h3 data-presence-name>Africa</h3><p data-presence-copy>Established distribution infrastructure and local market knowledge across priority African markets.</p></div>
-      </div>
-      <div class="presence-regions" role="tablist" aria-label="Regional presence">
-        <button class="is-active" type="button" role="tab" aria-selected="true" data-region="Africa">Africa</button><button type="button" role="tab" aria-selected="false" data-region="India">India</button><button type="button" role="tab" aria-selected="false" data-region="UAE">UAE</button><button type="button" role="tab" aria-selected="false" data-region="France">France</button>
-      </div>
-      <div class="presence-metrics" aria-label="Space at a glance"><span><strong>22+</strong> Markets</span><span><strong>36+</strong> Brands</span><span><strong>100+</strong> POS</span><span><strong>4800+</strong> SKUs</span></div>
       <div class="about-presence-copy reveal">
         <p class="eyebrow">About Space</p>
         <h2>Local knowledge.<br>International reach.</h2>
@@ -95,7 +83,7 @@
       <div class="film-backdrop" aria-hidden="true"></div>
       <h2 class="film-statement" data-i18n-html="filmHeadline">Enabling beauty<br>without distance.</h2>
       <div class="film-frame">
-        <video autoplay muted loop playsinline preload="metadata" poster="brand%20kit/static_1.avif">
+        <video autoplay muted loop playsinline preload="metadata" poster="brand%20kit/static_1.avif" data-managed-media>
           <source src="brand%20kit/video_1.mp4" type="video/mp4">
         </video>
       </div>
@@ -154,9 +142,9 @@
       <div class="campaign-carousel-shell">
         <div class="campaign-carousel-viewport">
           <div class="campaign-carousel-track" data-campaign-track>
-            <figure class="campaign-carousel-slide"><img src="brand%20kit/gif_1.avif" alt="Fragrance campaign visual" draggable="false"></figure>
-            <figure class="campaign-carousel-slide"><img src="brand%20kit/gif_2.gif" alt="Beauty campaign visual" draggable="false" loading="lazy"></figure>
-            <figure class="campaign-carousel-slide"><img src="brand%20kit/gif_3.gif" alt="Luxury fragrance campaign visual" draggable="false" loading="lazy"></figure>
+            <figure class="campaign-carousel-slide"><img src="brand%20kit/gif_1.avif" alt="Fragrance campaign visual" draggable="false" loading="lazy" decoding="async"></figure>
+            <figure class="campaign-carousel-slide"><video muted loop playsinline preload="none" poster="brand%20kit/gif_2-poster.webp" data-managed-media aria-label="Beauty campaign visual"><source src="brand%20kit/gif_2.webm" type="video/webm"><source src="brand%20kit/gif_2.mp4" type="video/mp4"></video></figure>
+            <figure class="campaign-carousel-slide"><video muted loop playsinline preload="none" poster="brand%20kit/gif_3-poster.webp" data-managed-media aria-label="Luxury fragrance campaign visual"><source src="brand%20kit/gif_3.webm" type="video/webm"><source src="brand%20kit/gif_3.mp4" type="video/mp4"></video></figure>
             <figure class="campaign-carousel-slide"><img src="brand%20kit/gif_4.avif" alt="Perfume campaign visual" draggable="false" loading="lazy"></figure>
             <figure class="campaign-carousel-slide"><img src="brand%20kit/static_1.avif" alt="Fragrance still life" draggable="false" loading="lazy"></figure>
             <figure class="campaign-carousel-slide"><img src="brand%20kit/celestial%20blue.jpg" alt="Celestial blue campaign texture" draggable="false" loading="lazy"></figure>
@@ -166,8 +154,8 @@
         </div>
         <div class="campaign-thumbnail-rail" data-campaign-thumbnails aria-label="Choose campaign visual">
           <button class="is-active" type="button" data-campaign-thumbnail="0" aria-label="View campaign visual 1"><img src="brand%20kit/gif_1.avif" alt=""></button>
-          <button type="button" data-campaign-thumbnail="1" aria-label="View campaign visual 2"><img src="brand%20kit/gif_2.gif" alt="" loading="lazy"></button>
-          <button type="button" data-campaign-thumbnail="2" aria-label="View campaign visual 3"><img src="brand%20kit/gif_3.gif" alt="" loading="lazy"></button>
+          <button type="button" data-campaign-thumbnail="1" aria-label="View campaign visual 2"><img src="brand%20kit/gif_2-poster.webp" alt="" loading="lazy" decoding="async"></button>
+          <button type="button" data-campaign-thumbnail="2" aria-label="View campaign visual 3"><img src="brand%20kit/gif_3-poster.webp" alt="" loading="lazy" decoding="async"></button>
           <button type="button" data-campaign-thumbnail="3" aria-label="View campaign visual 4"><img src="brand%20kit/gif_4.avif" alt="" loading="lazy"></button>
           <button type="button" data-campaign-thumbnail="4" aria-label="View campaign visual 5"><img src="brand%20kit/static_1.avif" alt="" loading="lazy"></button>
           <button type="button" data-campaign-thumbnail="5" aria-label="View campaign visual 6"><img src="brand%20kit/celestial%20blue.jpg" alt="" loading="lazy"></button>
@@ -191,7 +179,7 @@
         <h2 id="regional-operations-title" data-i18n="regionalOperationsHeadline">Two regional worlds. One considered approach.</h2>
       </header>
       <div class="regional-operation-worlds">
-        <article class="regional-operation-panel regional-operation-maven" tabindex="0">
+        <article class="regional-operation-panel regional-operation-maven" tabindex="0" data-lazy-bg="brand%20kit/africa.jpg">
           <div class="regional-operation-index" aria-hidden="true">M</div>
           <div class="regional-operation-copy">
             <p class="regional-operation-kicker" data-i18n="mavenKicker">Regional distribution</p>
@@ -200,7 +188,7 @@
             <a href="https://www.mavenglobalimited.com/" target="_blank" rel="noopener noreferrer" data-i18n="learnMore">Learn more</a>
           </div>
         </article>
-        <article class="regional-operation-panel regional-operation-feelnzuri" tabindex="0">
+        <article class="regional-operation-panel regional-operation-feelnzuri" tabindex="0" data-lazy-bg="brand%20kit/static_1.avif">
           <div class="regional-operation-index" aria-hidden="true">F</div>
           <div class="regional-operation-copy">
             <p class="regional-operation-kicker" data-i18n="feelNzuriKicker">Fragrance lounge</p>
@@ -233,8 +221,6 @@
       <a href="careers.html" data-i18n="navCareers">Careers</a>
     </div>
   </footer>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3" defer></script>
-  <script src="script.js?v=regional-operations-1" defer></script>
+  <script src="script.js?v=performance-1" defer></script>
 </body>
 </html>

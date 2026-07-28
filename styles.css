@@ -27,7 +27,7 @@
 .hero-slide{position:absolute;inset:0;transform:translateY(100%);visibility:hidden;transition:transform 1.05s cubic-bezier(.76,0,.24,1);will-change:transform}
 .hero-slide.is-active{transform:translateY(0);visibility:visible;z-index:2}
 .hero-slide.is-leaving{transform:translateY(-100%);visibility:visible;z-index:1}
-.hero-slide img{display:block;width:100%;height:100%;object-fit:cover;background:var(--navy)}
+.hero-slide img,.hero-slide video{display:block;width:100%;height:100%;object-fit:cover;background:var(--navy)}
 .brand-heading{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;padding-bottom:2rem;border-bottom:1px solid var(--line)}
 .brand-heading h2{margin:0}.brand-heading p{margin:0;font:400 clamp(1rem,1.5vw,1.35rem) var(--serif)}
 @media(max-width:900px){.hero-media{min-height:80vh}.brand-heading{align-items:flex-start;flex-direction:column;gap:.5rem}}
@@ -406,7 +406,7 @@ body{overflow-x:hidden}
 .atelier-index>p{height:76px;flex:0 0 76px;display:flex;align-items:center;margin:0;padding:0 1.25rem;border-bottom:1px solid rgba(255,255,255,.22);color:#d0d2d5}
 .atelier-index button{isolation:isolate;overflow:hidden;padding:0 1.25rem;color:#d0d3d7;text-shadow:0 1px 9px rgba(0,0,0,.75);background-position:center;background-size:cover}
 .atelier-index button:before{content:"";position:absolute;z-index:-1;inset:0;background:rgba(0,0,0,.6);transition:background .35s}.atelier-index button:hover:before,.atelier-index button.is-active:before{background:rgba(0,0,0,.38)}
-.atelier-index button:nth-of-type(1){background-image:url('brand%20kit/gif_1.avif')}.atelier-index button:nth-of-type(2){background-image:url('brand%20kit/static_1.avif')}.atelier-index button:nth-of-type(3){background-image:url('brand%20kit/gif_3.gif')}.atelier-index button:nth-of-type(4){background-image:url('brand%20kit/gif_4.avif')}.atelier-index button:nth-of-type(5){background-image:url('brand%20kit/gif_2.gif')}
+.atelier-index button:nth-of-type(1){background-image:url('brand%20kit/gif_1.avif')}.atelier-index button:nth-of-type(2){background-image:url('brand%20kit/static_1.avif')}.atelier-index button:nth-of-type(3){background-image:url('brand%20kit/gif_3-poster.webp')}.atelier-index button:nth-of-type(4){background-image:url('brand%20kit/gif_4.avif')}.atelier-index button:nth-of-type(5){background-image:url('brand%20kit/gif_2-poster.webp')}
 .atelier-index button:hover,.atelier-index button.is-active{padding-left:1.55rem;background-color:#111;color:#fff}.atelier-index button span{color:#d0d3d7}
 .atelier-intro h2{font-size:clamp(3rem,4.5vw,5.6rem);line-height:.96}.atelier-intro>div p{font-size:.72rem}
 @media(max-width:1000px){.expertise-atelier{grid-template-columns:36vw 64vw;grid-template-areas:"capabilities introduction" "capabilities detail"}.atelier-index{grid-column:auto;min-height:100svh}.atelier-intro,.atelier-canvas{min-height:50svh}}
@@ -1312,7 +1312,7 @@ body.team-profile-open{overflow:hidden}
 }
 .presence-story .presence-africa:before{background-image:url('africa.jpg');background-position:center}
 .presence-story .presence-uae:before{background-image:url('uae.jpg');background-position:center}
-.presence-story .presence-france:before{background-image:url('france.avif');background-position:center}
+.presence-story .presence-france:before{background-image:url('france.webp');background-position:center}
 .presence-story .presence-india:before{background-image:url('india.jpg');background-position:center}
 .presence-story .presence-bar:hover:before{
   filter:saturate(1.04) brightness(.96) contrast(1.02);
@@ -3405,8 +3405,7 @@ body.team-profile-open{overflow:hidden}
     linear-gradient(90deg,rgba(4,5,6,.38),transparent 72%);
   transition:background .7s ease;
 }
-.regional-operation-maven:before{background-image:url('brand kit/africa.jpg')}
-.regional-operation-feelnzuri:before{background-image:url('brand kit/static_1.avif')}
+.regional-operation-panel:before{background-image:var(--regional-image,none)}
 .regional-operation-feelnzuri{border-left:1px solid rgba(255,255,255,.22)}
 .regional-operation-worlds:hover .regional-operation-panel{flex-grow:.86;filter:brightness(.76)}
 .regional-operation-worlds .regional-operation-panel:hover,
@@ -3522,12 +3521,20 @@ body.team-profile-open{overflow:hidden}
   background:linear-gradient(90deg,rgba(3,4,7,.18),transparent 24%,transparent 76%,rgba(3,4,7,.18));
   pointer-events:none;
 }
-.campaign-carousel-slide img{
+.campaign-carousel-slide img,
+.campaign-carousel-slide video{
   width:100%;
   height:100%;
   object-fit:cover;
   pointer-events:none;
   -webkit-user-drag:none;
+}
+
+/* Defer rendering of heavy below-the-fold chapters until they approach view. */
+.campaign-carousel-section,
+.regional-operations{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 100svh;
 }
 .campaign-carousel-arrow{
   position:absolute;

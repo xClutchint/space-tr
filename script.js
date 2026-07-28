@@ -185,6 +185,27 @@ if(numberStory){
 }
 const slideObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('is-in-view',entry.isIntersecting)),{threshold:.28});
 document.querySelectorAll('.scroll-slide').forEach(slide=>slideObserver.observe(slide));
+
+/* Keep motion inexpensive: only play video while it is actually visible. */
+const managedMedia=[...document.querySelectorAll('video[data-managed-media]')];
+if(managedMedia.length){
+  const limitMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches||Boolean(navigator.connection?.saveData);
+  const mediaInView=new WeakMap();
+  const syncMedia=media=>{
+    const shouldPlay=!limitMotion&&!document.hidden&&mediaInView.get(media);
+    if(shouldPlay){const playback=media.play();if(playback?.catch)playback.catch(()=>{})}else media.pause();
+  };
+  const mediaObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{mediaInView.set(entry.target,entry.isIntersecting&&entry.intersectionRatio>.12);syncMedia(entry.target)}),{threshold:[0,.12,.4]});
+  managedMedia.forEach(media=>mediaObserver.observe(media));
+  document.addEventListener('visibilitychange',()=>managedMedia.forEach(syncMedia));
+}
+
+/* CSS background images cannot use native lazy-loading, so hydrate them near view. */
+const lazyBackgrounds=[...document.querySelectorAll('[data-lazy-bg]')];
+if(lazyBackgrounds.length){
+  const backgroundObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const element=entry.target;element.style.setProperty('--regional-image',`url("${element.dataset.lazyBg}")`);element.removeAttribute('data-lazy-bg');backgroundObserver.unobserve(element)}),{rootMargin:'700px 0px'});
+  lazyBackgrounds.forEach(element=>backgroundObserver.observe(element));
+}
 const form=document.querySelector('[data-contact-form]');
 if(form){const started=Date.now();form.addEventListener('submit',async event=>{event.preventDefault();const status=form.querySelector('.form-status'),button=form.querySelector('button'),copy=localeCopy[currentLanguage];if(form.website.value)return;if(Date.now()-started<2500){status.textContent=copy.formWait;return}button.disabled=true;status.textContent=copy.formSending;try{const response=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(form)))});const data=await response.json();if(!response.ok)throw new Error(currentLanguage==='fr'?copy.formError:(data.message||copy.formError));status.textContent=copy.formSuccess;form.reset()}catch(error){status.textContent=error.message||copy.formEmailFallback}finally{button.disabled=false}})}
 const gallery=document.querySelector('[data-brand-gallery]');
@@ -196,7 +217,7 @@ if(gallery){
 const brandTheatre=document.querySelector('[data-brand-theatre]');
 if(brandTheatre){
   const theatreBrands=['Parfums de Marly','Initio Parfums PrivÃ©s','Xerjoff','Nishane','Tiziana Terenzi','Casamorati','Giorgio Armani Beauty','Yves Saint Laurent','Gucci','LancÃ´me','Prada','Valentino','Burberry','Marc Jacobs','ChloÃ©','Ralph Lauren','Boss','Viktor & Rolf','Davidoff','Armaf','Afnan Perfumes','Bond No. 9','The Merchant of Venice','Franck Boclet','Jacques Fath Paris','Affinessence Paris','Chabaud Maison de Parfum','Amouroud','Scalpers Yacht Club','Diesel','Cacharel','Tous','Halloween','Roja','Ormonde Jayne','RamÃ³n BÃ©jar','Montale Paris','Mancera Paris','Goldfield & Banks','Atelier des Ors'];
-  const scenes=['brand%20kit/gif_1.avif','brand%20kit/gif_3.gif','brand%20kit/gif_4.avif','brand%20kit/static_1.avif'];
+  const scenes=['brand%20kit/gif_1.avif','brand%20kit/gif_3-poster.webp','brand%20kit/gif_4.avif','brand%20kit/static_1.avif'];
   const backdrop=brandTheatre.querySelector('.brand-theatre-backdrop');
   const brandItem=(name,index)=>`<button class="brand-ribbon-item" type="button" data-brand-scene="${index%scenes.length}" aria-label="${name}"><img src="brand%20kit/brand_${index+1}.avif" alt="${name}" loading="lazy" decoding="async"></button>`;
   const firstHalf=theatreBrands.slice(0,20),secondHalf=theatreBrands.slice(20);
@@ -242,7 +263,7 @@ if(expertiseAtelier){
     {title:'BA training',copy:'Space provides training support for beauty advisors, helping retail teams develop product knowledge and represent brands consistently at the point of sale.',tags:['Product knowledge','Brand representation','Retail support']},
     {title:'Launches, marketing & activation',copy:'We support brand awareness through launches, in-store activations, marketing initiatives and promotional activities designed for local markets and audiences.',tags:['Launches','In-store activation','Marketing','Promotional activity']}
   ];
-  const expertiseScenes=['brand%20kit/gif_1.avif','brand%20kit/UAE.jpg','brand%20kit/static_1.avif','brand%20kit/gif_3.gif','brand%20kit/france.jpg','brand%20kit/gif_4.avif'];
+  const expertiseScenes=['brand%20kit/gif_1.avif','brand%20kit/UAE.jpg','brand%20kit/static_1.avif','brand%20kit/gif_3-poster.webp','brand%20kit/france.jpg','brand%20kit/gif_4.avif'];
   const buttons=[...expertiseAtelier.querySelectorAll('[data-expertise]')],stage=expertiseAtelier.querySelector('.service-stage'),indexNav=expertiseAtelier.querySelector('.service-index'),ghost=expertiseAtelier.querySelector('[data-expertise-ghost]'),number=expertiseAtelier.querySelector('[data-expertise-number]'),title=expertiseAtelier.querySelector('[data-expertise-title]'),copy=expertiseAtelier.querySelector('[data-expertise-copy]'),tags=expertiseAtelier.querySelector('[data-expertise-tags]'),visual=expertiseAtelier.querySelector('[data-expertise-visual]');let activeExpertise=0,expertiseCycle;
   const showExpertise=index=>{if(index===activeExpertise&&stage.classList.contains('is-ready'))return;activeExpertise=index;stage.classList.add('is-changing','is-ready');window.setTimeout(()=>{const area=expertiseAreas[index],label=String(index+1).padStart(2,'0');expertiseAtelier.dataset.active=String(index);ghost.textContent=label;number.textContent=`${label} / 06`;title.textContent=area.title;copy.textContent=area.copy;tags.innerHTML=area.tags.map(tag=>`<li>${tag}</li>`).join('');visual.src=expertiseScenes[index];buttons.forEach((button,buttonIndex)=>button.classList.toggle('is-active',buttonIndex===index));window.setTimeout(()=>stage.classList.remove('is-changing'),80)},280)};
   const startExpertiseCycle=()=>{window.clearInterval(expertiseCycle);expertiseCycle=window.setInterval(()=>showExpertise((activeExpertise+1)%expertiseAreas.length),6000)};
