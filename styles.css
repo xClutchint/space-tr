@@ -3200,11 +3200,11 @@ body.team-profile-open{overflow:hidden}
   place-items:center;
   padding:0;
   color:#111;
-  opacity:.03;
-  filter:blur(9px);
+  opacity:.1;
+  filter:blur(5px);
   clip-path:none;
-  transform:translateY(36px) scale(.975);
-  transition:opacity .76s ease,filter .76s ease,transform .76s cubic-bezier(.16,.82,.24,1);
+  transform:translateY(24px);
+  transition:opacity .62s ease,filter .62s ease,transform .62s cubic-bezier(.2,.76,.2,1);
 }
 .expertise-word-transition h2 span.is-word-visible{
   opacity:1;
