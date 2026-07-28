@@ -3249,3 +3249,64 @@ body.team-profile-open{overflow:hidden}
 @media(max-width:560px){
   .team-social-dock{top:calc(52% + 36svh);bottom:auto}
 }
+
+/* Each social dock now belongs to its portrait card */
+.team-portrait-card{
+  overflow:visible;
+  border:0;
+  background:transparent;
+}
+.team-portrait-card:before,
+.team-portrait-card:after{display:none}
+.team-card-select{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  padding:0;
+  overflow:hidden;
+  border:1px solid rgba(25,28,32,.15);
+  border-radius:2px;
+  background:#d8d3ca;
+  color:#fff;
+  box-shadow:0 36px 100px rgba(44,37,27,.2);
+  cursor:pointer;
+}
+.team-card-select:before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:0;
+  border:1px solid rgba(255,255,255,.2);
+  pointer-events:none;
+}
+.team-card-select:after{
+  content:"";
+  position:absolute;
+  inset:48% 0 0;
+  background:linear-gradient(0deg,rgba(7,8,11,.9),rgba(7,8,11,.08) 72%,transparent);
+}
+.team-card-select>span{
+  position:absolute;
+  z-index:3;
+  left:clamp(1.2rem,2vw,2rem);
+  right:clamp(1.2rem,2vw,2rem);
+  bottom:clamp(1.4rem,3vh,2.5rem);
+  text-align:left;
+  text-transform:uppercase;
+}
+.team-portrait-card .team-social-dock{
+  top:auto;
+  bottom:0;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,50%);
+  transition:opacity .3s ease;
+}
+.team-portrait-card.is-active .team-social-dock{
+  opacity:1;
+  pointer-events:auto;
+}
+@media(max-width:560px){
+  .team-portrait-card .team-social-dock{top:auto;bottom:0}
+}

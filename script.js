@@ -641,28 +641,22 @@ if(teamCarousel){
   ];
   const track=teamCarousel.querySelector('[data-team-track]'),stage=teamCarousel.querySelector('[data-team-stage]');
   const personForLanguage=index=>currentLanguage==='fr'?{...people[index],...peopleFr[index]}:people[index];
-  track.innerHTML=people.map((person,index)=>{const localized=personForLanguage(index);return `<button class="team-portrait-card" type="button" data-team-card="${index}" aria-label="${person.name}, ${localized.role}"><img src="${person.image}" alt="${person.name}" loading="lazy" decoding="async"><span><strong>${person.name}</strong><small>${localized.role}</small><em>${localeCopy[currentLanguage].viewProfile}</em></span></button>`}).join('');
-  const cards=[...track.querySelectorAll('[data-team-card]')],socialDock=teamCarousel.querySelector('[data-team-social-dock]'),linkedinLink=socialDock?.querySelector('[data-team-linkedin]'),emailLink=socialDock?.querySelector('[data-team-email]');let activePerson=0,touchStart=0;
-  const updateTeamLinks=()=>{
-    const person=people[activePerson];
-    if(linkedinLink){linkedinLink.href=`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(person.name)}`;linkedinLink.setAttribute('aria-label',`LinkedIn: ${person.name}`)}
-    if(emailLink){emailLink.href=`mailto:info@space-tr.com?subject=${encodeURIComponent(`For the attention of ${person.name}`)}`;emailLink.setAttribute('aria-label',`Email: ${person.name}`)}
-  };
+  track.innerHTML=people.map((person,index)=>{const localized=personForLanguage(index),linkedin=`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(person.name)}`,email=`mailto:info@space-tr.com?subject=${encodeURIComponent(`For the attention of ${person.name}`)}`;return `<article class="team-portrait-card" data-team-card="${index}"><button class="team-card-select" type="button" data-team-select aria-label="${person.name}, ${localized.role}"><img src="${person.image}" alt="${person.name}" loading="lazy" decoding="async"><span><strong>${person.name}</strong><small>${localized.role}</small><em>${localeCopy[currentLanguage].viewProfile}</em></span></button><nav class="team-social-dock" data-team-social-dock aria-label="${person.name} profile links"><a href="${linkedin}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn: ${person.name}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 8.2H1.6V22h3.6V8.2ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 14.1c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.3v-2H9.5V22h3.6v-6.8c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22h3.6l.8-7.9Z"/></svg></a><a href="${email}" aria-label="Email: ${person.name}"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="gmail-red" d="M2.2 6.1 12 13.4l9.8-7.3v12.1c0 1-.8 1.8-1.8 1.8h-2.3V10.5L12 14.7l-5.7-4.2V20H4c-1 0-1.8-.8-1.8-1.8V6.1Z"/><path class="gmail-blue" d="M2.2 6.1c0-1 .8-1.8 1.8-1.8l8 5.9-2.9 2.2-6.9-5.2V6.1Z"/><path class="gmail-green" d="M21.8 6.1c0-1-.8-1.8-1.8-1.8l-8 5.9 2.9 2.2 6.9-5.2V6.1Z"/></svg></a></nav></article>`}).join('');
+  const cards=[...track.querySelectorAll('[data-team-card]')];let activePerson=0,touchStart=0;
   const updateTeam=index=>{
     activePerson=(index+people.length)%people.length;const previous=(activePerson-1+people.length)%people.length,next=(activePerson+1)%people.length;
-    cards.forEach((card,cardIndex)=>{card.classList.toggle('is-active',cardIndex===activePerson);card.classList.toggle('is-prev',cardIndex===previous);card.classList.toggle('is-next',cardIndex===next);card.classList.toggle('is-away',cardIndex!==activePerson&&cardIndex!==previous&&cardIndex!==next);card.setAttribute('aria-pressed',String(cardIndex===activePerson))});
-    updateTeamLinks();
+    cards.forEach((card,cardIndex)=>{card.classList.toggle('is-active',cardIndex===activePerson);card.classList.toggle('is-prev',cardIndex===previous);card.classList.toggle('is-next',cardIndex===next);card.classList.toggle('is-away',cardIndex!==activePerson&&cardIndex!==previous&&cardIndex!==next);card.querySelector('[data-team-select]').setAttribute('aria-pressed',String(cardIndex===activePerson))});
   };
-  const refreshTeamLanguage=()=>{cards.forEach((card,index)=>{const person=personForLanguage(index);card.setAttribute('aria-label',`${person.name}, ${person.role}`);card.querySelector('small').textContent=person.role;card.querySelector('em').textContent=localeCopy[currentLanguage].viewProfile})};
-  cards.forEach((card,index)=>card.addEventListener('click',()=>updateTeam(index)));
+  const refreshTeamLanguage=()=>{cards.forEach((card,index)=>{const person=personForLanguage(index);card.querySelector('[data-team-select]').setAttribute('aria-label',`${person.name}, ${person.role}`);card.querySelector('small').textContent=person.role;card.querySelector('em').textContent=localeCopy[currentLanguage].viewProfile})};
+  cards.forEach((card,index)=>card.querySelector('[data-team-select]').addEventListener('click',()=>updateTeam(index)));
   teamCarousel.querySelector('[data-team-prev]').addEventListener('click',()=>updateTeam(activePerson-1));teamCarousel.querySelector('[data-team-next]').addEventListener('click',()=>updateTeam(activePerson+1));
   teamCarousel.tabIndex=0;teamCarousel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')updateTeam(activePerson-1);if(event.key==='ArrowRight')updateTeam(activePerson+1)});
   stage.addEventListener('touchstart',event=>{touchStart=event.changedTouches[0].clientX},{passive:true});stage.addEventListener('touchend',event=>{const distance=event.changedTouches[0].clientX-touchStart;if(Math.abs(distance)>45)updateTeam(activePerson+(distance<0?1:-1))},{passive:true});
-  if(socialDock){
+  teamCarousel.querySelectorAll('[data-team-social-dock]').forEach(socialDock=>{
     const dockItems=[...socialDock.querySelectorAll('a')];
     socialDock.addEventListener('pointermove',event=>dockItems.forEach(item=>{const bounds=item.getBoundingClientRect(),distance=Math.abs(event.clientX-(bounds.left+bounds.width/2)),influence=Math.max(0,1-distance/120);item.style.setProperty('--dock-size',`${40+20*influence}px`);item.style.setProperty('--dock-lift',`${-9*influence}px`)}),{passive:true});
     socialDock.addEventListener('pointerleave',()=>dockItems.forEach(item=>{item.style.removeProperty('--dock-size');item.style.removeProperty('--dock-lift')}));
-  }
+  });
   window.addEventListener('space:languagechange',refreshTeamLanguage);
   updateTeam(0);
 }
