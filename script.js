@@ -145,31 +145,6 @@ function applyLocale(language){
 }
 setLanguage=applyLocale;
 setLanguage(currentLanguage);
-const fluidNav=document.querySelector('[data-fluid-nav]');
-if(fluidNav){
-  const fluidNavTrigger=fluidNav.querySelector('.fluid-slide-nav-trigger'),fluidNavLabel=fluidNavTrigger.querySelector('.sr-only'),fluidNavLinks=[...fluidNav.querySelectorAll('.fluid-slide-nav-menu a')];
-  const setFluidNav=open=>{
-    fluidNav.classList.toggle('is-open',open);
-    fluidNavTrigger.setAttribute('aria-expanded',String(open));
-    fluidNavLabel.textContent=localeCopy[currentLanguage][open?'closeNavigation':'openNavigation'];
-  };
-  fluidNavTrigger.addEventListener('click',()=>setFluidNav(!fluidNav.classList.contains('is-open')));
-  fluidNavLinks.forEach(link=>link.addEventListener('click',()=>setFluidNav(false)));
-  document.addEventListener('click',event=>{if(!fluidNav.contains(event.target))setFluidNav(false)});
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'){setFluidNav(false);fluidNavTrigger.focus()}});
-  const fluidHeroObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    fluidNav.classList.toggle('is-over-hero',entry.isIntersecting);
-    if(entry.isIntersecting)setFluidNav(false);
-  }),{threshold:.18});
-  if(hero)fluidHeroObserver.observe(hero);else fluidNav.classList.remove('is-over-hero');
-  const fluidSectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    if(!entry.isIntersecting||!entry.target.id)return;
-    fluidNavLinks.forEach(link=>link.classList.toggle('is-current',link.getAttribute('href')===`#${entry.target.id}`));
-  }),{rootMargin:'-32% 0px -58% 0px',threshold:0});
-  document.querySelectorAll('#about,#expertise,#brands,#regional-operations,#team,#contact').forEach(section=>fluidSectionObserver.observe(section));
-  addEventListener('space:languagechange',()=>setFluidNav(fluidNav.classList.contains('is-open')));
-  setFluidNav(false);
-}
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
