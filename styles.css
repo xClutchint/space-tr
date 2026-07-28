@@ -3218,3 +3218,34 @@ body.team-profile-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .expertise-word-transition h2 span{opacity:1;filter:none;transform:none;transition:none}
 }
+
+/* Align the team dock with the active portrait baseline */
+.team-social-dock{
+  top:calc(52% + min(41svh,410px));
+  bottom:auto;
+  transform:translate(-50%,-50%);
+}
+.team-portrait-card em{
+  display:block;
+  width:max-content;
+  margin-top:.9rem;
+  padding:0 0 .26rem;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.62);
+  border-radius:0;
+  color:rgba(255,255,255,.86);
+  font:400 .46rem var(--sans);
+  font-style:normal;
+  letter-spacing:.17em;
+  line-height:1;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(6px);
+  transition:opacity .35s,transform .35s,color .25s;
+}
+.team-portrait-card.is-active em{opacity:1;transform:none}
+.team-portrait-card.is-active:hover em,
+.team-portrait-card.is-active:focus-visible em{background:transparent;color:#fff}
+@media(max-width:560px){
+  .team-social-dock{top:calc(52% + 36svh);bottom:auto}
+}

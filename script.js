@@ -59,7 +59,7 @@ const localeCopy={
     markets:'Markets',brandPartners:'Brand partners',availableSkus:'Available SKUs',discoverSpace:'Discover Space',
     ourPresence:'Our presence',africa:'Africa',uae:'UAE',france:'France',india:'India',
     africaRole:'Regional distribution',uaeRole:'Strategic operations hub',franceRole:'European brand connection',indiaRole:'Local market access',
-    filmHeadline:'Enabling beauty<br>without distance.',teamHeadline:'The team',
+    filmHeadline:'Enabling beauty<br>without distance.',teamHeadline:'The team',viewProfile:'View profile',
     expertiseEyebrow:'Our expertise',expertiseHeadline:'Space manages every stage between brand ambition and market execution.',
     expertiseInstruction:'Select a capability to explore',expertiseMarket:'Market strategy',expertiseSales:'Sales & distribution',
     expertiseStewardship:'Brand stewardship',expertiseMarketing:'Marketing & activation',expertiseOperations:'Operations & logistics',
@@ -97,7 +97,7 @@ const localeCopy={
     markets:'Marchés',brandPartners:'Marques partenaires',availableSkus:'Références disponibles',discoverSpace:'Découvrir Space',
     ourPresence:'Notre présence',africa:'Afrique',uae:'Émirats arabes unis',france:'France',india:'Inde',
     africaRole:'Distribution régionale',uaeRole:'Pôle opérationnel stratégique',franceRole:'Lien avec les marques européennes',indiaRole:'Accès au marché local',
-    filmHeadline:'La beauté<br>sans frontières.',teamHeadline:'L’équipe',
+    filmHeadline:'La beauté<br>sans frontières.',teamHeadline:'L’équipe',viewProfile:'Voir le profil',
     expertiseEyebrow:'Notre expertise',expertiseHeadline:'Space pilote chaque étape entre l’ambition de la marque et son exécution sur le marché.',
     expertiseInstruction:'Sélectionnez une expertise',expertiseMarket:'Stratégie de marché',expertiseSales:'Vente & distribution',
     expertiseStewardship:'Pilotage de marque',expertiseMarketing:'Marketing & activation',expertiseOperations:'Opérations & logistique',
@@ -641,7 +641,7 @@ if(teamCarousel){
   ];
   const track=teamCarousel.querySelector('[data-team-track]'),stage=teamCarousel.querySelector('[data-team-stage]');
   const personForLanguage=index=>currentLanguage==='fr'?{...people[index],...peopleFr[index]}:people[index];
-  track.innerHTML=people.map((person,index)=>{const localized=personForLanguage(index);return `<button class="team-portrait-card" type="button" data-team-card="${index}" aria-label="${person.name}, ${localized.role}"><img src="${person.image}" alt="${person.name}" loading="lazy" decoding="async"><span><strong>${person.name}</strong><small>${localized.role}</small></span></button>`}).join('');
+  track.innerHTML=people.map((person,index)=>{const localized=personForLanguage(index);return `<button class="team-portrait-card" type="button" data-team-card="${index}" aria-label="${person.name}, ${localized.role}"><img src="${person.image}" alt="${person.name}" loading="lazy" decoding="async"><span><strong>${person.name}</strong><small>${localized.role}</small><em>${localeCopy[currentLanguage].viewProfile}</em></span></button>`}).join('');
   const cards=[...track.querySelectorAll('[data-team-card]')],socialDock=teamCarousel.querySelector('[data-team-social-dock]'),linkedinLink=socialDock?.querySelector('[data-team-linkedin]'),emailLink=socialDock?.querySelector('[data-team-email]');let activePerson=0,touchStart=0;
   const updateTeamLinks=()=>{
     const person=people[activePerson];
@@ -653,7 +653,7 @@ if(teamCarousel){
     cards.forEach((card,cardIndex)=>{card.classList.toggle('is-active',cardIndex===activePerson);card.classList.toggle('is-prev',cardIndex===previous);card.classList.toggle('is-next',cardIndex===next);card.classList.toggle('is-away',cardIndex!==activePerson&&cardIndex!==previous&&cardIndex!==next);card.setAttribute('aria-pressed',String(cardIndex===activePerson))});
     updateTeamLinks();
   };
-  const refreshTeamLanguage=()=>{cards.forEach((card,index)=>{const person=personForLanguage(index);card.setAttribute('aria-label',`${person.name}, ${person.role}`);card.querySelector('small').textContent=person.role})};
+  const refreshTeamLanguage=()=>{cards.forEach((card,index)=>{const person=personForLanguage(index);card.setAttribute('aria-label',`${person.name}, ${person.role}`);card.querySelector('small').textContent=person.role;card.querySelector('em').textContent=localeCopy[currentLanguage].viewProfile})};
   cards.forEach((card,index)=>card.addEventListener('click',()=>updateTeam(index)));
   teamCarousel.querySelector('[data-team-prev]').addEventListener('click',()=>updateTeam(activePerson-1));teamCarousel.querySelector('[data-team-next]').addEventListener('click',()=>updateTeam(activePerson+1));
   teamCarousel.tabIndex=0;teamCarousel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')updateTeam(activePerson-1);if(event.key==='ArrowRight')updateTeam(activePerson+1)});
