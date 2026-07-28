@@ -3735,6 +3735,11 @@ body.team-profile-open{overflow:hidden}
   border-color:rgba(255,255,255,.58);
   opacity:1;
 }
+
+/* Continuous page flow: section edges must never capture or redirect the user's scroll. */
+html{
+  scroll-snap-type:none!important;
+}
 .campaign-thumbnail-rail img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 @media(max-width:760px){
   .campaign-carousel-section{min-height:88svh;padding:2rem 0}
