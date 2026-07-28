@@ -573,6 +573,29 @@ if(presenceIndex){
   indexObserver.observe(presenceIndex);
 }
 
+document.querySelectorAll('[data-campaign-carousel]').forEach(carousel=>{
+  const viewport=carousel.querySelector('.campaign-carousel-viewport'),track=carousel.querySelector('[data-campaign-track]'),slides=[...track.children],thumbnailRail=carousel.querySelector('[data-campaign-thumbnails]'),thumbnails=[...carousel.querySelectorAll('[data-campaign-thumbnail]')],previous=carousel.querySelector('[data-campaign-prev]'),next=carousel.querySelector('[data-campaign-next]');
+  let index=0,startX=0,currentX=0,startTime=0,dragging=false;
+  const render=(animate=true)=>{
+    track.classList.toggle('is-immediate',!animate);
+    track.style.transform=`translate3d(${-index*100}%,0,0)`;
+    thumbnails.forEach((thumbnail,thumbnailIndex)=>{const active=thumbnailIndex===index;thumbnail.classList.toggle('is-active',active);thumbnail.setAttribute('aria-current',active?'true':'false')});
+    previous.disabled=index===0;next.disabled=index===slides.length-1;
+    const activeThumbnail=thumbnails[index];if(activeThumbnail)thumbnailRail.scrollTo({left:activeThumbnail.offsetLeft-(thumbnailRail.clientWidth-activeThumbnail.offsetWidth)/2,behavior:animate?'smooth':'auto'});
+    if(!animate)requestAnimationFrame(()=>track.classList.remove('is-immediate'));
+  };
+  const setIndex=value=>{index=Math.max(0,Math.min(slides.length-1,value));render()};
+  previous.addEventListener('click',()=>setIndex(index-1));
+  next.addEventListener('click',()=>setIndex(index+1));
+  thumbnails.forEach((thumbnail,thumbnailIndex)=>thumbnail.addEventListener('click',()=>setIndex(thumbnailIndex)));
+  viewport.addEventListener('pointerdown',event=>{if(event.target.closest('button'))return;dragging=true;startX=currentX=event.clientX;startTime=performance.now();viewport.classList.add('is-dragging');viewport.setPointerCapture(event.pointerId)});
+  viewport.addEventListener('pointermove',event=>{if(!dragging)return;currentX=event.clientX;const width=viewport.clientWidth||1,delta=currentX-startX;track.style.transform=`translate3d(${(-index*width)+delta}px,0,0)`});
+  const finishDrag=event=>{if(!dragging)return;dragging=false;const delta=(event.clientX||currentX)-startX,elapsed=Math.max(1,performance.now()-startTime),velocity=delta/elapsed,width=viewport.clientWidth||1;viewport.classList.remove('is-dragging');if(Math.abs(velocity)>.55||Math.abs(delta)>width*.3)setIndex(index+(delta<0?1:-1));else render()};
+  viewport.addEventListener('pointerup',finishDrag);viewport.addEventListener('pointercancel',finishDrag);
+  carousel.tabIndex=0;carousel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')setIndex(index-1);if(event.key==='ArrowRight')setIndex(index+1)});
+  render(false);
+});
+
 const teamCarousel=document.querySelector('[data-team-carousel]');
 if(teamCarousel){
   const people=[
