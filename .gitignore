@@ -1,0 +1,8 @@
+.edge-preview/
+node_modules/
+.env
+.env.*
+*.zip
+*-check*.png
+brand kit/Brand Guide line.pdf
+

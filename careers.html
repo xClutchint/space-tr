@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore current fragrance and beauty distribution career opportunities at Space.">
+  <title>Careers — Space</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=careers-directory-2">
+</head>
+<body class="careers-page">
+  <header class="career-header"><a href="index.html" aria-label="Space home"><img src="brand%20kit/Space%20Logo-19.jpg" alt="Space"></a><nav><a href="index.html">Back to home</a></nav></header>
+  <main class="career-listing-page">
+    <header class="career-directory-intro">
+      <p>Careers at Space</p>
+      <div><h1>Open positions</h1></div>
+    </header>
+    <section class="career-filters" aria-label="Filter open positions">
+      <label><span>Location</span><select data-career-location><option value="all">All locations</option><option value="dubai-uae">Dubai, UAE</option><option value="nairobi-kenya">Nairobi, Kenya</option></select></label>
+      <label><span>Employment type</span><select data-career-type><option value="all">All types</option><option value="full-time">Full time</option><option value="part-time">Part time</option></select></label>
+      <button type="button" data-career-reset>Reset filters</button>
+    </section>
+    <p class="career-result-status" data-career-status aria-live="polite">Showing all 3 open positions</p>
+    <div class="career-list-head"><span>Role</span><span>Department</span><span>Location</span><span>Type</span><span></span></div>
+    <article class="career-list-row" data-location="dubai-uae" data-type="full-time"><strong>Brand Manager</strong><span>Brand management</span><span>Dubai, UAE</span><span>Full time</span><i><a href="mailto:careers@space-tr.com?subject=Application%3A%20Brand%20Manager">Apply</a></i></article>
+    <article class="career-list-row" data-location="nairobi-kenya" data-type="full-time"><strong>Sales Executive</strong><span>Sales &amp; distribution</span><span>Nairobi, Kenya</span><span>Full time</span><i><a href="mailto:careers@space-tr.com?subject=Application%3A%20Sales%20Executive">Apply</a></i></article>
+    <article class="career-list-row" data-location="dubai-uae" data-type="full-time"><strong>Logistics Coordinator</strong><span>Operations &amp; logistics</span><span>Dubai, UAE</span><span>Full time</span><i><a href="mailto:careers@space-tr.com?subject=Application%3A%20Logistics%20Coordinator">Apply</a></i></article>
+    <div class="career-empty" data-career-empty hidden><strong>No matching positions</strong><p>Try another location or employment type.</p><button type="button" data-career-empty-reset>Show all positions</button></div>
+  </main>
+  <script src="careers.js?v=1" defer></script>
+</body>
+</html>
