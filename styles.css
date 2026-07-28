@@ -3331,7 +3331,7 @@ body.team-profile-open{overflow:hidden}
   position:fixed;
   z-index:120;
   top:clamp(20px,3vh,32px);
-  left:max(20px,2.25vw);
+  right:max(20px,2.25vw);
   width:222px;
   height:390px;
   color:#fff;
@@ -3347,12 +3347,12 @@ body.team-profile-open{overflow:hidden}
 .fluid-slide-nav-surface{
   position:absolute;
   top:0;
-  left:0;
+  right:0;
   width:56px;
   height:56px;
   border:1px solid rgba(255,255,255,.46);
   border-radius:28px;
-  background:linear-gradient(145deg,rgba(39,42,47,.78),rgba(4,6,9,.84));
+  background:linear-gradient(145deg,rgba(39,42,47,.42),rgba(4,6,9,.5));
   box-shadow:0 14px 34px rgba(0,0,0,.2),inset 1px 1px 0 rgba(255,255,255,.28),inset -1px -1px 0 rgba(255,255,255,.08);
   backdrop-filter:blur(18px) saturate(145%);
   -webkit-backdrop-filter:blur(18px) saturate(145%);
@@ -3362,14 +3362,14 @@ body.team-profile-open{overflow:hidden}
   width:222px;
   height:390px;
   border-radius:28px;
-  background:linear-gradient(145deg,rgba(29,31,35,.88),rgba(4,6,9,.91));
+  background:linear-gradient(145deg,rgba(29,31,35,.62),rgba(4,6,9,.68));
   box-shadow:0 24px 70px rgba(0,0,0,.3),inset 1px 1px 0 rgba(255,255,255,.24),inset -1px -1px 0 rgba(255,255,255,.06);
 }
 .fluid-slide-nav-trigger{
   position:absolute;
   z-index:2;
   top:0;
-  left:0;
+  right:0;
   display:grid;
   width:56px;
   height:56px;
@@ -3400,7 +3400,7 @@ body.team-profile-open{overflow:hidden}
   position:absolute;
   z-index:1;
   top:64px;
-  left:0;
+  right:0;
   display:flex;
   width:222px;
   max-height:calc(100vh - 100px);
@@ -3446,7 +3446,7 @@ body.team-profile-open{overflow:hidden}
 .fluid-slide-nav-menu a:hover:before,.fluid-slide-nav-menu a:focus-visible:before,.fluid-slide-nav-menu a.is-current:before{background:#fff;opacity:1;transform:scale(1.18)}
 .fluid-slide-nav-menu a:focus-visible{outline:0;background:rgba(255,255,255,.08);border-radius:999px}
 @media(max-width:680px){
-  .fluid-slide-nav{top:16px;left:16px;width:202px;height:366px}
+  .fluid-slide-nav{top:16px;right:16px;width:202px;height:366px}
   .fluid-slide-nav-surface,.fluid-slide-nav.is-open .fluid-slide-nav-surface{width:52px;height:52px;border-radius:26px}
   .fluid-slide-nav.is-open .fluid-slide-nav-surface{width:202px;height:366px}
   .fluid-slide-nav-trigger{width:52px;height:52px}
