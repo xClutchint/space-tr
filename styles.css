@@ -3361,7 +3361,7 @@ body.team-profile-open{overflow:hidden}
   right:0;
   bottom:0;
   left:auto;
-  width:min(64vw,var(--profile-width,64vw));
+  width:64vw;
   height:100%;
   overflow:hidden;
   clip-path:inset(0 0 0 12%);
@@ -3376,10 +3376,12 @@ body.team-profile-open{overflow:hidden}
   object-fit:cover;
   object-position:var(--profile-position,center 15%);
   filter:saturate(.78) contrast(1.03) brightness(.94) sepia(.06);
-  transform:scale(1.045);
+  transform:scale(var(--profile-enter-scale,1.045));
+  transform-origin:right center;
   transition:transform 1.35s cubic-bezier(.2,.76,.2,1);
 }
-.team-profile-overlay.is-open .team-profile-image img{transform:scale(1)}
+.team-profile-overlay.is-open .team-profile-image img{transform:scale(var(--profile-scale,1))}
+.team-profile-overlay:not([data-profile="0"]) .team-profile-image img{display:block;width:auto;max-width:none;height:100%;margin-left:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
 .team-profile-image:after{
   content:"";
   position:absolute;
@@ -3463,7 +3465,7 @@ body.team-profile-open{overflow:hidden}
 .team-profile-overlay.is-open article h3{transition-delay:.2s}
 .team-profile-overlay.is-open article [data-team-overlay-bio]{transition-delay:.28s}
 @media(max-width:1000px){
-  .team-profile-image{width:min(68vw,var(--profile-width,68vw))}
+  .team-profile-image{width:68vw}
   .team-profile-overlay article{width:59vw;padding-left:max(4vw,32px)}
   .team-profile-overlay article>p:first-child{left:max(4vw,32px)}
   .team-profile-overlay h2{font-size:clamp(3.1rem,7vw,5.5rem)}
