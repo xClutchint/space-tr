@@ -3415,11 +3415,22 @@ body.team-profile-open{overflow:hidden}
   text-transform:uppercase;
 }
 .team-profile-overlay h3{
-  margin:clamp(.8rem,1.5vh,1.3rem) 0 clamp(2rem,4vh,3.2rem);
+  position:relative;
+  margin:clamp(.8rem,1.5vh,1.3rem) 0 clamp(1.4rem,2.8vh,2.2rem);
+  padding-bottom:clamp(.9rem,1.8vh,1.35rem);
   color:#89683f;
   font:400 .61rem/1.5 var(--sans);
   letter-spacing:.19em;
   text-transform:uppercase;
+}
+.team-profile-overlay h3:after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:clamp(58px,6vw,92px);
+  height:1px;
+  background:linear-gradient(90deg,#9a7548,rgba(154,117,72,0));
 }
 .team-profile-overlay [data-team-overlay-bio]{
   display:block;
@@ -3437,11 +3448,19 @@ body.team-profile-open{overflow:hidden}
   margin:0;
   padding:0;
   border:0;
-  color:rgba(31,30,28,.72);
-  font:300 clamp(.72rem,.82vw,.91rem)/1.67 var(--sans);
-  letter-spacing:.025em;
+  color:rgba(31,30,28,.8);
+  font:300 clamp(.76rem,.86vw,.95rem)/1.72 var(--sans);
+  letter-spacing:.012em;
+  text-transform:none;
+  text-wrap:pretty;
 }
-.team-profile-overlay [data-team-overlay-bio] p+p{margin-top:clamp(.8rem,1.5vh,1.25rem)}
+.team-profile-overlay [data-team-overlay-bio] p:first-child{
+  max-width:48ch;
+  color:#292621;
+  font:400 clamp(1rem,1.14vw,1.28rem)/1.5 var(--serif);
+  letter-spacing:-.008em;
+}
+.team-profile-overlay [data-team-overlay-bio] p+p{margin-top:clamp(.95rem,1.8vh,1.4rem)}
 .team-profile-overlay [data-team-overlay-bio] p:before{display:none;content:none}
 .team-profile-close{
   position:absolute;
@@ -3471,7 +3490,8 @@ body.team-profile-open{overflow:hidden}
   .team-profile-overlay article{width:59vw;padding-left:max(4vw,32px)}
   .team-profile-overlay article>p:first-child{left:max(4vw,32px)}
   .team-profile-overlay h2{font-size:clamp(3.1rem,7vw,5.5rem)}
-  .team-profile-overlay [data-team-overlay-bio] p{font-size:clamp(.65rem,1.05vw,.78rem);line-height:1.58}
+  .team-profile-overlay [data-team-overlay-bio] p{font-size:clamp(.65rem,1.05vw,.8rem);line-height:1.58}
+  .team-profile-overlay [data-team-overlay-bio] p:first-child{font-size:clamp(.86rem,1.45vw,1.05rem);line-height:1.46}
 }
 @media(max-width:650px){
   .team-profile-overlay:before{z-index:1;background:linear-gradient(0deg,#e9e2d8 0 55%,rgba(233,226,216,.93) 67%,rgba(233,226,216,.24) 100%)}
@@ -3483,9 +3503,11 @@ body.team-profile-open{overflow:hidden}
   .team-profile-overlay article{justify-content:flex-end;width:100%;padding:4.6rem 1.25rem 1.15rem}
   .team-profile-overlay article>p:first-child{position:static;margin:0 0 .55rem;color:#8b673d;font-size:.46rem}
   .team-profile-overlay h2{font-size:clamp(2.25rem,10.3vw,3.55rem);line-height:.9}
-  .team-profile-overlay h3{margin:.5rem 0 .8rem;font-size:.47rem}
+  .team-profile-overlay h3{margin:.5rem 0 .72rem;padding-bottom:.58rem;font-size:.47rem}
+  .team-profile-overlay h3:after{width:48px}
   .team-profile-overlay [data-team-overlay-bio]{width:100%}
   .team-profile-overlay [data-team-overlay-bio] p{color:rgba(25,24,22,.78);font-size:clamp(.53rem,1.25vh,.65rem);line-height:1.48}
+  .team-profile-overlay [data-team-overlay-bio] p:first-child{font-size:clamp(.67rem,1.53vh,.78rem);line-height:1.46}
   .team-profile-overlay [data-team-overlay-bio] p+p{margin-top:.55rem}
   .team-profile-close{top:1.05rem;right:1.2rem;padding-right:1.65rem;font-size:.45rem}
 }
