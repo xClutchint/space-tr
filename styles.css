@@ -3382,6 +3382,7 @@ body.team-profile-open{overflow:hidden}
 }
 .team-profile-overlay.is-open .team-profile-image img{transform:scale(var(--profile-scale,1))}
 .team-profile-overlay:not([data-profile="0"]) .team-profile-image img{display:block;width:auto;max-width:none;height:100%;margin-left:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
+.team-profile-overlay:is([data-profile="1"],[data-profile="2"],[data-profile="3"]) .team-profile-image{background:linear-gradient(90deg,transparent 66%,color-mix(in srgb,var(--profile-edge) 28%,transparent) 78%,var(--profile-edge) 100%)}
 .team-profile-overlay:is([data-profile="1"],[data-profile="2"],[data-profile="3"]) .team-profile-image img{margin-right:clamp(80px,8vw,130px);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 92%,transparent 100%)}
 .team-profile-image:after{
   content:"";
