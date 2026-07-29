@@ -2982,7 +2982,7 @@ body.team-profile-open{overflow:hidden}
   -webkit-backdrop-filter:blur(16px) saturate(1.2);
   transform:translateX(-50%);
 }
-.team-social-dock button{
+.team-social-dock :is(a,button){
   --dock-size:40px;
   --dock-lift:0px;
   display:grid;
@@ -3000,8 +3000,9 @@ body.team-profile-open{overflow:hidden}
   transform:translateY(var(--dock-lift));
   transition:width .16s ease,height .16s ease,transform .16s ease,background .25s ease,border-color .25s ease;
 }
-.team-social-dock button:hover,
-.team-social-dock button:focus-visible{
+.team-social-dock a{cursor:pointer}
+.team-social-dock :is(a,button):hover,
+.team-social-dock :is(a,button):focus-visible{
   border-color:rgba(255,255,255,.68);
   background:rgba(247,244,237,.96);
   outline:0;
@@ -3014,17 +3015,17 @@ body.team-profile-open{overflow:hidden}
   opacity:.82;
   transition:filter .25s ease,opacity .25s ease;
 }
-.team-social-dock button:hover svg,
-.team-social-dock button:focus-visible svg{filter:none;opacity:1}
+.team-social-dock :is(a,button):hover svg,
+.team-social-dock :is(a,button):focus-visible svg{filter:none;opacity:1}
 .team-social-dock .gmail-red{fill:#ea4335}
 .team-social-dock .gmail-blue{fill:#4285f4}
 .team-social-dock .gmail-green{fill:#34a853}
 @media(max-width:560px){
   .team-portrait-card{height:72svh}
   .team-social-dock{bottom:.5rem;height:48px;padding:5px 7px}
-  .team-social-dock button{--dock-size:36px}
+  .team-social-dock :is(a,button){--dock-size:36px}
 }
-@media(prefers-reduced-motion:reduce){.team-social-dock button{transition:none}}
+@media(prefers-reduced-motion:reduce){.team-social-dock :is(a,button){transition:none}}
 
 /* Expertise word-by-word transition */
 .expertise-word-transition{
