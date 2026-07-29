@@ -68,7 +68,7 @@ const localeCopy={
     expertiseStewardshipCopy:'Consistent presentation, pricing discipline and brand standards adapted with local relevance.',
     expertiseMarketingCopy:'Launches, campaigns, visual merchandising, training and consumer-facing brand experiences.',
     expertiseOperationsCopy:'Inventory planning, warehousing, fulfilment and dependable regional supply coordination.',
-    previousMember:'Previous team member',nextMember:'Next team member',closeProfile:'Close profile',
+    previousMember:'Previous team member',nextMember:'Next team member',closeProfile:'Close profile',profileLabel:'Leadership profile',
     contactHeadline:'Get in touch',contactIntro:'For any inquiries or concerns, please reach out via e-mail and we will be pleased to assist you.',
     addressLabel:'Address',addressValue:'Dubai World Centre, Dubai U.A.E',emailLabel:'E-mail',
     hoursLabel:'Working hours',hoursValue:'Monday to Friday: 10am – 6pm',
@@ -109,7 +109,7 @@ const localeCopy={
     expertiseStewardshipCopy:'Présentation cohérente, discipline tarifaire et standards de marque adaptés avec pertinence aux marchés locaux.',
     expertiseMarketingCopy:'Lancements, campagnes, merchandising visuel, formation et expériences de marque destinées aux consommateurs.',
     expertiseOperationsCopy:'Planification des stocks, entreposage, exécution des commandes et coordination fiable de l’approvisionnement régional.',
-    previousMember:'Profil précédent',nextMember:'Profil suivant',closeProfile:'Fermer le profil',
+    previousMember:'Profil précédent',nextMember:'Profil suivant',closeProfile:'Fermer le profil',profileLabel:'Profil de direction',
     contactHeadline:'Parlons de vos projets',contactIntro:'Pour toute demande ou question, écrivez-nous. Notre équipe se fera un plaisir de vous accompagner.',
     addressLabel:'Adresse',addressValue:'Dubai World Centre, Dubaï, Émirats arabes unis',emailLabel:'E-mail',
     hoursLabel:'Horaires',hoursValue:'Du lundi au vendredi, de 10 h à 18 h',
@@ -696,18 +696,23 @@ if(teamCarousel){
       'Chez Space, Baptiste est responsable du développement commercial. Il parle couramment français, espagnol, italien, portugais et anglais et privilégie la construction de partenariats durables sur les marchés africains domestiques et du travel retail.'
     ]}
   ];
-  const track=teamCarousel.querySelector('[data-team-track]'),stage=teamCarousel.querySelector('[data-team-stage]');
+  const track=teamCarousel.querySelector('[data-team-track]'),stage=teamCarousel.querySelector('[data-team-stage]'),profileOverlay=teamCarousel.querySelector('[data-team-overlay]'),profileClose=profileOverlay.querySelector('[data-team-close]'),profileImage=profileOverlay.querySelector('[data-team-overlay-image]'),profileLabel=profileOverlay.querySelector('[data-team-overlay-label]'),profileName=profileOverlay.querySelector('[data-team-overlay-name]'),profileRole=profileOverlay.querySelector('[data-team-overlay-role]'),profileBio=profileOverlay.querySelector('[data-team-overlay-bio]');
   const personForLanguage=index=>currentLanguage==='fr'?{...people[index],...peopleFr[index]}:people[index];
   const linkedInIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 8.2H1.6V22h3.6V8.2ZM3.4 2A2.1 2.1 0 1 0 3.4 6.2 2.1 2.1 0 0 0 3.4 2ZM22.4 14.1c0-4.2-2.2-6.2-5.2-6.2-2.4 0-3.5 1.3-4.1 2.3v-2H9.5V22h3.6v-6.8c0-1.8.3-3.6 2.6-3.6 2.2 0 2.3 2.1 2.3 3.7V22h3.6l.8-7.9Z"/></svg>';
   const emailIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path class="gmail-red" d="M2.2 6.1 12 13.4l9.8-7.3v12.1c0 1-.8 1.8-1.8 1.8h-2.3V10.5L12 14.7l-5.7-4.2V20H4c-1 0-1.8-.8-1.8-1.8V6.1Z"/><path class="gmail-blue" d="M2.2 6.1c0-1 .8-1.8 1.8-1.8l8 5.9-2.9 2.2-6.9-5.2V6.1Z"/><path class="gmail-green" d="M21.8 6.1c0-1-.8-1.8-1.8-1.8l-8 5.9 2.9 2.2 6.9-5.2V6.1Z"/></svg>';
   track.innerHTML=people.map((person,index)=>{const localized=personForLanguage(index),linkedInControl=person.linkedin?`<a href="${person.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="${person.name} on LinkedIn">${linkedInIcon}</a>`:`<button type="button" tabindex="-1" aria-disabled="true" aria-label="LinkedIn link coming soon">${linkedInIcon}</button>`;return `<article class="team-portrait-card" data-team-card="${index}"><button class="team-card-select" type="button" data-team-select aria-label="${person.name}, ${localized.role}"><img src="${person.image}" alt="${person.name}" loading="lazy" decoding="async"><span><strong>${person.name}</strong><small>${localized.role}</small><em>${localeCopy[currentLanguage].viewProfile}</em></span></button><div class="team-social-dock" data-team-social-dock aria-label="Profile links">${linkedInControl}<button type="button" tabindex="-1" aria-disabled="true" aria-label="Email link coming soon">${emailIcon}</button></div></article>`}).join('');
-  const cards=[...track.querySelectorAll('[data-team-card]')];let activePerson=0,touchStart=0;
+  const cards=[...track.querySelectorAll('[data-team-card]')];let activePerson=0,touchStart=0,openProfileIndex=null,lastProfileTrigger=null;
   const updateTeam=index=>{
     activePerson=(index+people.length)%people.length;const previous=(activePerson-1+people.length)%people.length,next=(activePerson+1)%people.length;
     cards.forEach((card,cardIndex)=>{card.classList.toggle('is-active',cardIndex===activePerson);card.classList.toggle('is-prev',cardIndex===previous);card.classList.toggle('is-next',cardIndex===next);card.classList.toggle('is-away',cardIndex!==activePerson&&cardIndex!==previous&&cardIndex!==next);card.querySelector('[data-team-select]').setAttribute('aria-pressed',String(cardIndex===activePerson))});
   };
-  const refreshTeamLanguage=()=>{cards.forEach((card,index)=>{const person=personForLanguage(index);card.querySelector('[data-team-select]').setAttribute('aria-label',`${person.name}, ${person.role}`);card.querySelector('small').textContent=person.role;card.querySelector('em').textContent=localeCopy[currentLanguage].viewProfile})};
-  cards.forEach((card,index)=>card.querySelector('[data-team-select]').addEventListener('click',()=>updateTeam(index)));
+  const renderProfile=index=>{const person=personForLanguage(index);profileImage.src=person.image;profileImage.alt=person.name;profileLabel.textContent=localeCopy[currentLanguage].profileLabel;profileName.textContent=person.name;profileRole.textContent=person.role;profileBio.innerHTML=person.bio.map(paragraph=>`<p>${paragraph}</p>`).join('')};
+  const openProfile=(index,trigger)=>{openProfileIndex=index;lastProfileTrigger=trigger;renderProfile(index);profileOverlay.classList.add('is-open');profileOverlay.setAttribute('aria-hidden','false');document.body.classList.add('team-profile-open');profileClose.focus()};
+  const closeProfile=()=>{profileOverlay.classList.remove('is-open');profileOverlay.setAttribute('aria-hidden','true');document.body.classList.remove('team-profile-open');openProfileIndex=null;lastProfileTrigger?.focus()};
+  const refreshTeamLanguage=()=>{cards.forEach((card,index)=>{const person=personForLanguage(index);card.querySelector('[data-team-select]').setAttribute('aria-label',`${person.name}, ${person.role}`);card.querySelector('small').textContent=person.role;card.querySelector('em').textContent=localeCopy[currentLanguage].viewProfile});if(openProfileIndex!==null)renderProfile(openProfileIndex)};
+  cards.forEach((card,index)=>{const select=card.querySelector('[data-team-select]');select.addEventListener('click',()=>{if(index===activePerson)openProfile(index,select);else updateTeam(index)})});
+  profileClose.addEventListener('click',closeProfile);
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&profileOverlay.classList.contains('is-open'))closeProfile()});
   teamCarousel.querySelector('[data-team-prev]').addEventListener('click',()=>updateTeam(activePerson-1));teamCarousel.querySelector('[data-team-next]').addEventListener('click',()=>updateTeam(activePerson+1));
   teamCarousel.tabIndex=0;teamCarousel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')updateTeam(activePerson-1);if(event.key==='ArrowRight')updateTeam(activePerson+1)});
   stage.addEventListener('touchstart',event=>{touchStart=event.changedTouches[0].clientX},{passive:true});stage.addEventListener('touchend',event=>{const distance=event.changedTouches[0].clientX-touchStart;if(Math.abs(distance)>45)updateTeam(activePerson+(distance<0?1:-1))},{passive:true});

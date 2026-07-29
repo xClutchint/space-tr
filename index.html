@@ -10,7 +10,7 @@
   <link rel="preload" as="image" href="brand%20kit/gif_2-poster.webp" fetchpriority="high">
   <link rel="preload" as="image" href="brand%20kit/gif_3-poster.webp" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=team-links-1">
+  <link rel="stylesheet" href="styles.css?v=team-profiles-1">
 </head>
 <body>
   <header class="site-header landing-header" data-header>
@@ -172,6 +172,16 @@
         <div class="team-portrait-track" data-team-track></div>
         <button class="team-arrow team-arrow-next" type="button" data-team-next aria-label="Next team member"><span aria-hidden="true"></span></button>
       </div>
+      <div class="team-profile-overlay" data-team-overlay role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="team-profile-name">
+        <button class="team-profile-close" type="button" data-team-close data-i18n="closeProfile">Close profile</button>
+        <div class="team-profile-image"><img src="" alt="" data-team-overlay-image></div>
+        <article>
+          <p data-team-overlay-label>Leadership profile</p>
+          <h2 id="team-profile-name" data-team-overlay-name></h2>
+          <h3 data-team-overlay-role></h3>
+          <div data-team-overlay-bio></div>
+        </article>
+      </div>
     </section>
 
     <section class="campaign-carousel-section viewport-section" data-campaign-carousel aria-label="Brand campaign carousel">
@@ -221,6 +231,6 @@
       <a href="careers.html" data-i18n="navCareers">Careers</a>
     </div>
   </footer>
-  <script src="script.js?v=team-links-1" defer></script>
+  <script src="script.js?v=team-profiles-1" defer></script>
 </body>
 </html>
