@@ -3382,6 +3382,7 @@ body.team-profile-open{overflow:hidden}
 }
 .team-profile-overlay.is-open .team-profile-image img{transform:scale(var(--profile-scale,1))}
 .team-profile-overlay:not([data-profile="0"]) .team-profile-image img{display:block;width:auto;max-width:none;height:100%;margin-left:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
+.team-profile-overlay:is([data-profile="1"],[data-profile="2"],[data-profile="3"]) .team-profile-image img{margin-right:3vw;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 24%,#000 92%,transparent 100%)}
 .team-profile-image:after{
   content:"";
   position:absolute;
@@ -3475,6 +3476,7 @@ body.team-profile-open{overflow:hidden}
   .team-profile-overlay:before{z-index:1;background:linear-gradient(0deg,#e9e2d8 0 55%,rgba(233,226,216,.93) 67%,rgba(233,226,216,.24) 100%)}
   .team-profile-image{inset:0 0 auto 0;width:100%;height:49%;opacity:.86;-webkit-mask-image:linear-gradient(0deg,transparent 0,#000 28%);mask-image:linear-gradient(0deg,transparent 0,#000 28%)}
   .team-profile-overlay:not([data-profile="0"]) .team-profile-image img{display:block;width:auto;max-width:none;height:100%;margin-left:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 28%);mask-image:linear-gradient(90deg,transparent 0,#000 28%)}
+  .team-profile-overlay:is([data-profile="1"],[data-profile="2"],[data-profile="3"]) .team-profile-image img{margin-right:3vw;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 28%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 28%,#000 94%,transparent 100%)}
   .team-profile-image img{object-position:var(--profile-position,center 17%);filter:saturate(.7) contrast(1.02) brightness(.93) sepia(.08)}
   .team-profile-image:after{background:linear-gradient(0deg,#e9e2d8 0,transparent 40%)}
   .team-profile-overlay article{justify-content:flex-end;width:100%;padding:4.6rem 1.25rem 1.15rem}
