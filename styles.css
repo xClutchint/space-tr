@@ -3361,7 +3361,7 @@ body.team-profile-open{overflow:hidden}
   right:0;
   bottom:0;
   left:auto;
-  width:64%;
+  width:min(64vw,var(--profile-width,64vw));
   height:100%;
   overflow:hidden;
   clip-path:inset(0 0 0 12%);
@@ -3373,7 +3373,7 @@ body.team-profile-open{overflow:hidden}
 .team-profile-image img{
   width:100%;
   height:100%;
-  object-fit:var(--profile-fit,cover);
+  object-fit:cover;
   object-position:var(--profile-position,center 15%);
   filter:saturate(.78) contrast(1.03) brightness(.94) sepia(.06);
   transform:scale(1.045);
@@ -3400,14 +3400,7 @@ body.team-profile-open{overflow:hidden}
   padding:clamp(5rem,9vh,8rem) 0 clamp(3rem,7vh,6rem) max(5vw,54px);
 }
 .team-profile-overlay article>p:first-child{
-  position:absolute;
-  top:clamp(2.4rem,6vh,5rem);
-  left:max(5vw,54px);
-  margin:0;
-  color:#9a7548;
-  font:400 .55rem var(--sans);
-  letter-spacing:.23em;
-  text-transform:uppercase;
+  display:none;
 }
 .team-profile-overlay h2{
   max-width:100%;
@@ -3470,7 +3463,7 @@ body.team-profile-open{overflow:hidden}
 .team-profile-overlay.is-open article h3{transition-delay:.2s}
 .team-profile-overlay.is-open article [data-team-overlay-bio]{transition-delay:.28s}
 @media(max-width:1000px){
-  .team-profile-image{width:68%}
+  .team-profile-image{width:min(68vw,var(--profile-width,68vw))}
   .team-profile-overlay article{width:59vw;padding-left:max(4vw,32px)}
   .team-profile-overlay article>p:first-child{left:max(4vw,32px)}
   .team-profile-overlay h2{font-size:clamp(3.1rem,7vw,5.5rem)}
@@ -3479,6 +3472,7 @@ body.team-profile-open{overflow:hidden}
 @media(max-width:650px){
   .team-profile-overlay:before{z-index:1;background:linear-gradient(0deg,#e9e2d8 0 55%,rgba(233,226,216,.93) 67%,rgba(233,226,216,.24) 100%)}
   .team-profile-image{inset:0 0 auto 0;width:100%;height:49%;opacity:.86;-webkit-mask-image:linear-gradient(0deg,transparent 0,#000 28%);mask-image:linear-gradient(0deg,transparent 0,#000 28%)}
+  .team-profile-overlay:not([data-profile="0"]) .team-profile-image img{display:block;width:auto;max-width:none;height:100%;margin-left:auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 28%);mask-image:linear-gradient(90deg,transparent 0,#000 28%)}
   .team-profile-image img{object-position:var(--profile-position,center 17%);filter:saturate(.7) contrast(1.02) brightness(.93) sepia(.08)}
   .team-profile-image:after{background:linear-gradient(0deg,#e9e2d8 0,transparent 40%)}
   .team-profile-overlay article{justify-content:flex-end;width:100%;padding:4.6rem 1.25rem 1.15rem}
