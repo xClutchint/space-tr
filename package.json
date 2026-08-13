@@ -1,1 +1,17 @@
-{"name":"space-corporate-site","version":"1.0.0","private":true,"scripts":{"start":"node server.js"}}
+{
+  "name": "space-corporate-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "optimize:media": "powershell -NoProfile -ExecutionPolicy Bypass -File ./tools/optimize-media.ps1",
+    "generate:media": "node tools/generate-media-manifest.js",
+    "generate:posts": "node tools/generate-posts-page.js",
+    "sync:linkedin": "node tools/sync-linkedin-posts.js",
+    "test:hero-rotation": "node tools/simulate-hero-rotation.js",
+    "test:responsive": "node tools/test-responsive.js",
+    "test": "npm run test:hero-rotation && npm run test:responsive",
+    "prestart": "npm run generate:media && npm run generate:posts",
+    "start": "node server.js",
+    "build": "npm run generate:media && npm run generate:posts"
+  }
+}

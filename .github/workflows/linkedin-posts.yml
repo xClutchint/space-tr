@@ -1,0 +1,62 @@
+name: Sync LinkedIn posts
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * 1,4"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check LinkedIn configuration
+        id: linkedin
+        shell: bash
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+        run: |
+          if [ -n "$LINKEDIN_ACCESS_TOKEN" ] && [ -n "$LINKEDIN_AUTHOR_URN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "LinkedIn secrets are not configured; skipping the sync."
+          fi
+
+      - name: Sync LinkedIn posts
+        if: steps.linkedin.outputs.configured == 'true'
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          LINKEDIN_API_VERSION: ${{ vars.LINKEDIN_API_VERSION || '202604' }}
+          LINKEDIN_POST_COUNT: ${{ vars.LINKEDIN_POST_COUNT || '50' }}
+        run: npm run sync:linkedin
+
+      - name: Generate crawlable post page
+        if: steps.linkedin.outputs.configured == 'true'
+        run: npm run generate:posts
+
+      - name: Commit refreshed posts
+        if: steps.linkedin.outputs.configured == 'true'
+        shell: bash
+        run: |
+          if git diff --quiet -- data/linkedin-posts.json posts.html; then
+            echo "No post changes to publish."
+            exit 0
+          fi
+          git config user.name "space-linkedin-bot"
+          git config user.email "space-linkedin-bot@users.noreply.github.com"
+          git add data/linkedin-posts.json posts.html
+          git commit -m "Update LinkedIn posts"
+          git push

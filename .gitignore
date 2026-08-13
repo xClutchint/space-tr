@@ -1,8 +1,38 @@
 .edge-preview/
+.vercel/
 node_modules/
 .env
 .env.*
+!.env.example
 *.zip
+*.log
 *-check*.png
+about-*-v*.png
+expertise-*-v*.png
+qa-*.png
+tmp-*.png
+tmp-edge-*/
+artifacts/
 brand kit/Brand Guide line.pdf
+brand kit/gif_2.gif
+brand kit/gif_3.gif
+
+# Keep the original campaign archive local. The website is built from the
+# optimized derivatives and generated catalog files committed alongside it.
+assets/Afnan/
+assets/ATELIER DES ORS/
+assets/BORN TO STAND OUT/
+assets/CASAMORATI/
+assets/COTY/
+assets/ESCENTRIC MOLECULE/
+assets/ESSENTIAL PARFUMS/
+assets/GOLDFIELD & BANKS/
+assets/MONTALE MANCERA/
+assets/NISHANE/
+assets/OMAN LUXURY/
+assets/RAMON BEJAR/
+assets/THOO/
+assets/TIZIANA TERENZI/
+assets/XERJOFF/
+
 .vercel

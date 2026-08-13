@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-08-13T18:54:40.868Z",
+  "entries": [
+    {
+      "id": "3247c59fc3aa1f0d",
+      "src": "assets/ESCENTRIC MOLECULE/champaca_1080X1080_15sec_v1.mp4",
+      "optimizedSrc": null,
+      "thumbnailSrc": null,
+      "brand": "ESCENTRIC MOLECULE",
+      "label": "champaca 1080X1080 15sec v1",
+      "type": "video",
+      "extension": ".mp4",
+      "orientation": "square",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 86389617,
+      "webReady": false,
+      "backgroundTone": "unknown",
+      "edgeLuminance": null,
+      "lightNeutralRatio": null,
+      "inferredDimensions": false
+    },
+    {
+      "id": "c9bcc5fba79b8b28",
+      "src": "assets/ESCENTRIC MOLECULE/Champaca_1080X1080_30sec_hero.mp4",
+      "optimizedSrc": null,
+      "thumbnailSrc": null,
+      "brand": "ESCENTRIC MOLECULE",
+      "label": "Champaca 1080X1080 30sec hero",
+      "type": "video",
+      "extension": ".mp4",
+      "orientation": "square",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 166380635,
+      "webReady": false,
+      "backgroundTone": "unknown",
+      "edgeLuminance": null,
+      "lightNeutralRatio": null,
+      "inferredDimensions": false
+    },
+    {
+      "id": "5178aa1b378b68d7",
+      "src": "assets/ESSENTIAL PARFUMS/3760393040096_video_perfumer_98s_2160x2160_sten.mp4",
+      "optimizedSrc": null,
+      "thumbnailSrc": null,
+      "brand": "ESSENTIAL PARFUMS",
+      "label": "3760393040096 video perfumer 98s 2160x2160 sten",
+      "type": "video",
+      "extension": ".mp4",
+      "orientation": "square",
+      "width": 2160,
+      "height": 2160,
+      "bytes": 252277077,
+      "webReady": false,
+      "backgroundTone": "unknown",
+      "edgeLuminance": null,
+      "lightNeutralRatio": null,
+      "inferredDimensions": false
+    }
+  ]
+}

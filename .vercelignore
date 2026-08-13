@@ -5,10 +5,34 @@ node_modules/
 .env.*
 *.zip
 *-check*.png
+about-*-v*.png
+expertise-*-v*.png
+qa-*.png
+tmp-*.png
+tmp-edge-*/
 brand kit/Brand Guide line.pdf
 brand kit/gif_2.gif
 brand kit/gif_3.gif
-france.avif
 server.js
 package.json
 README.md
+tools/
+docs/
+
+# Raw campaign source library. Production uses the optimized derivatives and
+# generated manifests in assets/_derivatives and assets/_catalog.
+assets/Afnan/
+assets/ATELIER DES ORS/
+assets/BORN TO STAND OUT/
+assets/CASAMORATI/
+assets/COTY/
+assets/ESCENTRIC MOLECULE/
+assets/ESSENTIAL PARFUMS/
+assets/GOLDFIELD & BANKS/
+assets/MONTALE MANCERA/
+assets/NISHANE/
+assets/OMAN LUXURY/
+assets/RAMON BEJAR/
+assets/THOO/
+assets/TIZIANA TERENZI/
+assets/XERJOFF/

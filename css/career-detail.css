@@ -1,0 +1,31 @@
+:root{--detail-white:#fff;--detail-black:#080a0d;--detail-ink:#111317;--detail-muted:#5f6369;--detail-line:rgba(17,19,23,.16)}
+.career-detail-page{--sans:var(--serif);margin:0;background:var(--detail-white);color:var(--detail-ink);overflow-x:hidden;font-family:var(--serif)}
+.career-detail-page .career-header{position:absolute;color:var(--detail-ink)}
+.career-detail-page .career-brand img{filter:invert(1);mix-blend-mode:multiply}
+.career-detail-main{background:#fff}
+.career-detail-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,.5fr);min-height:82svh;padding-top:92px;border-bottom:1px solid var(--detail-line)}
+.career-detail-title{display:flex;flex-direction:column;justify-content:center;padding:clamp(5rem,9vw,10rem) clamp(2rem,6vw,7rem)}
+.career-detail-eyebrow{margin:0 0 2rem;color:var(--detail-ink);font:400 .7rem var(--serif);letter-spacing:.16em;text-transform:uppercase}
+.career-detail-title h1{max-width:1050px;margin:0;font:400 clamp(3.5rem,7vw,8.5rem)/.88 var(--serif);letter-spacing:-.06em;text-transform:uppercase}
+.career-detail-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:end;background:var(--detail-black);color:#fff}
+.career-detail-meta div{min-height:145px;padding:2.3rem;border-bottom:1px solid rgba(255,255,255,.17);border-right:1px solid rgba(255,255,255,.17)}
+.career-detail-meta span{display:block;margin-bottom:.9rem;color:rgba(255,255,255,.48);font:500 .53rem var(--sans);letter-spacing:.15em;text-transform:uppercase}
+.career-detail-meta strong{font:400 clamp(.9rem,1vw,1.05rem)/1.55 var(--sans);letter-spacing:.02em}
+.career-detail-body{display:grid;grid-template-columns:minmax(230px,.42fr) minmax(0,1fr);gap:clamp(4rem,10vw,14rem);padding:clamp(6rem,10vw,11rem) clamp(2rem,7vw,8rem)}
+.career-detail-aside{position:sticky;top:3rem;align-self:start}
+.career-detail-aside p{max-width:320px;margin:0 0 2.2rem;font:400 clamp(1.65rem,2.4vw,3rem)/1.05 var(--serif);letter-spacing:-.025em;text-transform:uppercase}
+.career-detail-aside a,.career-detail-apply a{display:inline-flex;align-items:center;gap:1rem;padding:.9rem 1.3rem;border:1px solid var(--detail-ink);border-radius:99px;font:500 .58rem var(--sans);letter-spacing:.14em;text-transform:uppercase;transition:.25s ease}
+.career-detail-aside a:hover,.career-detail-apply a:hover{background:var(--detail-ink);color:#fff}
+.career-detail-content{max-width:920px}
+.career-detail-section{display:grid;grid-template-columns:180px minmax(0,1fr);gap:clamp(2rem,5vw,6rem);padding:0 0 4rem;margin:0 0 4rem;border-bottom:1px solid var(--detail-line)}
+.career-detail-section:last-child{margin-bottom:0}
+.career-detail-section h2{margin:0;font:500 .62rem var(--sans);letter-spacing:.17em;text-transform:uppercase}
+.career-detail-section p,.career-detail-section li{color:var(--detail-muted);font:300 clamp(.94rem,1.04vw,1.08rem)/1.82 var(--sans)}
+.career-detail-section p{margin:0}
+.career-detail-section ul{margin:0;padding-left:1.1rem}
+.career-detail-section li+li{margin-top:.8rem}
+.career-detail-apply{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;padding:clamp(5rem,8vw,9rem) clamp(2rem,7vw,8rem);background:var(--detail-black);color:#fff}
+.career-detail-apply h2{max-width:1000px;margin:0;font:400 clamp(2.6rem,5vw,6.2rem)/.96 var(--serif);letter-spacing:-.045em;text-transform:uppercase}
+.career-detail-apply a{border-color:rgba(255,255,255,.7);white-space:nowrap}.career-detail-apply a:hover{background:#fff;color:#080a0d}
+@media(max-width:900px){.career-detail-hero{grid-template-columns:1fr;min-height:auto}.career-detail-title{min-height:62svh}.career-detail-meta{grid-template-columns:repeat(2,1fr)}.career-detail-body{grid-template-columns:1fr;gap:4rem}.career-detail-aside{position:static}.career-detail-section{grid-template-columns:1fr;gap:1.5rem}.career-detail-apply{grid-template-columns:1fr;align-items:start}}
+@media(max-width:560px){.career-detail-title{min-width:0;padding-inline:1.5rem}.career-detail-title h1{max-width:100%;font-size:clamp(2.55rem,12vw,4rem);overflow-wrap:anywhere}.career-detail-eyebrow{max-width:100%;overflow-wrap:anywhere}.career-detail-meta{min-width:0;grid-template-columns:1fr 1fr}.career-detail-meta div{min-width:0;min-height:115px;padding:1.5rem}.career-detail-meta strong{overflow-wrap:anywhere}.career-detail-body{padding-top:5rem}.career-detail-apply{padding-block:5rem}}
