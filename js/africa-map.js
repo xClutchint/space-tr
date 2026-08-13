@@ -18,10 +18,22 @@
   const svg = root.querySelector('svg');
   const countryOutput = root.querySelector('[data-map-country]');
   const statusOutput = root.querySelector('[data-map-status]');
+  const positionOutput = root.querySelector('[data-map-position]');
   const reset = root.querySelector('[data-map-reset]');
   const headingLabel = root.querySelector('.africa-map-heading span');
   const headingTitle = root.querySelector('.africa-map-heading strong');
   const selectionLabel = root.querySelector('.africa-map-label');
+  const indexRoot = document.querySelector('[data-market-index]');
+  if (indexRoot) {
+    MARKET_IDS.forEach((id) => {
+      const item = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.countryName = id;
+      item.appendChild(button);
+      indexRoot.appendChild(item);
+    });
+  }
   const indexItems = [...document.querySelectorAll('[data-country-name]')];
   let selected = null;
   let language = document.documentElement.lang === 'fr' ? 'fr' : 'en';
@@ -35,14 +47,19 @@
 
   const setIndexState = (id) => indexItems.forEach((item) => item.classList.toggle('is-active', item.dataset.countryName === id));
   const show = (location, locked = false) => {
-    countryOutput.textContent = countryName(location);
+    countryOutput.textContent = location ? countryName(location) : copy[language].continent;
     statusOutput.textContent = location ? (locked ? copy[language].locked : copy[language].preview) : copy[language].idle;
+    if (positionOutput) {
+      const position = location ? MARKET_IDS.indexOf(location.id) + 1 : MARKET_IDS.length;
+      positionOutput.textContent = `${String(position).padStart(2, '0')} / ${MARKET_IDS.length}`;
+    }
     setIndexState(location?.id || '');
   };
   const select = (path, location) => {
     svg.querySelectorAll('.is-selected').forEach((item) => item.classList.remove('is-selected'));
     selected = location;
     path.classList.add('is-selected');
+    root.classList.add('has-selection');
     reset.hidden = false;
     show(location, true);
   };
@@ -90,7 +107,7 @@
     const location = map.locations.find((entry) => entry.id === item.dataset.countryName);
     const path = svg.querySelector(`[data-country="${item.dataset.countryName}"]`);
     if (!location || !path) return;
-    item.tabIndex = 0;
+    item.textContent = countryName(location);
     item.addEventListener('mouseenter', () => { if (!selected) show(location); });
     item.addEventListener('mouseleave', () => { if (!selected) show(null); });
     item.addEventListener('click', () => select(path, location));
@@ -103,6 +120,7 @@
 
   reset.addEventListener('click', () => {
     selected = null;
+    root.classList.remove('has-selection');
     svg.querySelectorAll('.is-selected').forEach((item) => item.classList.remove('is-selected'));
     reset.hidden = true;
     show(null);
@@ -117,6 +135,10 @@
     svg.querySelectorAll('.is-market').forEach((path) => {
       const location = map.locations.find((entry) => entry.id === path.dataset.country);
       path.setAttribute('aria-label', countryName(location));
+    });
+    indexItems.forEach((item) => {
+      const location = map.locations.find((entry) => entry.id === item.dataset.countryName);
+      if (location) item.textContent = countryName(location);
     });
     show(selected, Boolean(selected));
   };

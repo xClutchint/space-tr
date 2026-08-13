@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/about.css?v=17">
+  <link rel="stylesheet" href="css/about.css?v=18">
   <link rel="stylesheet" href="css/responsive.css?v=4">
 </head>
 <body>
@@ -36,7 +36,7 @@
 
   <main>
     <section class="about-cover" aria-labelledby="about-title">
-      <figure class="about-cover-media" aria-label="Editorial image placeholder">
+      <figure class="about-cover-media" aria-label="Fragrance brand presentation">
         <img src="assets/editorial/expertise-brand-stewardship.jpg" alt="Fragrance brand presentation" loading="eager" decoding="async">
       </figure>
       <div class="about-cover-copy">
@@ -66,33 +66,43 @@
     </section>
 
     <section class="africa-atlas" id="africa-map" aria-label="Space African market presence">
+      <div class="atlas-topline" aria-hidden="true"><span>SPACE / AFRICA</span><span>03 — MARKET ATLAS</span></div>
       <div class="africa-atlas-shell">
         <figure class="africa-map-panel" data-africa-map>
+          <div class="map-coordinate-grid" aria-hidden="true"></div>
+          <div class="map-compass" aria-hidden="true"><span>N</span></div>
           <svg class="africa-map-svg" xmlns="http://www.w3.org/2000/svg" role="img"></svg>
           <figcaption class="africa-map-caption" aria-live="polite">
+            <span class="map-caption-index" data-map-position>19 / 19</span>
             <div>
-              <strong data-map-country></strong>
-              <p class="visually-hidden" data-map-status>Hover over a highlighted country</p>
+              <strong data-map-country>Africa</strong>
+              <p data-map-status>19 African markets highlighted</p>
             </div>
             <button type="button" data-map-reset hidden>View all</button>
           </figcaption>
+          <p class="map-instruction" data-i18n="atlasInstruction">Select a highlighted market to explore the footprint</p>
         </figure>
         <div class="africa-map-copy">
           <section class="africa-copy-panel africa-copy-intro reveal">
+            <p class="section-kicker" data-i18n="atlasKicker">A focused footprint</p>
             <h2 data-i18n="atlasTitle">AFRICAN DISTRIBUTION, READ MARKET BY MARKET.</h2>
             <p data-i18n="atlasLead">Space supports international perfume, fragrance and beauty brands across selected African territories, linking brand principals with retail partners through local relationships, wholesale distribution and disciplined commercial execution.</p>
           </section>
           <section class="africa-copy-panel reveal">
-            <p class="section-kicker" data-i18n="atlasKicker">A FOCUSED FOOTPRINT</p>
+            <span class="atlas-chapter-number" aria-hidden="true">01</span>
+            <p class="section-kicker" data-i18n="atlasReachKicker">THE NETWORK</p>
             <h3 data-i18n="atlasReachTitle">SELECTED MARKETS ACROSS THE CONTINENT.</h3>
             <p data-i18n="atlasBody">The Space network spans Kenya, Angola, Senegal, Mozambique, Uganda, Tanzania, Ivory Coast, Congo DRC, Congo Brazzaville, Tunisia, Morocco, Ethiopia, Togo, Benin, Djibouti, Burkina Faso, Zambia, Burundi and Nigeria.</p>
+            <ol class="market-index" data-market-index aria-label="African markets served"></ol>
           </section>
           <section class="africa-copy-panel reveal">
+            <span class="atlas-chapter-number" aria-hidden="true">02</span>
             <p class="section-kicker" data-i18n="atlasMarketKicker">LOCAL INTELLIGENCE</p>
             <h3 data-i18n="atlasMarketTitle">LOCAL KNOWLEDGE SHAPES EVERY RETAIL DECISION.</h3>
             <p data-i18n="atlasMarketBody">Africa is not one retail environment. Each territory carries its own consumer behaviour, import route, retail structure and pace of development. Space treats those distinctions as commercial intelligence, allowing brand representation to remain precise, relevant and controlled.</p>
           </section>
           <section class="africa-copy-panel reveal">
+            <span class="atlas-chapter-number" aria-hidden="true">03</span>
             <p class="section-kicker" data-i18n="atlasContinuityKicker">REGIONAL CONTINUITY</p>
             <h3 data-i18n="atlasContinuityTitle">A CLEAR ROUTE TO MARKET FOR PERFUME AND BEAUTY PORTFOLIOS.</h3>
             <p data-i18n="atlasContinuityBody">For brands entering or expanding across Africa, Space provides a B2B distribution link across perfume wholesale, retailer relationships, product availability and regional market knowledge.</p>
@@ -106,6 +116,7 @@
     </section>
 
     <section class="business-model" id="business-model" aria-labelledby="business-model-title">
+      <figure class="model-atmosphere" aria-hidden="true"><img src="assets/editorial/expertise-market-strategy.jpg" alt="" loading="lazy" decoding="async"></figure>
       <div class="model-scene-copy">
         <header class="chapter-heading reveal">
           <p class="section-kicker" data-i18n="modelKicker">ROUTE TO MARKET</p>
@@ -116,32 +127,41 @@
           <p data-i18n="modelBody">Retail partners gain access to a defined perfume and beauty portfolio, while brands retain a regional commercial link shaped around each territory. The result is a disciplined process built for continuity, visibility and responsible market development.</p>
         </div>
         <ol class="model-path reveal" aria-label="Space distribution relationship">
-          <li><span class="model-step">01</span><strong data-i18n="modelBrand">International brand principals</strong><small data-i18n="modelBrandCopy">Brand objectives, portfolio standards and product supply begin with the international principal.</small></li>
-          <li><span class="model-step">02</span><strong>Space</strong><small data-i18n="modelSpaceCopy">Regional knowledge, stock management and retail relationships form the commercial connection.</small></li>
-          <li><span class="model-step">03</span><strong data-i18n="modelRetail">Regional retail markets</strong><small data-i18n="modelRetailCopy">Products reach domestic and travel retail channels through structures suited to each market.</small></li>
+          <li><span class="model-step">01</span><span class="model-node" aria-hidden="true"></span><strong data-i18n="modelBrand">International brand principals</strong><small data-i18n="modelBrandCopy">Brand objectives, portfolio standards and product supply begin with the international principal.</small></li>
+          <li class="model-path-space"><span class="model-step">02</span><span class="model-node" aria-hidden="true"></span><strong>Space</strong><small data-i18n="modelSpaceCopy">Regional knowledge, stock management and retail relationships form the commercial connection.</small></li>
+          <li><span class="model-step">03</span><span class="model-node" aria-hidden="true"></span><strong data-i18n="modelRetail">Regional retail markets</strong><small data-i18n="modelRetailCopy">Products reach domestic and travel retail channels through structures suited to each market.</small></li>
         </ol>
+        <div class="model-capabilities reveal" aria-label="Distribution capabilities">
+          <span data-i18n="modelCapabilityOne">Brand stewardship</span>
+          <span data-i18n="modelCapabilityTwo">Stock &amp; supply</span>
+          <span data-i18n="modelCapabilityThree">Market execution</span>
+        </div>
       </div>
     </section>
 
-    <section class="category-focus" aria-labelledby="category-title">
-      <div class="category-media reveal" aria-hidden="true">
-        <figure><img src="brand%20kit/gif_3-poster.webp" alt="" loading="lazy" decoding="async"></figure>
-        <p>36+ <span data-i18n="partners">Brand partners</span></p>
-      </div>
+    <section class="category-focus" id="category-focus" aria-labelledby="category-title">
       <div class="category-copy reveal">
+        <p class="section-kicker" data-i18n="categoryKicker">Category focus</p>
         <h2 id="category-title" data-i18n="categoryTitle">Perfume and beauty are the centre of the business, not an afterthought.</h2>
         <p data-i18n="categoryOne">Space is built around fragrance and beauty rather than treating perfume as one category inside a general trading portfolio. That specialisation informs the brands represented, the retail relationships maintained and the understanding required to present luxury, prestige, designer and niche fragrance products across different markets.</p>
         <p data-i18n="categoryTwo">The portfolio brings together more than 36 international brand partners and over 4,800 available SKUs across the markets served. It connects globally recognised beauty names with specialist perfume houses, giving retail partners access to a considered mix of established and distinctive brands.</p>
         <a class="editorial-link" href="index.html#brands" data-i18n="viewBrands">View the brand portfolio</a>
       </div>
+      <div class="category-media reveal" aria-hidden="true">
+        <span class="category-vertical">SPACE — PERFUME &amp; BEAUTY</span>
+        <figure><img src="brand%20kit/gif_3-poster.webp" alt="" loading="lazy" decoding="async"></figure>
+        <p><span class="category-number">36+</span><span data-i18n="partners">Brand partners</span></p>
+      </div>
     </section>
 
-    <section class="scale-chapter" aria-labelledby="scale-title">
+    <section class="scale-chapter" id="regional-scale" aria-labelledby="scale-title">
       <div class="scale-visual" aria-hidden="true">
         <img src="assets/editorial/expertise-operations-logistics.jpg" alt="" loading="lazy" decoding="async">
+        <span>SPACE / REGIONAL NETWORK</span>
       </div>
       <div class="scale-editorial">
         <header class="scale-heading reveal">
+          <p class="section-kicker" data-i18n="scaleKicker">Regional scale</p>
           <h2 id="scale-title" data-i18n="scaleTitle">Measured in markets, brands and available products. Built through relationships.</h2>
         </header>
         <div class="scale-copy reveal">
@@ -157,17 +177,18 @@
       </div>
     </section>
 
-    <section class="people-chapter" aria-labelledby="people-title">
+    <section class="people-chapter" id="leadership" aria-labelledby="people-title">
       <div class="people-copy reveal">
+        <p class="section-kicker" data-i18n="peopleKicker">The people behind Space</p>
         <h2 id="people-title" data-i18n="peopleTitle">Regional experience with visible leadership.</h2>
         <p data-i18n="peopleOne">Space is represented by professionals whose experience spans fragrance, beauty, travel retail, domestic retail, commercial management, finance, procurement, supply chain and African market development.</p>
         <p data-i18n="peopleTwo">The team gives brand principals and retail partners a clear view of the people responsible for business development, commercial direction and operations across the company&#39;s regional network.</p>
         <a class="editorial-link" href="index.html#team" data-i18n="viewPeople">Meet the team</a>
       </div>
       <div class="people-portraits reveal" aria-label="Space leadership team">
-        <figure><img src="brand%20kit/team/Vipul%20Mathur.jpg" alt="Vipul Mathur" loading="lazy" decoding="async"></figure>
-        <figure><img src="brand%20kit/team/Sundeep%20Sharma.jpg" alt="Sundeep Sharma" loading="lazy" decoding="async"></figure>
-        <figure><img src="brand%20kit/team/Chandni%20Rana.jpg" alt="Chandni Rana" loading="lazy" decoding="async"></figure>
+        <figure tabindex="0"><img src="brand%20kit/team/Vipul%20Mathur.jpg" alt="Vipul Mathur" loading="lazy" decoding="async"><figcaption><strong>Vipul Mathur</strong><span data-i18n="vipulRole">Founder</span></figcaption></figure>
+        <figure tabindex="0"><img src="brand%20kit/team/Sundeep%20Sharma.jpg" alt="Sundeep Sharma" loading="lazy" decoding="async"><figcaption><strong>Sundeep Sharma</strong><span data-i18n="sundeepRole">Co-Founder &amp; Director</span></figcaption></figure>
+        <figure tabindex="0"><img src="brand%20kit/team/Chandni%20Rana.jpg" alt="Chandni Rana" loading="lazy" decoding="async"><figcaption><strong>Chandni Rana</strong><span data-i18n="chandniRole">Commercial Head &amp; Brand Manager</span></figcaption></figure>
       </div>
     </section>
 
@@ -205,7 +226,7 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Space a perfume distributor in Africa?","acceptedAnswer":{"@type":"Answer","text":"Yes. Space is a specialist business-to-business perfume, fragrance and beauty distributor with a major focus on African markets and additional coverage across the Indian Subcontinent."}},{"@type":"Question","name":"Does Space supply perfume wholesale?","acceptedAnswer":{"@type":"Answer","text":"Space purchases and manages brand stock for supply to retail partners. Product and territory availability depend on the relevant brand portfolio and commercial arrangement."}},{"@type":"Question","name":"What types of brands does Space distribute?","acceptedAnswer":{"@type":"Answer","text":"The Space portfolio brings together international fragrance and beauty brands, including designer, prestige and niche perfume houses."}},{"@type":"Question","name":"Which African markets does Space serve?","acceptedAnswer":{"@type":"Answer","text":"The African footprint supplied by Space includes Kenya, Angola, Senegal, Mozambique, Uganda, Tanzania, Ivory Coast, Congo DRC, Congo Brazzaville, Tunisia, Morocco, Ethiopia, Togo, Benin, Djibouti, Burkina Faso, Zambia, Burundi and Nigeria."}},{"@type":"Question","name":"Is Space a luxury perfume distributor?","acceptedAnswer":{"@type":"Answer","text":"The Space portfolio includes luxury, prestige, designer and niche fragrance brands. Distribution depends on the relevant brand, territory, retail channel and commercial arrangement."}},{"@type":"Question","name":"Who does Space work with?","acceptedAnswer":{"@type":"Answer","text":"Space is a business-to-business company working with international brand principals and retail partners."}}]}
   </script>
   <script src="js/africa-map-data.js?v=1" defer></script>
-  <script src="js/africa-map.js?v=6" defer></script>
-  <script src="js/about.js?v=14" defer></script>
+  <script src="js/africa-map.js?v=7" defer></script>
+  <script src="js/about.js?v=15" defer></script>
 </body>
 </html>
