@@ -224,7 +224,12 @@ document.querySelectorAll('.scroll-slide').forEach(slide=>slideObserver.observe(
 /* Generated media library: this is the boundary a future CMS can update. */
 const spaceMediaLibrary=window.SPACE_MEDIA_LIBRARY?.media||[];
 const spaceMediaCuration=window.SPACE_MEDIA_CURATION||{hero:{excludeLightBackgrounds:true,excluded:[],included:[]},carousel:{selectionMode:'include',excluded:[],included:[]}};
-const cmsContentPromise=fetch('/api/content',{headers:{Accept:'application/json'}}).then(response=>response.ok?response.json():null).catch(()=>null);
+const cmsContentPromise=(async()=>{
+  const controller=new AbortController(),timeout=window.setTimeout(()=>controller.abort(),2500);
+  try{const response=await fetch('/api/content',{headers:{Accept:'application/json'},signal:controller.signal});return response.ok?response.json():null}
+  catch{return null}
+  finally{window.clearTimeout(timeout)}
+})();
 const brandTaxonomy=window.SPACE_BRAND_TAXONOMY||{
   logos:[],canonicalize:value=>String(value||''),isRetired:()=>false
 };
@@ -337,10 +342,10 @@ if(heroRotators.length){
   const advance=()=>{if(!isNearViewport(heroRotators[0],.1))return;(cmsHero.length?cmsHero:scheduler?.nextPair()||[]).forEach((item,index)=>{if(heroRotators[index]&&item)show(heroRotators[index],item)})};
   advance();
   const heroRotationInterval=4250;
-  if(!cmsHero.length&&!reducedMotionQuery.matches)timer=window.setInterval(advance,heroRotationInterval);
+  if(!cmsHero.length&&!reducedMotionQuery.matches&&!lowPowerMode)timer=window.setInterval(advance,heroRotationInterval);
   heroRotators.forEach(rotator=>{
     rotator.addEventListener('mouseenter',()=>window.clearInterval(timer));
-    rotator.addEventListener('mouseleave',()=>{if(!cmsHero.length&&!reducedMotionQuery.matches){window.clearInterval(timer);timer=window.setInterval(advance,heroRotationInterval)}});
+    rotator.addEventListener('mouseleave',()=>{if(!cmsHero.length&&!reducedMotionQuery.matches&&!lowPowerMode){window.clearInterval(timer);timer=window.setInterval(advance,heroRotationInterval)}});
   });
   });
 }
@@ -806,9 +811,15 @@ const initializeCampaignCarousel=carousel=>{
   if(!slides.length||!viewport||!previous||!next)return;
   carousel.dataset.carouselReady='true';
   let index=0,startX=0,currentX=0,startTime=0,dragging=false,carouselVisible=false;
+  const slideHydrator='IntersectionObserver' in window?new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(!entry.isIntersecting)return;
+    hydrateMediaElement(entry.target.querySelector('img,video'));
+    slideHydrator.unobserve(entry.target);
+  }),{rootMargin:'600px 0px',threshold:.01}):null;
+  slides.forEach(slide=>slideHydrator?.observe(slide));
   const syncSlideMedia=()=>slides.forEach((slide,slideIndex)=>{
     const mobileGallery=window.matchMedia('(max-width: 900px)').matches;
-    if(mobileGallery||Math.abs(slideIndex-index)<=1)hydrateMediaElement(slide.querySelector('img,video'));
+    if((!mobileGallery&&Math.abs(slideIndex-index)<=1)||(mobileGallery&&!slideHydrator&&slideIndex<2))hydrateMediaElement(slide.querySelector('img,video'));
     const video=slide.querySelector('video');if(!video)return;
     if(slideIndex===index&&carouselVisible&&!document.hidden&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){const playback=video.play();if(playback?.catch)playback.catch(()=>{})}else video.pause();
   });
@@ -950,27 +961,32 @@ if(brandWall){
     'The Merchant of Venice':{src:'assets/editorial/brands/merchant-of-venice.webp',objectPosition:'48% 50%'},
     'Giorgio Armani Beauty':{src:'assets/editorial/brands/giorgio-armani-beauty.webp',objectPosition:'50% 50%'},
     'Gucci':{src:'assets/editorial/brands/gucci.webp',objectPosition:'42% 50%'},
-    'Yves Saint Laurent':{src:'assets/editorial/brands/yves-saint-laurent.webp',objectPosition:'50% 50%'},
+    'Yves Saint Laurent':{src:'assets/editorial/brands/yves-saint-laurent.webp',objectPosition:'50% 54%'},
     'Lancome':{src:'assets/editorial/brands/lancome.webp',objectPosition:'50% 28%'},
-    'Burberry':{src:'assets/editorial/brands/burberry.webp',objectPosition:'50% 42%'},
-    'Boss':{src:'assets/editorial/brands/boss.webp',objectPosition:'68% 50%'},
+    'Burberry':{src:'assets/editorial/brands/burberry.webp',objectPosition:'50% 50%'},
+    'Boss':{src:'assets/editorial/brands/boss.webp',objectPosition:'50% 52%'},
     'Marc Jacobs':{src:'assets/editorial/brands/marc-jacobs.webp',objectPosition:'50% 45%'},
     'Chloe':{src:'assets/editorial/brands/chloe.webp',objectPosition:'52% 50%'},
-    'Ralph Lauren':{src:'assets/editorial/brands/ralph-lauren.webp',objectPosition:'78% 50%'},
+    'Ralph Lauren':{src:'assets/editorial/brands/ralph-lauren.webp',objectPosition:'50% 50%'},
     'Prada':{src:'assets/editorial/brands/prada.webp',objectPosition:'52% 50%'},
     'Valentino':{src:'assets/editorial/brands/valentino.webp',objectPosition:'50% 50%'},
     'Davidoff':{src:'assets/editorial/brands/davidoff.webp',objectPosition:'50% 50%'},
     'Cacharel':{src:'assets/editorial/brands/cacharel.webp',objectPosition:'76% 50%'},
     'Viktor & Rolf':{src:'assets/editorial/brands/viktor-rolf.webp',objectPosition:'50% 50%'},
     'Tous':{src:'assets/editorial/brands/tous.webp',objectPosition:'50% 50%'},
-    'Halloween':{src:'assets/editorial/brands/halloween.webp',objectPosition:'28% 50%'},
+    'Halloween':{src:'assets/editorial/brands/halloween.webp',objectPosition:'50% 50%'},
     'Armaf':{src:'assets/editorial/brands/armaf.webp',objectPosition:'27% 50%'},
     'Scalpers Yacht Club':{src:'assets/editorial/brands/scalpers-yacht-club.webp',objectPosition:'50% 50%'},
-    'Diesel':{src:'assets/editorial/brands/diesel.webp',objectPosition:'50% 50%'}
+    'Diesel':{src:'assets/editorial/brands/diesel.webp',objectPosition:'50% 50%'},
+    'Xerjoff':{src:'assets/_derivatives/display/e23f4d706c447631.jpg',objectPosition:'50% 50%'},
+    'Nishane':{src:'assets/_derivatives/display/353cd27e55b4b94e.jpg',objectPosition:'50% 50%'},
+    'Tiziana Terenzi':{src:'assets/_derivatives/display/300d8e1829197449.jpg',objectPosition:'50% 50%'},
+    'Montale Paris':{src:'assets/_derivatives/display/f30c6eed92ce277b.jpg',objectPosition:'50% 50%'},
+    'Mancera Paris':{src:'assets/_derivatives/display/48dce12c370eabbe.jpg',objectPosition:'50% 50%'},
+    'Afnan Perfumes':{src:'assets/_derivatives/display/735c4b66931fb62f.jpg',objectPosition:'50% 50%'},
+    'Atelier des Ors':{src:'assets/_derivatives/display/5eb138828dd40fb1.jpg',objectPosition:'50% 50%'}
   };
-  const assetBrandAliases={'Xerjoff':'XERJOFF','Nishane':'NISHANE','Tiziana Terenzi':'TIZIANA TERENZI','Casamorati':'CASAMORATI','Afnan Perfumes':'Afnan','Ramón Béjar':'RAMON BEJAR','Montale Paris':'MONTALE MANCERA','Mancera Paris':'MONTALE MANCERA','Goldfield & Banks':'GOLDFIELD & BANKS','Atelier des Ors':'ATELIER DES ORS'};
   const campaignAssetsByBrand=new Map();
-  brandWallNames.forEach(name=>{const assetBrand=assetBrandAliases[name];if(!assetBrand)return;const choices=spaceMediaLibrary.filter(item=>item.webReady&&item.type==='image'&&item.optimizedSrc&&item.brand===assetBrand&&item.orientation==='vertical'&&item.backgroundTone!=='light');if(choices.length)campaignAssetsByBrand.set(name,shuffleMedia(choices)[0])});
   Object.entries(sourcedBrandStageAssets).forEach(([name,asset])=>campaignAssetsByBrand.set(name,asset));
   const lightCanvasBrands=new Set([1,2,3,4,5,6,7,9,13,14,15,17,19,20,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,40]);
   const contrastCanvasBrands=new Set([21]);

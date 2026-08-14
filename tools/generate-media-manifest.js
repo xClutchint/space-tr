@@ -166,7 +166,7 @@ function ensureCurationFiles() {
 
 function generateMediaManifest() {
   ensureCatalogueFolders();
-  ensureCurationFiles();
+  const curation = ensureCurationFiles();
   const analysis = readJson(path.join(ASSET_ROOT, 'media-analysis.json'));
   const media = [];
   for (const file of walk(ASSET_ROOT)) {
@@ -228,6 +228,15 @@ function generateMediaManifest() {
   };
   fs.writeFileSync(path.join(ASSET_ROOT, 'media-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   fs.writeFileSync(path.join(ASSET_ROOT, 'media-manifest.js'), `window.SPACE_MEDIA_LIBRARY=${JSON.stringify(manifest)};\n`);
+  const runtimeIds = new Set([...(curation.hero.included || []), ...(curation.carousel.included || [])]);
+  const runtimeManifest = {
+    version: manifest.version,
+    generatedAt: manifest.generatedAt,
+    source: manifest.source,
+    counts: { total: runtimeIds.size },
+    media: media.filter((item) => runtimeIds.has(item.id))
+  };
+  fs.writeFileSync(path.join(ASSET_ROOT, 'media-runtime.js'), `window.SPACE_MEDIA_LIBRARY=${JSON.stringify(runtimeManifest)};\n`);
   for (const orientation of ['vertical', 'horizontal', 'square', 'unknown']) {
     for (const group of ['images', 'gifs', 'videos']) {
       const expectedType = group === 'images' ? 'image' : group.slice(0, -1);

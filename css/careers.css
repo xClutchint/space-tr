@@ -61,14 +61,6 @@ html{scroll-behavior:smooth}
 .career-open-door-grid p{max-width:500px;margin:0 0 2rem;color:#5d6166;font:300 clamp(.93rem,1vw,1.05rem)/1.8 var(--sans)}
 .career-open-door a{display:inline-block;padding-bottom:.35rem;border-bottom:1px solid rgba(17,19,23,.55);font:500 .61rem var(--sans);letter-spacing:.16em;text-transform:uppercase}
 
-/* Merit declaration and handoff to footer */
-.career-merit{padding:clamp(6rem,9vw,10rem) clamp(2rem,6vw,7rem);background:var(--career-black);color:#fff}
-.career-merit>.career-kicker{color:rgba(255,255,255,.66)}
-.career-merit>div{display:grid;grid-template-columns:1.05fr .65fr;gap:clamp(4rem,10vw,14rem);align-items:end;margin-top:clamp(4rem,7vw,7rem)}
-.career-merit h2{display:flex;flex-direction:column;margin:0;font:400 clamp(2.8rem,5.7vw,7rem)/.91 var(--serif);letter-spacing:-.052em;text-transform:uppercase}
-.career-merit h2 span:nth-child(2){padding-left:clamp(2rem,7vw,7rem);color:rgba(255,255,255,.68)}.career-merit h2 span:nth-child(3){padding-left:clamp(4rem,14vw,14rem)}
-.career-merit>div>p{max-width:600px;margin:0;color:rgba(255,255,255,.66);font:300 clamp(.86rem,.95vw,1rem)/1.85 var(--sans)}
-
 /* Keep the homepage footer genuinely unchanged and black. */
 .careers-page .compact-contact-footer{border-top:1px solid rgba(255,255,255,.16);background:#07090c;color:#f5f2eb}
 
@@ -79,10 +71,10 @@ html{scroll-behavior:smooth}
 @media(max-width:760px){
   .career-header{height:76px}.career-brand{width:138px}
   .career-manifesto{min-height:100svh;padding:8rem 1.4rem 6rem}.career-manifesto blockquote p{font-size:clamp(1.45rem,6vw,2.25rem)}
-  .career-directory-header,.career-open-door-grid,.career-merit>div{grid-template-columns:1fr;gap:2rem}
+  .career-directory-header,.career-open-door-grid{grid-template-columns:1fr;gap:2rem}
   .career-filters{grid-template-columns:1fr 1fr}.career-search-field{grid-column:1/-1}.career-filters label:nth-of-type(4){grid-column:auto}.career-filters>button{grid-column:1/-1}
   .career-list-head{display:none}.career-list-row{grid-template-columns:1fr auto;gap:.4rem 1rem;padding:1.4rem 0}.career-list-row strong{grid-column:1/-1}.career-list-row span:nth-of-type(1){grid-column:1/-1;color:#898c91;font-size:.67rem;text-transform:uppercase}.career-list-row i{grid-column:2;grid-row:3/5}.career-list-row time{display:block;grid-column:1}.career-list-row:hover{padding-left:.8rem}
-  .career-open-door-grid{margin-top:3rem}.career-merit h2 span:nth-child(2),.career-merit h2 span:nth-child(3){padding-left:0}
+  .career-open-door-grid{margin-top:3rem}
 }
-@media(max-width:480px){.career-filters{grid-template-columns:1fr}.career-search-field{grid-column:1}.career-directory,.career-open-door,.career-merit{padding-inline:1.25rem}}
+@media(max-width:480px){.career-filters{grid-template-columns:1fr}.career-search-field{grid-column:1}.career-directory,.career-open-door{padding-inline:1.25rem}}
 @media(prefers-reduced-motion:reduce){.career-quote-line{opacity:1;filter:none;transform:none;transition:none}.career-list-row:before{transition:none}}

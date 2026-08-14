@@ -28,7 +28,7 @@
       ]
     },
     {
-      "source": "/assets/media-(manifest|curation).js",
+      "source": "/assets/media-(manifest|curation|runtime).js",
       "headers": [
         {
           "key": "Cache-Control",

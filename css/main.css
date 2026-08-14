@@ -1434,9 +1434,9 @@ body.team-profile-open{overflow:hidden}
   transform:scale(1.035);
   transition:transform 1.1s cubic-bezier(.2,.75,.2,1),filter .6s ease;
 }
-.presence-story .presence-africa:before{background-image:url('../assets/editorial/regions/africa.jpg');background-position:center}
+.presence-story .presence-africa:before{background-image:url('../assets/editorial/regions/nairobi.webp');background-position:center}
 .presence-story .presence-uae:before{background-image:url('../assets/editorial/regions/uae.jpg');background-position:center}
-.presence-story .presence-france:before{background-image:url('../assets/editorial/regions/france.webp');background-position:center}
+.presence-story .presence-france:before{background-image:url('../assets/editorial/regions/nice.webp');background-position:center}
 .presence-story .presence-india:before{background-image:url('../assets/editorial/regions/india.jpg');background-position:center}
 .presence-story .presence-bar:hover:before{
   filter:none;

@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=mobile-cleanup-1">
-  <link rel="stylesheet" href="css/responsive.css?v=4">
+  <link rel="stylesheet" href="css/main.css?v=performance-2">
+  <link rel="stylesheet" href="css/responsive.css?v=5">
 </head>
 <body>
   <header class="site-header landing-header" data-header>
@@ -34,7 +34,9 @@
   <main>
     <section class="hero">
       <div class="hero-copy reveal">
-        <div class="hero-copy-campaign asset-rotator" data-asset-rotator data-media-slot="hero-left" data-media-orientation="vertical" aria-hidden="true"></div>
+        <div class="hero-copy-campaign asset-rotator" data-asset-rotator data-media-slot="hero-left" data-media-orientation="vertical" aria-hidden="true">
+          <div class="asset-rotator-frame is-active is-media-ready" data-asset-id="d22e5c8b2d2d7816"><img src="assets/_derivatives/display/d22e5c8b2d2d7816.jpg" alt="" width="1440" height="1952" fetchpriority="high" decoding="async"></div>
+        </div>
         <h1 data-i18n="heroHeadline">Bringing the best of global beauty brands to local audiences</h1>
         <div class="hero-brand-proof" aria-label="Selected brands">
           <img src="brand%20kit/brands/brand_1_mark.png" alt="Parfums de Marly">
@@ -46,7 +48,9 @@
         </div>
         <a class="hero-view-all" href="#brands" data-i18n="viewBrands">View all brands</a>
       </div>
-      <div class="hero-media asset-rotator" data-hero-media data-asset-rotator data-media-slot="hero-right" data-media-orientation="vertical" aria-label="Space brand campaigns"></div>
+      <div class="hero-media asset-rotator" data-hero-media data-asset-rotator data-media-slot="hero-right" data-media-orientation="vertical" aria-label="Space brand campaigns">
+        <div class="asset-rotator-frame is-active is-media-ready" data-asset-id="735c4b66931fb62f"><img src="assets/_derivatives/display/735c4b66931fb62f.jpg" alt="Afnan fragrance campaign visual" width="1215" height="2160" fetchpriority="high" decoding="async"></div>
+      </div>
     </section>
 
     <section id="about" class="presence-story">
@@ -87,7 +91,7 @@
       <div class="film-backdrop" aria-hidden="true"></div>
       <h2 class="film-statement" data-i18n-html="filmHeadline">Global Brands,<br>Local Reach</h2>
       <div class="film-frame">
-        <video autoplay muted loop playsinline preload="metadata" poster="brand%20kit/campaign/static_1.avif" data-managed-media>
+        <video autoplay muted loop playsinline preload="none" poster="brand%20kit/campaign/static_1.avif" data-managed-media>
           <source src="brand%20kit/campaign/video_1.mp4" type="video/mp4">
         </video>
       </div>
@@ -196,7 +200,7 @@
         </header>
         <div class="brand-wall-directory">
           <figure class="brand-wall-stage" data-brand-wall-stage aria-live="polite">
-            <img class="brand-wall-stage-media" data-brand-wall-stage-media src="" alt="">
+            <img class="brand-wall-stage-media" data-brand-wall-stage-media src="assets/editorial/brands/parfums-de-marly.webp" alt="Parfums de Marly fragrance campaign visual" loading="lazy" decoding="async" fetchpriority="low">
             <figcaption><span data-brand-wall-stage-kicker>Portfolio partner</span><strong data-brand-wall-stage-name>Space portfolio</strong></figcaption>
           </figure>
           <div class="brand-wall-grid" data-brand-wall-grid aria-label="Space brand partners"></div>
@@ -210,7 +214,7 @@
         <h2 id="regional-operations-title" data-i18n="regionalOperationsHeadline">Two regional worlds. One considered approach.</h2>
       </header>
       <div class="regional-operation-worlds">
-        <article class="regional-operation-panel regional-operation-maven" tabindex="0" data-lazy-bg="/brand%20kit/regions/africa.jpg">
+        <article class="regional-operation-panel regional-operation-maven" tabindex="0" data-lazy-bg="/assets/editorial/regions/nairobi.webp">
           <div class="regional-operation-index" aria-hidden="true">M</div>
           <div class="regional-operation-copy">
             <p class="regional-operation-kicker" data-i18n="mavenKicker">Regional distribution</p>
@@ -274,7 +278,7 @@
   </footer>
   <div class="team-profile-overlay" data-team-overlay role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="team-profile-name">
     <button class="team-profile-close" type="button" data-team-close data-i18n="closeProfile">Close profile</button>
-    <div class="team-profile-image"><img src="" alt="" data-team-overlay-image></div>
+    <div class="team-profile-image"><img alt="" data-team-overlay-image></div>
     <article>
       <p data-team-overlay-label>Leadership profile</p>
       <h2 id="team-profile-name" data-team-overlay-name></h2>
@@ -296,8 +300,8 @@
   </script>
   <script src="assets/brand-taxonomy.js" defer></script>
   <script src="assets/media-curation.js" defer></script>
-  <script src="assets/media-manifest.js" defer></script>
+  <script src="assets/media-runtime.js" defer></script>
   <script src="js/hero-scheduler.js" defer></script>
-  <script src="js/main.js?v=brand-stage-assets-1" defer></script>
+  <script src="js/main.js?v=performance-and-content-1" defer></script>
 </body>
 </html>

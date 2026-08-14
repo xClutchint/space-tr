@@ -7,7 +7,7 @@ button,a,input,select,summary{touch-action:manipulation}
 
 @supports (content-visibility:auto){
   .regional-operations,.team-carousel,.campaign-carousel-section,
-  .career-directory,.career-open-door,.career-merit,.posts-feed,
+  .career-directory,.career-open-door,.posts-feed,
   .business-model,.category-focus,.scale-chapter,.people-chapter,.about-faq{
     content-visibility:auto;
     contain-intrinsic-size:900px;
@@ -186,10 +186,9 @@ button,a,input,select,summary{touch-action:manipulation}
   .career-list-row{display:grid!important;grid-template-columns:1fr auto!important;gap:.75rem 1rem!important;padding:1.6rem 0!important}
   .career-list-row>:first-child{grid-column:1/-1!important;font-size:1.35rem!important}
   .career-list-row i{grid-column:2;grid-row:2/6;align-self:center}
-  .career-open-door,.career-merit{padding:5rem var(--mobile-gutter)!important}
-  .career-open-door-grid,.career-merit>div{display:block!important;margin-top:2.5rem!important}
-  .career-open-door h2,.career-merit h2{font-size:clamp(2.7rem,12vw,4.8rem)!important}
-  .career-merit h2 span{padding-left:0!important}
+  .career-open-door{padding:5rem var(--mobile-gutter)!important}
+  .career-open-door-grid{display:block!important;margin-top:2.5rem!important}
+  .career-open-door h2{font-size:clamp(2.7rem,12vw,4.8rem)!important}
 
   /* Keep editorial copy horizontal, readable and clear of decorative labels. */
   h1,h2,h3,p,li,summary{max-width:100%;overflow-wrap:break-word;word-break:normal;writing-mode:horizontal-tb!important}

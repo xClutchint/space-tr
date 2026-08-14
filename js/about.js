@@ -48,6 +48,21 @@ const aboutCopy = {
     scaleOne: 'For international brand teams, regional distribution requires more than product movement. It requires a partner able to understand brand standards, interpret local market conditions and maintain clear relationships with the retailers responsible for presenting products to consumers.',
     scaleTwo: 'For retailers, a specialist perfume and beauty wholesaler provides access to a defined international portfolio, a regional point of contact and product availability governed by the relevant brand, territory, retail channel and commercial arrangement.',
     viewExpertise: 'Explore our capabilities',
+    timelineKicker: 'Our timeline',
+    timelineTitle: 'Built step by step. Market by market.',
+    timelineLead: 'From an East African foundation to a connected distribution platform, each milestone has added local knowledge, retail reach and operational depth.',
+    timeline2016Title: 'Maven begins in Nairobi.',
+    timeline2016Body: 'Maven Global Limited is established in Kenya, creating the East African foundation for the group’s luxury fragrance and beauty distribution network.',
+    timeline2018Title: 'Space is established in Dubai.',
+    timeline2018Body: 'Space opens its head office in Dubai South, building a strategic hub between international brand partners and regional markets.',
+    timeline2021Title: 'A stronger footprint across Kenya.',
+    timeline2021Body: 'Retail relationships deepen, the brand portfolio grows and Space strengthens its position across the Kenyan market.',
+    timeline2022Title: 'The network widens.',
+    timeline2022Body: 'The business expands across domestic markets and travel retail, extending its reach through a broader regional network.',
+    timeline2023Title: 'Retail becomes tangible.',
+    timeline2023Body: 'The group opens its first flagship fragrance store in one of Nairobi’s most prominent retail districts.',
+    timeline2025Title: 'New African territories open.',
+    timeline2025Body: 'Space enters priority markets across the continent, continuing a deliberate expansion built around local partnerships and long-term brand development.',
     peopleKicker: 'The people behind Space',
     peopleTitle: 'Regional experience with visible leadership.',
     peopleOne: 'Space is represented by professionals whose experience spans fragrance, beauty, travel retail, domestic retail, commercial management, finance, procurement, supply chain and African market development.',
@@ -116,6 +131,21 @@ const aboutCopy = {
     scaleOne: 'Pour les équipes de marques internationales, la distribution régionale dépasse le simple mouvement des produits. Elle requiert un partenaire capable de comprendre les standards de la marque, d\'interpréter les conditions locales et de maintenir des relations claires avec les détaillants qui présentent les produits aux consommateurs.',
     scaleTwo: 'Pour les détaillants, un grossiste spécialiste du parfum et de la beauté donne accès à un portefeuille international défini, à un interlocuteur régional et à une disponibilité déterminée par la marque, le territoire, le canal de vente et l\'accord commercial concernés.',
     viewExpertise: 'Explorer nos expertises',
+    timelineKicker: 'Notre histoire',
+    timelineTitle: 'Étape par étape. Marché par marché.',
+    timelineLead: 'D’un ancrage est-africain à une plateforme de distribution connectée, chaque étape a renforcé la connaissance locale, la présence retail et la maîtrise opérationnelle.',
+    timeline2016Title: 'Maven naît à Nairobi.',
+    timeline2016Body: 'Maven Global Limited est créée au Kenya et pose les fondations est-africaines du réseau de distribution de parfums et de produits de beauté de luxe du groupe.',
+    timeline2018Title: 'Space est créée à Dubaï.',
+    timeline2018Body: 'Space ouvre son siège à Dubai South, établissant un hub stratégique entre les marques internationales et les marchés régionaux.',
+    timeline2021Title: 'Une présence renforcée au Kenya.',
+    timeline2021Body: 'Les relations retail s’approfondissent, le portefeuille de marques s’élargit et Space consolide sa position sur le marché kenyan.',
+    timeline2022Title: 'Le réseau s’étend.',
+    timeline2022Body: 'L’entreprise se développe sur les marchés domestiques et dans le travel retail, élargissant sa portée grâce à un réseau régional plus vaste.',
+    timeline2023Title: 'Le retail prend forme.',
+    timeline2023Body: 'Le groupe ouvre sa première boutique de parfumerie phare dans l’un des quartiers commerciaux les plus reconnus de Nairobi.',
+    timeline2025Title: 'De nouveaux territoires africains s’ouvrent.',
+    timeline2025Body: 'Space entre sur des marchés prioritaires du continent et poursuit une expansion réfléchie, fondée sur les partenariats locaux et le développement durable des marques.',
     peopleKicker: 'Les personnes derrière Space',
     peopleTitle: 'Une expérience régionale portée par une direction visible.',
     peopleOne: 'Space est représenté par des professionnels dont l\'expérience couvre le parfum, la beauté, le travel retail, le commerce domestique, la gestion commerciale, la finance, les achats, la chaîne logistique et le développement des marchés africains.',
@@ -248,6 +278,40 @@ if (collageSection && collageGallery && collageFrames.length && !reducedMotion.m
   window.addEventListener('scroll', requestCollageRender, { passive: true });
   window.addEventListener('resize', requestCollageRender, { passive: true });
   window.addEventListener('pageshow', requestCollageRender);
+}
+
+const companyTimeline = document.querySelector('[data-company-timeline]');
+if (companyTimeline) {
+  const timelineList = companyTimeline.querySelector('[data-timeline-list]');
+  const timelineItems = [...companyTimeline.querySelectorAll('[data-timeline-item]')];
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+    timelineItems.forEach((item) => item.classList.add('is-visible'));
+    timelineList?.style.setProperty('--timeline-progress', '1');
+  } else {
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        timelineObserver.unobserve(entry.target);
+      });
+    }, { threshold: .28, rootMargin: '0px 0px -12% 0px' });
+    timelineItems.forEach((item) => timelineObserver.observe(item));
+    let timelineFrame = 0;
+    const renderTimeline = () => {
+      timelineFrame = 0;
+      const bounds = timelineList.getBoundingClientRect();
+      const start = window.innerHeight * .76;
+      const travel = Math.max(1, bounds.height + window.innerHeight * .22);
+      const progress = Math.min(1, Math.max(0, (start - bounds.top) / travel));
+      timelineList.style.setProperty('--timeline-progress', progress.toFixed(4));
+    };
+    const requestTimelineRender = () => {
+      if (!timelineFrame) timelineFrame = window.requestAnimationFrame(renderTimeline);
+    };
+    renderTimeline();
+    window.addEventListener('scroll', requestTimelineRender, { passive: true });
+    window.addEventListener('resize', requestTimelineRender, { passive: true });
+  }
 }
 
 let initialLanguage = 'en';

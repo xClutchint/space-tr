@@ -8,7 +8,7 @@ const pages = [
   'careers.html', 'career-brand-manager.html', 'career-sales-executive.html', 'career-logistics-coordinator.html',
   'posts.html', 'privacy-policy.html', 'robots.txt', '.nojekyll'
 ];
-const assetFiles = ['brand-taxonomy.js', 'media-curation.js', 'media-curation.json', 'media-manifest.js', 'media-manifest.json'];
+const assetFiles = ['brand-taxonomy.js', 'media-curation.js', 'media-curation.json', 'media-manifest.js', 'media-manifest.json', 'media-runtime.js'];
 
 async function copy(relative) {
   const source = path.join(root, relative);

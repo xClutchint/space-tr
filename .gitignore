@@ -13,8 +13,10 @@ expertise-*-v*.png
 qa-*.png
 tmp-*.png
 tmp-edge-*/
+/tmp/
 artifacts/
 brand kit/reference/Brand Guide line.pdf
+/SPACE COMPANY PROFILE.pdf
 brand kit/campaign/gif_2.gif
 brand kit/campaign/gif_3.gif
 
