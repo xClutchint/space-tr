@@ -939,15 +939,45 @@ if(brandWall){
   const brandWallNames=portfolioBrandNames;
   const wallGrid=brandWall.querySelector('[data-brand-wall-grid]');
   const stage=brandWall.querySelector('[data-brand-wall-stage]'),stageMedia=brandWall.querySelector('[data-brand-wall-stage-media]'),stageName=brandWall.querySelector('[data-brand-wall-stage-name]'),stageKicker=brandWall.querySelector('[data-brand-wall-stage-kicker]');
+  const sourcedBrandStageAssets={
+    'Parfums de Marly':{src:'assets/editorial/brands/parfums-de-marly.webp',objectPosition:'50% 50%'},
+    'Goldfield & Banks':{src:'assets/editorial/brands/goldfield-banks.webp',objectPosition:'55% 50%'},
+    'Roja':{src:'assets/editorial/brands/roja.webp',objectPosition:'50% 50%'},
+    'Casamorati':{src:'assets/editorial/brands/casamorati.webp',objectPosition:'50% 50%'},
+    'Bond No. 9':{src:'assets/editorial/brands/bond-no-9.webp',objectPosition:'50% 50%'},
+    'Ormonde Jayne':{src:'assets/editorial/brands/ormonde-jayne.webp',objectPosition:'50% 50%'},
+    'Ramon Bejar':{src:'assets/editorial/brands/ramon-bejar.webp',objectPosition:'50% 50%'},
+    'The Merchant of Venice':{src:'assets/editorial/brands/merchant-of-venice.webp',objectPosition:'48% 50%'},
+    'Giorgio Armani Beauty':{src:'assets/editorial/brands/giorgio-armani-beauty.webp',objectPosition:'50% 50%'},
+    'Gucci':{src:'assets/editorial/brands/gucci.webp',objectPosition:'42% 50%'},
+    'Yves Saint Laurent':{src:'assets/editorial/brands/yves-saint-laurent.webp',objectPosition:'50% 50%'},
+    'Lancome':{src:'assets/editorial/brands/lancome.webp',objectPosition:'50% 28%'},
+    'Burberry':{src:'assets/editorial/brands/burberry.webp',objectPosition:'50% 42%'},
+    'Boss':{src:'assets/editorial/brands/boss.webp',objectPosition:'68% 50%'},
+    'Marc Jacobs':{src:'assets/editorial/brands/marc-jacobs.webp',objectPosition:'50% 45%'},
+    'Chloe':{src:'assets/editorial/brands/chloe.webp',objectPosition:'52% 50%'},
+    'Ralph Lauren':{src:'assets/editorial/brands/ralph-lauren.webp',objectPosition:'78% 50%'},
+    'Prada':{src:'assets/editorial/brands/prada.webp',objectPosition:'52% 50%'},
+    'Valentino':{src:'assets/editorial/brands/valentino.webp',objectPosition:'50% 50%'},
+    'Davidoff':{src:'assets/editorial/brands/davidoff.webp',objectPosition:'50% 50%'},
+    'Cacharel':{src:'assets/editorial/brands/cacharel.webp',objectPosition:'76% 50%'},
+    'Viktor & Rolf':{src:'assets/editorial/brands/viktor-rolf.webp',objectPosition:'50% 50%'},
+    'Tous':{src:'assets/editorial/brands/tous.webp',objectPosition:'50% 50%'},
+    'Halloween':{src:'assets/editorial/brands/halloween.webp',objectPosition:'28% 50%'},
+    'Armaf':{src:'assets/editorial/brands/armaf.webp',objectPosition:'27% 50%'},
+    'Scalpers Yacht Club':{src:'assets/editorial/brands/scalpers-yacht-club.webp',objectPosition:'50% 50%'},
+    'Diesel':{src:'assets/editorial/brands/diesel.webp',objectPosition:'50% 50%'}
+  };
   const assetBrandAliases={'Xerjoff':'XERJOFF','Nishane':'NISHANE','Tiziana Terenzi':'TIZIANA TERENZI','Casamorati':'CASAMORATI','Afnan Perfumes':'Afnan','Ramón Béjar':'RAMON BEJAR','Montale Paris':'MONTALE MANCERA','Mancera Paris':'MONTALE MANCERA','Goldfield & Banks':'GOLDFIELD & BANKS','Atelier des Ors':'ATELIER DES ORS'};
   const campaignAssetsByBrand=new Map();
   brandWallNames.forEach(name=>{const assetBrand=assetBrandAliases[name];if(!assetBrand)return;const choices=spaceMediaLibrary.filter(item=>item.webReady&&item.type==='image'&&item.optimizedSrc&&item.brand===assetBrand&&item.orientation==='vertical'&&item.backgroundTone!=='light');if(choices.length)campaignAssetsByBrand.set(name,shuffleMedia(choices)[0])});
+  Object.entries(sourcedBrandStageAssets).forEach(([name,asset])=>campaignAssetsByBrand.set(name,asset));
   const lightCanvasBrands=new Set([1,2,3,4,5,6,7,9,13,14,15,17,19,20,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,40]);
   const contrastCanvasBrands=new Set([21]);
   wallGrid.innerHTML=brandWallRecords.map(record=>{const name=record.name,number=record.logoNumber;return `<article class="brand-wall-item${campaignAssetsByBrand.has(name)?' has-campaign-asset':''}${lightCanvasBrands.has(number)?' has-light-canvas':''}${contrastCanvasBrands.has(number)?' needs-contrast-canvas':''}" tabindex="0" aria-label="${name}"><img src="${portfolioLogoPath(record)}" alt="${name}" loading="lazy" decoding="async"></article>`}).join('')+`<button class="brand-wall-discovery" type="button" aria-label="Discover another portfolio brand"><span class="brand-wall-discovery-orbit" aria-hidden="true"><i></i></span><span>Discover<br>another</span></button>`;
   const wallItems=[...wallGrid.querySelectorAll('.brand-wall-item')];
   let activeStageIndex=-1,stageSwapTimer;
-  const showBrandOnStage=index=>{if(!stage||index===activeStageIndex)return;activeStageIndex=index;const record=brandWallRecords[index],name=record.name,asset=campaignAssetsByBrand.get(name),source=asset?.optimizedSrc||portfolioLogoPath(record,'mark'),preload=new Image();preload.onload=()=>{window.clearTimeout(stageSwapTimer);stage.classList.add('is-changing');stageSwapTimer=window.setTimeout(()=>{stage.classList.toggle('is-logo-only',!asset);stageMedia.src=source;stageMedia.alt=asset?`${name} campaign visual`:`${name} logo`;stageName.textContent=name;stageKicker.textContent='Portfolio partner';requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('is-changing')))},180)};preload.src=source};
+  const showBrandOnStage=index=>{if(!stage||index===activeStageIndex)return;activeStageIndex=index;const record=brandWallRecords[index],name=record.name,asset=campaignAssetsByBrand.get(name),source=asset?.optimizedSrc||asset?.src||portfolioLogoPath(record,'mark'),preload=new Image();preload.onload=()=>{window.clearTimeout(stageSwapTimer);stage.classList.add('is-changing');stageSwapTimer=window.setTimeout(()=>{stage.classList.toggle('is-logo-only',!asset);stageMedia.src=source;stageMedia.style.objectPosition=asset?.objectPosition||'50% 50%';stageMedia.alt=asset?`${name} campaign visual`:`${name} logo`;stageName.textContent=name;stageKicker.textContent='Portfolio partner';requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('is-changing')))},180)};preload.src=source};
   const setWallFocus=(item,index)=>{brandWall.classList.toggle('has-brand-focus',Boolean(item));wallItems.forEach(candidate=>candidate.classList.toggle('is-focused',candidate===item));if(item)showBrandOnStage(index)};
   wallItems.forEach((item,index)=>{
     const activate=()=>setWallFocus(item,index);
