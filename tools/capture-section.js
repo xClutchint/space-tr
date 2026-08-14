@@ -66,7 +66,8 @@ async function main() {
     await send(socket, 'Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width <= 760 });
     await delay(2200);
     if (customEvaluation) {
-      await send(socket, 'Runtime.evaluate', { expression: customEvaluation, awaitPromise: true, returnByValue: true });
+      const customResult = await send(socket, 'Runtime.evaluate', { expression: customEvaluation, awaitPromise: true, returnByValue: true });
+      console.log(JSON.stringify(customResult.result?.value || customResult.exceptionDetails || null));
       await delay(2600);
     }
     const expression = `(async () => { document.documentElement.style.scrollBehavior='auto'; const target=document.querySelector(${JSON.stringify(selector)}); if(target) window.scrollTo(0,target.getBoundingClientRect().top + window.scrollY); await document.fonts.ready; await new Promise(resolve => setTimeout(resolve, 1200)); if(target) window.scrollTo(0,target.getBoundingClientRect().top + window.scrollY); await new Promise(resolve => setTimeout(resolve, 450)); })()`;

@@ -4,7 +4,7 @@
   const uid = prefix => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
   const api = async (url, options = {}) => {
-    const response = await fetch(url, { credentials: 'same-origin', ...options, headers: options.body && !(options.body instanceof FormData) ? { 'Content-Type': 'application/json', ...(options.headers || {}) } : options.headers });
+    const response = await fetch(new URL(url, window.location.href), { credentials: 'same-origin', ...options, headers: options.body && !(options.body instanceof FormData) ? { 'Content-Type': 'application/json', ...(options.headers || {}) } : options.headers });
     const body = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(body.error || `Request failed (${response.status})`);
     return body;
