@@ -4219,16 +4219,16 @@ html{
 /* Keep the opening spread on a stable layer while its campaign media rotates. */
 .hero.scroll-slide .hero-copy,.hero.scroll-slide .hero-media{opacity:1!important;transform:none!important;transition:none!important}
 
-/* Three equal regional chapters after removing India from the homepage presence. */
-.presence-story .presence-bar{flex-basis:33.333%;width:33.333%}
-.presence-story .presence-bar:hover{flex-basis:33.333%}
+/* Four equal office chapters on the homepage presence slide. */
+.presence-story .presence-bar{flex-basis:25%;width:25%}
+.presence-story .presence-bar:hover{flex-basis:25%}
 @media(min-width:901px){
-  .presence-story .presence-bar{flex:1 1 33.333%;width:33.333%}
-  .presence-story .presence-bar:hover{flex:1.08 1 33.333%}
+  .presence-story .presence-bar{flex:1 1 25%;width:25%}
+  .presence-story .presence-bar:hover{flex:1.08 1 25%}
 }
 @media(max-width:900px){
-  .presence-story{min-height:1200px}
-  .presence-story .presence-bars{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(3,1fr)}
+  .presence-story{min-height:1450px}
+  .presence-story .presence-bars{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,1fr)}
   .presence-story .presence-bar{width:100%;height:auto;min-height:0}
 }
 

@@ -6,7 +6,7 @@ const output = path.join(root, 'dist');
 const pages = [
   'index.html', 'about-space.html', 'expertise.html', 'feelnzuri.html', 'space-x-maven.html',
   'careers.html', 'career-brand-manager.html', 'career-sales-executive.html', 'career-logistics-coordinator.html',
-  'posts.html', 'privacy-policy.html', 'cms.html', 'robots.txt', '.nojekyll'
+  'posts.html', 'privacy-policy.html', 'cms.html', 'robots.txt', '.nojekyll', 'stewardship_image.jpeg'
 ];
 const assetFiles = ['brand-taxonomy.js', 'media-curation.js', 'media-curation.json', 'media-manifest.js', 'media-manifest.json'];
 
