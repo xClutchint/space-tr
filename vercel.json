@@ -1,6 +1,9 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/cms.html", "destination": "/cms/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/jobs/:slug", "destination": "/api/job?slug=:slug" },
     { "source": "/sitemap.xml", "destination": "/api/sitemap" }
@@ -34,7 +37,15 @@
       ]
     },
     {
-      "source": "/cms.html",
+      "source": "/cms",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    },
+    {
+      "source": "/cms/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
         { "key": "Cache-Control", "value": "private, no-store" },

@@ -10,20 +10,21 @@ A dependency-free static corporate site with a small Node development server.
 | `css/` | Shared and page-specific stylesheets |
 | `js/` | Shared and page-specific browser code |
 | `assets/` | Campaign media, optimized derivatives, manifests and curation data |
-| `brand kit/` | Brand marks, team portraits and approved visual source material |
+| `brand kit/` | Approved brand material grouped into `identity/`, `brands/`, `campaign/`, `regions/`, `team/` and `ventures/` |
+| `cms/` | Private content-studio page, styles and browser code |
 | `data/` | Structured content generated or consumed by the site |
 | `tools/` | Media optimization, manifest generation and LinkedIn synchronization |
 | `docs/` | Developer setup notes |
 | `.github/workflows/` | Scheduled LinkedIn content synchronization |
 
 The public page files stay at the repository root so their existing URLs remain stable. The
-space in `brand kit/` is also intentional because those paths are already used by the live site.
+space in `brand kit/` is retained for URL compatibility; the contents are grouped by purpose.
 
 ## Common commands
 
 ```powershell
 npm start              # Generate content and serve http://localhost:3000
-npm run build          # Regenerate media and LinkedIn post output
+npm run build          # Create the production bundle in dist/
 npm run optimize:media # Refresh optimized display images and thumbnails
 npm run sync:linkedin  # Fetch approved LinkedIn posts, when credentials are configured
 npm test               # Run rotation and real mobile-viewport regression checks

@@ -16,6 +16,7 @@ const PAGES = [
   'career-brand-manager.html',
   'career-sales-executive.html',
   'career-logistics-coordinator.html',
+  'cms/index.html',
 ];
 
 function edgePath() {

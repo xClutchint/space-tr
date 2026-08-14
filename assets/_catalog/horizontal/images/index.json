@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T07:56:21.615Z",
+  "generatedAt": "2026-08-14T08:39:46.166Z",
   "entries": [
     {
       "id": "7619d7d68e13e8f7",
@@ -2203,6 +2203,25 @@
       "backgroundTone": "dark",
       "edgeLuminance": 75.2,
       "lightNeutralRatio": 0.021,
+      "inferredDimensions": false
+    },
+    {
+      "id": "9df01f271f6184dd",
+      "src": "assets/editorial/expertise/sales-distribution.jpg",
+      "optimizedSrc": null,
+      "thumbnailSrc": null,
+      "brand": "editorial",
+      "label": "sales distribution",
+      "type": "image",
+      "extension": ".jpg",
+      "orientation": "horizontal",
+      "width": 2240,
+      "height": 1260,
+      "bytes": 358689,
+      "webReady": true,
+      "backgroundTone": "unknown",
+      "edgeLuminance": null,
+      "lightNeutralRatio": null,
       "inferredDimensions": false
     },
     {

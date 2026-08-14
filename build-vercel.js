@@ -6,7 +6,7 @@ const output = path.join(root, 'dist');
 const pages = [
   'index.html', 'about-space.html', 'expertise.html', 'feelnzuri.html', 'space-x-maven.html',
   'careers.html', 'career-brand-manager.html', 'career-sales-executive.html', 'career-logistics-coordinator.html',
-  'posts.html', 'privacy-policy.html', 'cms.html', 'robots.txt', '.nojekyll', 'stewardship_image.jpeg'
+  'posts.html', 'privacy-policy.html', 'robots.txt', '.nojekyll'
 ];
 const assetFiles = ['brand-taxonomy.js', 'media-curation.js', 'media-curation.json', 'media-manifest.js', 'media-manifest.json'];
 
@@ -21,7 +21,7 @@ async function build() {
   await rm(output, { recursive: true, force: true });
   await mkdir(output, { recursive: true });
   await Promise.all(pages.map(copy));
-  await Promise.all(['css', 'js', 'assets/_catalog', 'assets/_derivatives', 'assets/editorial'].map(relative => cp(path.join(root, relative), path.join(output, relative), { recursive: true })));
+  await Promise.all(['css', 'js', 'cms', 'assets/_catalog', 'assets/_derivatives', 'assets/editorial'].map(relative => cp(path.join(root, relative), path.join(output, relative), { recursive: true })));
   await cp(path.join(root, 'brand kit'), path.join(output, 'brand kit'), {
     recursive: true,
     filter: source => !/Brand Guide line\.pdf$|gif_[23]\.gif$/i.test(source)

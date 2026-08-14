@@ -230,7 +230,7 @@ const brandTaxonomy=window.SPACE_BRAND_TAXONOMY||{
 };
 const portfolioBrandRecords=brandTaxonomy.logos||[];
 const portfolioBrandNames=portfolioBrandRecords.map(record=>record.name);
-const portfolioLogoPath=(record,variant='avif')=>`brand%20kit/brand_${record.logoNumber}${variant==='mark'?'_mark.png':'.avif'}`;
+const portfolioLogoPath=(record,variant='avif')=>`brand%20kit/brands/brand_${record.logoNumber}${variant==='mark'?'_mark.png':'.avif'}`;
 const slotAllowsMedia=(item,slot)=>{
   const settings=spaceMediaCuration[slot]||{},excluded=new Set(settings.excluded||[]),included=new Set(settings.included||[]);
   if(slot==='carousel')return included.has(item.id);
@@ -270,8 +270,8 @@ const hydrateMediaElement=element=>{
   if(element.tagName==='VIDEO')element.load();
 };
 const fallbackVertical=[
-  {id:'fallback-left',src:'brand kit/gif_2.mp4',brand:'Space Fragrance',label:'fragrance campaign',type:'video',orientation:'vertical',webReady:true},
-  {id:'fallback-right',src:'brand kit/gif_4.avif',brand:'Space Beauty',label:'beauty campaign',type:'image',orientation:'vertical',webReady:true}
+  {id:'fallback-left',src:'brand kit/campaign/gif_2.mp4',brand:'Space Fragrance',label:'fragrance campaign',type:'video',orientation:'vertical',webReady:true},
+  {id:'fallback-right',src:'brand kit/campaign/gif_4.avif',brand:'Space Beauty',label:'beauty campaign',type:'image',orientation:'vertical',webReady:true}
 ];
 const cmsMediaItem=item=>item&&item.url?{id:item.id||item.url,src:item.url,optimizedSrc:item.url,thumbnailSrc:item.url,brand:'Space',label:item.alt||item.label||'campaign',type:item.type==='video'?'video':'image',orientation:'vertical',webReady:true}:null;
 const heroRotators=[...document.querySelectorAll('[data-asset-rotator]')];
@@ -447,7 +447,7 @@ if(gallery){
 const brandTheatre=document.querySelector('[data-brand-theatre]');
 if(brandTheatre){
   const theatreBrands=portfolioBrandRecords;
-  const scenes=['brand%20kit/gif_1.avif','brand%20kit/gif_3-poster.webp','brand%20kit/gif_4.avif','brand%20kit/static_1.avif'];
+  const scenes=['brand%20kit/campaign/gif_1.avif','brand%20kit/campaign/gif_3-poster.webp','brand%20kit/campaign/gif_4.avif','brand%20kit/campaign/static_1.avif'];
   const backdrop=brandTheatre.querySelector('.brand-theatre-backdrop');
   const brandItem=(record,index)=>`<button class="brand-ribbon-item" type="button" data-brand-scene="${index%scenes.length}" aria-label="${record.name}"><img src="${portfolioLogoPath(record)}" alt="${record.name}" loading="lazy" decoding="async"></button>`;
   const midpoint=Math.ceil(theatreBrands.length/2),firstHalf=theatreBrands.slice(0,midpoint),secondHalf=theatreBrands.slice(midpoint);
@@ -490,7 +490,7 @@ if(expertiseAtelier){
     {title:'BA training',copy:'Space provides training support for beauty advisors, helping retail teams develop product knowledge and represent brands consistently at the point of sale.',tags:['Product knowledge','Brand representation','Retail support']},
     {title:'Launches, marketing & activation',copy:'We support brand awareness through launches, in-store activations, marketing initiatives and promotional activities designed for local markets and audiences.',tags:['Launches','In-store activation','Marketing','Promotional activity']}
   ];
-  const expertiseScenes=['brand%20kit/gif_1.avif','brand%20kit/UAE.jpg','brand%20kit/static_1.avif','brand%20kit/gif_3-poster.webp','brand%20kit/france.jpg','brand%20kit/gif_4.avif'];
+  const expertiseScenes=['brand%20kit/campaign/gif_1.avif','brand%20kit/regions/UAE.jpg','brand%20kit/campaign/static_1.avif','brand%20kit/campaign/gif_3-poster.webp','brand%20kit/regions/france.jpg','brand%20kit/campaign/gif_4.avif'];
   const buttons=[...expertiseAtelier.querySelectorAll('[data-expertise]')],stage=expertiseAtelier.querySelector('.service-stage'),indexNav=expertiseAtelier.querySelector('.service-index'),ghost=expertiseAtelier.querySelector('[data-expertise-ghost]'),number=expertiseAtelier.querySelector('[data-expertise-number]'),title=expertiseAtelier.querySelector('[data-expertise-title]'),copy=expertiseAtelier.querySelector('[data-expertise-copy]'),tags=expertiseAtelier.querySelector('[data-expertise-tags]'),visual=expertiseAtelier.querySelector('[data-expertise-visual]');let activeExpertise=0,expertiseCycle;
   const showExpertise=index=>{if(index===activeExpertise&&stage.classList.contains('is-ready'))return;activeExpertise=index;stage.classList.add('is-changing','is-ready');window.setTimeout(()=>{const area=expertiseAreas[index],label=String(index+1).padStart(2,'0');expertiseAtelier.dataset.active=String(index);ghost.textContent=label;number.textContent=`${label} / 06`;title.textContent=area.title;copy.textContent=area.copy;tags.innerHTML=area.tags.map(tag=>`<li>${tag}</li>`).join('');visual.src=expertiseScenes[index];buttons.forEach((button,buttonIndex)=>button.classList.toggle('is-active',buttonIndex===index));window.setTimeout(()=>stage.classList.remove('is-changing'),80)},280)};
   const startExpertiseCycle=()=>{window.clearInterval(expertiseCycle);if(reducedMotionQuery.matches||lowPowerMode)return;expertiseCycle=window.setInterval(()=>{if(isNearViewport(expertiseAtelier))showExpertise((activeExpertise+1)%expertiseAreas.length)},6000)};
@@ -700,11 +700,11 @@ if(expertiseTheatre){
 const expertiseChapter=document.querySelector('[data-expertise-chapter]');
 if(expertiseChapter){
   const chapterStages=[
-    {title:'expertiseMarket',copy:'expertiseMarketCopy',image:'brand%20kit/france.jpg',points:{en:['Market assessment','Brand positioning','Launch planning','Commercial development'],fr:['Évaluation du marché','Positionnement de marque','Planification des lancements','Développement commercial']}},
-    {title:'expertiseSales',copy:'expertiseSalesCopy',image:'brand%20kit/UAE.jpg',points:{en:['Wholesale partnerships','Retail relationships','Duty-free & e-commerce','Route-to-market execution'],fr:['Partenariats de gros','Relations avec les détaillants','Duty-free & e-commerce','Exécution commerciale']}},
-    {title:'expertiseStewardship',copy:'expertiseStewardshipCopy',image:'brand%20kit/gif_1.avif',points:{en:['Presentation standards','Pricing discipline','Brand consistency','Local relevance'],fr:['Standards de présentation','Discipline tarifaire','Cohérence de marque','Pertinence locale']}},
-    {title:'expertiseMarketing',copy:'expertiseMarketingCopy',image:'brand%20kit/gif_4.avif',points:{en:['Launches & campaigns','Visual merchandising','Team training','Consumer activation'],fr:['Lancements & campagnes','Merchandising visuel','Formation des équipes','Activation consommateur']}},
-    {title:'expertiseOperations',copy:'expertiseOperationsCopy',image:'brand%20kit/static_1.avif',points:{en:['Inventory planning','Warehousing','Order fulfilment','Regional supply coordination'],fr:['Planification des stocks','Entreposage','Exécution des commandes','Coordination régionale']}}
+    {title:'expertiseMarket',copy:'expertiseMarketCopy',image:'brand%20kit/regions/france.jpg',points:{en:['Market assessment','Brand positioning','Launch planning','Commercial development'],fr:['Évaluation du marché','Positionnement de marque','Planification des lancements','Développement commercial']}},
+    {title:'expertiseSales',copy:'expertiseSalesCopy',image:'brand%20kit/regions/UAE.jpg',points:{en:['Wholesale partnerships','Retail relationships','Duty-free & e-commerce','Route-to-market execution'],fr:['Partenariats de gros','Relations avec les détaillants','Duty-free & e-commerce','Exécution commerciale']}},
+    {title:'expertiseStewardship',copy:'expertiseStewardshipCopy',image:'brand%20kit/campaign/gif_1.avif',points:{en:['Presentation standards','Pricing discipline','Brand consistency','Local relevance'],fr:['Standards de présentation','Discipline tarifaire','Cohérence de marque','Pertinence locale']}},
+    {title:'expertiseMarketing',copy:'expertiseMarketingCopy',image:'brand%20kit/campaign/gif_4.avif',points:{en:['Launches & campaigns','Visual merchandising','Team training','Consumer activation'],fr:['Lancements & campagnes','Merchandising visuel','Formation des équipes','Activation consommateur']}},
+    {title:'expertiseOperations',copy:'expertiseOperationsCopy',image:'brand%20kit/campaign/static_1.avif',points:{en:['Inventory planning','Warehousing','Order fulfilment','Regional supply coordination'],fr:['Planification des stocks','Entreposage','Exécution des commandes','Coordination régionale']}}
   ];
   const chapterWorkspace=expertiseChapter.querySelector('[data-expertise-workspace]');
   const chapterButtons=[...expertiseChapter.querySelectorAll('[data-expertise-capability]')];

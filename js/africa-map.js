@@ -47,8 +47,8 @@
 
   const setIndexState = (id) => indexItems.forEach((item) => item.classList.toggle('is-active', item.dataset.countryName === id));
   const show = (location, locked = false) => {
-    countryOutput.textContent = location ? countryName(location) : copy[language].continent;
-    statusOutput.textContent = location ? (locked ? copy[language].locked : copy[language].preview) : copy[language].idle;
+    if (countryOutput) countryOutput.textContent = location ? countryName(location) : copy[language].continent;
+    if (statusOutput) statusOutput.textContent = location ? (locked ? copy[language].locked : copy[language].preview) : copy[language].idle;
     if (positionOutput) {
       const position = location ? MARKET_IDS.indexOf(location.id) + 1 : MARKET_IDS.length;
       positionOutput.textContent = `${String(position).padStart(2, '0')} / ${MARKET_IDS.length}`;
@@ -60,7 +60,7 @@
     selected = location;
     path.classList.add('is-selected');
     root.classList.add('has-selection');
-    reset.hidden = false;
+    if (reset) reset.hidden = false;
     show(location, true);
   };
 
@@ -118,7 +118,7 @@
     });
   });
 
-  reset.addEventListener('click', () => {
+  reset?.addEventListener('click', () => {
     selected = null;
     root.classList.remove('has-selection');
     svg.querySelectorAll('.is-selected').forEach((item) => item.classList.remove('is-selected'));
@@ -130,7 +130,7 @@
     if (headingLabel) headingLabel.textContent = copy[language].heading;
     if (headingTitle) headingTitle.textContent = copy[language].continent;
     if (selectionLabel) selectionLabel.textContent = copy[language].selection;
-    reset.textContent = copy[language].reset;
+    if (reset) reset.textContent = copy[language].reset;
     svg.setAttribute('aria-label', copy[language].continent);
     svg.querySelectorAll('.is-market').forEach((path) => {
       const location = map.locations.find((entry) => entry.id === path.dataset.country);

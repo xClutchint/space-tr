@@ -14,9 +14,9 @@ qa-*.png
 tmp-*.png
 tmp-edge-*/
 artifacts/
-brand kit/Brand Guide line.pdf
-brand kit/gif_2.gif
-brand kit/gif_3.gif
+brand kit/reference/Brand Guide line.pdf
+brand kit/campaign/gif_2.gif
+brand kit/campaign/gif_3.gif
 
 # Keep the original campaign archive local. The website is built from the
 # optimized derivatives and generated catalog files committed alongside it.

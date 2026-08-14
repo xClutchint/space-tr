@@ -59,8 +59,9 @@ button,a,input,select,summary{touch-action:manipulation}
   .presence-story .about-story-copy .story-proof>span{min-width:0!important}
   .presence-story .presence-bars{position:relative!important;inset:auto!important;display:grid!important;grid-template-columns:1fr!important;width:100%!important;height:auto!important}
   .presence-story .presence-bars>p{height:auto!important;padding:1.3rem var(--mobile-gutter)!important}
-  .presence-story .presence-bar{width:100%!important;height:34svh!important;min-height:250px!important;flex:none!important}
-  .presence-story .presence-bar small{opacity:.8!important;transform:none!important}
+  .presence-story .presence-bar{width:100%!important;height:27svh!important;min-height:210px!important;flex:none!important}
+  .presence-story .presence-bar strong{font-size:.9rem!important;letter-spacing:.12em!important}
+  .presence-story .presence-bar small{display:none!important}
 
   .film-slide{min-height:100svh!important;height:auto!important;padding:0!important}
   .film-slide .film-frame{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important}
@@ -131,7 +132,8 @@ button,a,input,select,summary{touch-action:manipulation}
   .africa-atlas{min-height:0!important;height:auto!important;padding:0!important}
   .africa-map-sticky{position:relative!important;top:auto!important;height:auto!important;min-height:100svh!important;padding:5rem var(--mobile-gutter) 1.5rem!important}
   .africa-map-panel{width:100%!important;height:66svh!important;min-height:430px!important}
-  .business-model,.category-focus,.scale-chapter,.people-chapter,.about-faq{min-height:0!important;display:block!important;padding:5rem var(--mobile-gutter)!important}
+  .business-model{min-height:0!important;display:block!important;padding:0!important}
+  .category-focus,.scale-chapter,.people-chapter,.about-faq{min-height:0!important;display:block!important;padding:5rem var(--mobile-gutter)!important}
   .category-focus>*,.scale-chapter>*,.people-chapter>*{margin-bottom:2.5rem}
   .about-faq header h2{position:relative!important;top:auto!important;margin-bottom:3rem!important;font-size:clamp(2.7rem,11vw,4.6rem)!important}
 
@@ -188,6 +190,11 @@ button,a,input,select,summary{touch-action:manipulation}
   .career-open-door-grid,.career-merit>div{display:block!important;margin-top:2.5rem!important}
   .career-open-door h2,.career-merit h2{font-size:clamp(2.7rem,12vw,4.8rem)!important}
   .career-merit h2 span{padding-left:0!important}
+
+  /* Keep editorial copy horizontal, readable and clear of decorative labels. */
+  h1,h2,h3,p,li,summary{max-width:100%;overflow-wrap:break-word;word-break:normal;writing-mode:horizontal-tb!important}
+  .category-vertical,.scale-visual>span,.profile-counter{display:none!important}
+  .about-cover-gallery .cover-image:nth-child(n+7){display:none!important}
 }
 
 @media (max-width:520px){
@@ -197,7 +204,7 @@ button,a,input,select,summary{touch-action:manipulation}
   .presence-story .about-story-copy .story-proof strong{font-size:clamp(1.9rem,10vw,3rem)!important}
   .brand-wall-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .team-portrait-card{width:82vw!important}
-  .about-cover-gallery{grid-template-columns:1fr!important}
+  .about-cover-gallery{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .about-cover-gallery .cover-image,.about-cover-gallery .cover-image:nth-child(3n){grid-column:auto!important;aspect-ratio:4/5!important}
 }
 
@@ -267,7 +274,7 @@ button,a,input,select,summary{touch-action:manipulation}
     margin:0!important;
     padding:0!important;
     display:grid!important;
-    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
     grid-template-rows:none!important;
     border:0!important;
     background:rgba(1,7,18,.48)!important;
@@ -283,8 +290,8 @@ button,a,input,select,summary{touch-action:manipulation}
     background:transparent!important;
     overflow:hidden!important;
   }
-  .homepage-brand-wall .brand-wall-item:nth-child(4n),
-  .homepage-brand-wall .brand-wall-discovery:nth-child(4n){border-right:0!important}
+  .homepage-brand-wall .brand-wall-item:nth-child(3n),
+  .homepage-brand-wall .brand-wall-discovery:nth-child(3n){border-right:0!important}
   .homepage-brand-wall .brand-wall-item img{
     width:78%!important;
     height:66%!important;
@@ -347,9 +354,57 @@ button,a,input,select,summary{touch-action:manipulation}
 }
 
 @media (max-width:360px){
-  .homepage-brand-wall .brand-wall-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-  .homepage-brand-wall .brand-wall-item:nth-child(4n),
-  .homepage-brand-wall .brand-wall-discovery:nth-child(4n){border-right:1px solid rgba(220,231,250,.16)!important}
+  .homepage-brand-wall .brand-wall-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .homepage-brand-wall .brand-wall-item:nth-child(3n),
-  .homepage-brand-wall .brand-wall-discovery:nth-child(3n){border-right:0!important}
+  .homepage-brand-wall .brand-wall-discovery:nth-child(3n){border-right:1px solid rgba(220,231,250,.16)!important}
+  .homepage-brand-wall .brand-wall-item:nth-child(2n),
+  .homepage-brand-wall .brand-wall-discovery:nth-child(2n){border-right:0!important}
+}
+
+/* Final mobile treatment for About: readable horizontal copy and quiet layouts. */
+@media (max-width:900px){
+  .presence-story .about-story-copy{
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:88svh!important;
+  }
+  .presence-story .about-story-copy .story-proof{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .presence-story .about-story-copy .story-proof>span:last-child{grid-column:1/-1!important}
+  .presence-story .about-story-copy .story-proof strong{font-size:clamp(2.3rem,11vw,3.35rem)!important}
+  .about-header-actions{gap:.35rem!important;padding:.32rem .35rem!important}
+  .about-header-actions .return-home{
+    display:inline-flex!important;
+    min-height:29px!important;
+    padding:0 .68rem!important;
+    font-size:.52rem!important;
+    letter-spacing:.12em!important;
+  }
+  .africa-atlas-shell{grid-template-columns:1fr!important;padding:0 var(--mobile-gutter)!important}
+  .africa-map-panel{position:relative!important;top:auto!important;height:54svh!important;min-height:360px!important;order:1!important}
+  .africa-map-svg{width:100%!important;height:50svh!important;max-height:500px!important;filter:none!important}
+  .africa-map-copy{order:2!important;padding:0 0 4rem!important}
+  .africa-copy-panel,.africa-copy-intro{min-height:0!important;padding:3.5rem 0!important}
+  .africa-copy-panel h2{font-size:clamp(2.35rem,10.5vw,4.5rem)!important}
+  .africa-copy-panel h3{font-size:clamp(1.9rem,8.5vw,3.35rem)!important}
+  .model-scene-copy{padding:5rem var(--mobile-gutter)!important;display:block!important}
+  .model-introduction{display:block!important;margin-top:2rem!important}
+  .model-introduction p+p{margin-top:1rem!important}
+  .model-path{display:block!important;margin-top:2.5rem!important;padding:0!important;border-top:1px solid rgba(21,23,27,.2)!important;border-bottom:1px solid rgba(21,23,27,.2)!important}
+  .model-path:before,.model-path:after{display:none!important}
+  .model-path li{
+    min-height:0!important;
+    padding:1.6rem 0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:.7rem!important;
+    border:0!important;
+    border-top:1px solid rgba(21,23,27,.14)!important;
+    text-align:left!important;
+  }
+  .model-path li:first-child{border-top:0!important}
+  .model-path strong,.model-path small,.model-step{display:block!important;grid-column:auto!important;grid-row:auto!important;max-width:none!important;color:inherit}
+  .model-path small{color:#6c7075!important;font-size:.72rem!important;line-height:1.65!important}
 }

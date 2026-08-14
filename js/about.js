@@ -1,14 +1,10 @@
 const aboutCopy = {
   en: {
-    modelCapabilityOne: 'Brand stewardship',
-    modelCapabilityTwo: 'Stock & supply',
-    modelCapabilityThree: 'Market execution',
     atlasReachKicker: 'The network',
-    atlasInstruction: 'Select a highlighted market to explore the footprint',
     vipulRole: 'Founder',
     sundeepRole: 'Co-Founder & Director',
     chandniRole: 'Commercial Head & Brand Manager',
-    returnHome: 'Return home',
+    returnHome: 'Home',
     signature: 'Global Brands, Local Reach',
     presenceTransitionOne: 'Across Africa,',
     presenceTransitionTwo: 'local knowledge',
@@ -73,9 +69,6 @@ const aboutCopy = {
     addressLabel: 'Address', addressValue: 'Dubai World Centre, Dubai U.A.E', emailLabel: 'E-mail'
   },
   fr: {
-    modelCapabilityOne: 'Gestion de marque',
-    modelCapabilityTwo: 'Stock et approvisionnement',
-    modelCapabilityThree: 'Exécution commerciale',
     atlasReachKicker: 'Le réseau',
     atlasReachTitle: 'Des marchés sélectionnés à travers le continent.',
     atlasMarketKicker: 'Intelligence locale',
@@ -84,11 +77,10 @@ const aboutCopy = {
     atlasContinuityKicker: 'Continuité régionale',
     atlasContinuityTitle: 'Une voie claire vers le marché pour les portefeuilles de parfumerie et de beauté.',
     atlasContinuityBody: 'Pour les marques qui entrent ou se développent en Afrique, Space assure le lien B2B entre distribution de parfums en gros, relations avec les détaillants, disponibilité des produits et connaissance des marchés régionaux.',
-    atlasInstruction: 'Sélectionnez un marché surligné pour explorer notre présence',
     vipulRole: 'Fondateur',
     sundeepRole: 'Cofondateur et directeur',
     chandniRole: 'Directrice commerciale et Brand Manager',
-    returnHome: 'Retour à l\'accueil',
+    returnHome: 'Accueil',
     signature: 'Marques mondiales, présence locale',
     presenceTransitionOne: 'À travers l\'Afrique,',
     presenceTransitionTwo: 'la connaissance locale',
