@@ -1,6 +1,7 @@
 .edge-preview/
 .git/
 node_modules/
+dist/
 .env
 .env.*
 *.zip
@@ -14,10 +15,10 @@ brand kit/Brand Guide line.pdf
 brand kit/gif_2.gif
 brand kit/gif_3.gif
 server.js
-package.json
 README.md
 tools/
 docs/
+sitemap.xml
 
 # Raw campaign source library. Production uses the optimized derivatives and
 # generated manifests in assets/_derivatives and assets/_catalog.

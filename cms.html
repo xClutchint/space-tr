@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Space Content Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/cms.css?v=1">
+</head>
+<body>
+  <section class="cms-login" data-login>
+    <form class="cms-login-card" data-login-form>
+      <img src="brand%20kit/Space%20Logo-20-transparent.png" alt="Space">
+      <p>Private content studio</p>
+      <h1>Welcome back.</h1>
+      <label><span>ID</span><input name="username" autocomplete="username" required></label>
+      <label><span>Password</span><input name="password" type="password" autocomplete="current-password" required></label>
+      <button type="submit">Enter studio</button>
+      <p class="cms-form-message" data-login-message aria-live="polite"></p>
+    </form>
+  </section>
+
+  <div class="cms-app" data-app hidden>
+    <aside class="cms-sidebar">
+      <a class="cms-mark" href="index.html" target="_blank" aria-label="Open website"><img src="brand%20kit/Space%20Logo-20-transparent.png" alt="Space"></a>
+      <nav aria-label="CMS sections">
+        <button class="is-active" data-section-button="overview">Overview</button>
+        <button data-section-button="media">Homepage media</button>
+        <button data-section-button="careers">Careers</button>
+        <button data-section-button="posts">Posts</button>
+        <button data-section-button="assets">Asset library</button>
+      </nav>
+      <button class="cms-signout" data-logout>Sign out</button>
+    </aside>
+    <main class="cms-main">
+      <header class="cms-topbar">
+        <div><span>Space / Content Studio</span><strong data-section-title>Overview</strong></div>
+        <div class="cms-actions"><span class="cms-save-state" data-save-state>All changes published</span><a href="index.html" target="_blank">View site</a><button data-publish>Publish changes</button></div>
+      </header>
+
+      <section class="cms-section is-active" data-section="overview">
+        <div class="cms-section-heading"><p>Editorial control</p><h1>One considered source.</h1><span>Manage the live homepage, opportunities and journal without touching code.</span></div>
+        <div class="cms-stat-grid">
+          <article><span>Open roles</span><strong data-stat-jobs>0</strong><a href="careers.html" target="_blank">View careers</a></article>
+          <article><span>Published posts</span><strong data-stat-posts>0</strong><a href="posts.html" target="_blank">View journal</a></article>
+          <article><span>Managed media</span><strong data-stat-media>0</strong><button data-go-assets>Open library</button></article>
+        </div>
+        <article class="cms-note"><p>Search visibility</p><h2>Every active role has its own indexable page.</h2><span>The CMS publishes Google JobPosting data on a dedicated URL and refreshes the live sitemap. Google controls crawl timing, but the technical signals update immediately.</span></article>
+      </section>
+
+      <section class="cms-section" data-section="media">
+        <div class="cms-section-heading"><p>Homepage</p><h1>Campaign surfaces.</h1><span>Choose two hero boards and build the lower horizontal carousel from the asset library.</span></div>
+        <div class="cms-hero-slots" data-hero-slots></div>
+        <div class="cms-subheading"><div><p>Lower carousel</p><h2>Sequence</h2></div><button data-add-carousel>Add from library</button></div>
+        <div class="cms-sequence" data-carousel-list></div>
+      </section>
+
+      <section class="cms-section" data-section="careers">
+        <div class="cms-section-heading"><p>Careers</p><h1>Open opportunities.</h1><span>Active roles appear on the careers directory, in the sitemap and as Google Jobs-compatible pages.</span></div>
+        <div class="cms-list-toolbar"><span data-career-count></span><button data-new-job>New role</button></div>
+        <div class="cms-record-list" data-jobs-list></div>
+      </section>
+
+      <section class="cms-section" data-section="posts">
+        <div class="cms-section-heading"><p>Journal</p><h1>Posts & perspectives.</h1><span>Publish company news and market thinking directly to the Posts page.</span></div>
+        <div class="cms-list-toolbar"><span data-post-count></span><button data-new-post>New post</button></div>
+        <div class="cms-record-list" data-posts-list></div>
+      </section>
+
+      <section class="cms-section" data-section="assets">
+        <div class="cms-section-heading"><p>Media</p><h1>Asset library.</h1><span>Upload web-ready campaign images and films. Each file can be assigned to any homepage surface.</span></div>
+        <label class="cms-dropzone"><input type="file" data-upload multiple accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"><strong>Upload assets</strong><span>JPG, PNG, WebP, AVIF, GIF, MP4 or WebM · up to 3 MB each</span></label>
+        <p class="cms-upload-state" data-upload-state aria-live="polite"></p>
+        <div class="cms-asset-grid" data-assets-grid></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="cms-dialog" data-editor-dialog><form method="dialog" data-editor-form><header><div><p data-editor-kicker>Editor</p><h2 data-editor-title></h2></div><button value="cancel" aria-label="Close">×</button></header><div class="cms-editor-fields" data-editor-fields></div><footer><button value="cancel">Cancel</button><button value="save" data-editor-save>Save draft</button></footer></form></dialog>
+  <dialog class="cms-dialog cms-picker" data-picker-dialog><form method="dialog"><header><div><p>Asset library</p><h2>Choose media</h2></div><button value="cancel" aria-label="Close">×</button></header><div class="cms-picker-grid" data-picker-grid></div><footer><button value="clear" data-picker-clear>Clear selection</button><button value="cancel">Cancel</button></footer></form></dialog>
+  <div class="cms-toast" data-toast role="status" aria-live="polite"></div>
+  <script src="js/cms.js?v=1" defer></script>
+</body>
+</html>

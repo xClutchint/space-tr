@@ -10,6 +10,9 @@ const profile = path.resolve('.edge-preview', `capture-profile-${port}`);
 const width = Number(process.env.CAPTURE_WIDTH || 1440);
 const height = Number(process.env.CAPTURE_HEIGHT || 1000);
 const clickSelector = process.env.CAPTURE_CLICK || '';
+const pageUrl = process.env.CAPTURE_URL || 'http://127.0.0.1:3000/about-space.html';
+const inspectSelector = process.env.CAPTURE_INSPECT || '';
+const customEvaluation = process.env.CAPTURE_EVAL || '';
 
 const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
@@ -51,7 +54,7 @@ async function main() {
 
   try {
     await waitForDebugger();
-    const targetResponse = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent('http://127.0.0.1:3000/about-space.html')}`, { method: 'PUT' });
+    const targetResponse = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent(pageUrl)}`, { method: 'PUT' });
     const target = await targetResponse.json();
     const socket = new WebSocket(target.webSocketDebuggerUrl);
     await new Promise((resolve, reject) => {
@@ -62,6 +65,10 @@ async function main() {
     await send(socket, 'Runtime.enable');
     await send(socket, 'Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width <= 760 });
     await delay(2200);
+    if (customEvaluation) {
+      await send(socket, 'Runtime.evaluate', { expression: customEvaluation, awaitPromise: true, returnByValue: true });
+      await delay(2600);
+    }
     const expression = `(async () => { document.documentElement.style.scrollBehavior='auto'; const target=document.querySelector(${JSON.stringify(selector)}); if(target) window.scrollTo(0,target.getBoundingClientRect().top + window.scrollY); await document.fonts.ready; await new Promise(resolve => setTimeout(resolve, 1200)); if(target) window.scrollTo(0,target.getBoundingClientRect().top + window.scrollY); await new Promise(resolve => setTimeout(resolve, 450)); })()`;
     await send(socket, 'Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true });
     const position = await send(socket, 'Runtime.evaluate', {
@@ -69,6 +76,13 @@ async function main() {
       returnByValue: true,
     });
     console.log(JSON.stringify(position.result?.value || null));
+    if (inspectSelector) {
+      const inspection = await send(socket, 'Runtime.evaluate', {
+        expression: `(() => { const target=document.querySelector(${JSON.stringify(inspectSelector)}); if(!target)return {found:false}; const style=getComputedStyle(target); return {found:true,tag:target.tagName,cursor:style.cursor,caretColor:style.caretColor}; })()`,
+        returnByValue: true,
+      });
+      console.log(JSON.stringify(inspection.result?.value || null));
+    }
     if (clickSelector) {
       const interaction = await send(socket, 'Runtime.evaluate', {
         expression: `(() => { const target=document.querySelector(${JSON.stringify(clickSelector)}); target?.click(); return {clicked:Boolean(target),selected:document.querySelectorAll('.africa-map-svg .is-selected').length,country:document.querySelector('[data-map-country]')?.textContent,resetVisible:!document.querySelector('[data-map-reset]')?.hidden}; })()`,

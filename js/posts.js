@@ -21,7 +21,8 @@
   };
 
   const buttons = [...document.querySelectorAll('[data-lang]')];
-  const cards = [...document.querySelectorAll('[data-post-card]')];
+  let cards = [...document.querySelectorAll('[data-post-card]')];
+  const postsList = document.querySelector('.posts-list');
   const searchInput = document.querySelector('[data-post-search]');
   const topicSelect = document.querySelector('[data-post-topic]');
   const yearSelect = document.querySelector('[data-post-year]');
@@ -91,5 +92,39 @@
     updateFilters();
   });
   buttons.forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+  async function hydratePosts() {
+    try {
+      const response = await fetch('/api/content', { headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('CMS unavailable');
+      const content = await response.json();
+      if (!Array.isArray(content.posts) || !postsList) throw new Error('Invalid posts data');
+      postsList.replaceChildren(...content.posts.map(post => {
+        const article = document.createElement('article');
+        article.className = `post-card${post.imageUrl ? ' post-card-with-image' : ''}`;
+        article.dataset.postCard = '';
+        article.dataset.postTopic = post.topic || 'Updates';
+        article.dataset.postYear = String(post.date || '').slice(0, 4);
+        if (post.imageUrl) {
+          const visual = document.createElement('div'); visual.className = 'post-image';
+          const image = document.createElement('img'); image.src = post.imageUrl; image.alt = post.title || ''; image.loading = 'lazy'; visual.append(image); article.append(visual);
+        }
+        const body = document.createElement('div'); body.className = 'post-body';
+        const meta = document.createElement('div'); meta.className = 'post-meta';
+        const label = document.createElement('span'); label.className = 'post-label'; label.textContent = post.topic || 'Updates'; meta.append(label);
+        const time = document.createElement('time'); time.dateTime = post.date || ''; time.textContent = post.date ? new Intl.DateTimeFormat(currentLanguage, { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${post.date}T00:00:00Z`)) : ''; meta.append(time); body.append(meta);
+        const heading = document.createElement('h2'); heading.textContent = post.title || ''; body.append(heading);
+        const copyNode = document.createElement('div'); copyNode.className = 'post-copy';
+        String(post.body || post.excerpt || '').split(/\n{2,}/).filter(Boolean).forEach(value => { const paragraph = document.createElement('p'); paragraph.textContent = value; copyNode.append(paragraph); }); body.append(copyNode);
+        if (post.externalUrl) { const link = document.createElement('a'); link.href = post.externalUrl; link.target = '_blank'; link.rel = 'noopener'; link.textContent = 'Read more'; body.append(link); }
+        article.append(body); return article;
+      }));
+      cards = [...postsList.querySelectorAll('[data-post-card]')];
+      setLanguage(currentLanguage);
+    } catch (error) {
+      updateFilters();
+    }
+  }
+
   setLanguage(localStorage.getItem('space-language') || 'en');
+  hydratePosts();
 })();

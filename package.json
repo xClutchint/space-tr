@@ -2,6 +2,9 @@
   "name": "space-corporate-site",
   "version": "1.0.0",
   "private": true,
+  "dependencies": {
+    "@vercel/blob": "2.8.0"
+  },
   "scripts": {
     "optimize:media": "powershell -NoProfile -ExecutionPolicy Bypass -File ./tools/optimize-media.ps1",
     "generate:media": "node tools/generate-media-manifest.js",
@@ -12,6 +15,6 @@
     "test": "npm run test:hero-rotation && npm run test:responsive",
     "prestart": "npm run generate:media && npm run generate:posts",
     "start": "node server.js",
-    "build": "npm run generate:media && npm run generate:posts"
+    "build": "node build-vercel.js"
   }
 }

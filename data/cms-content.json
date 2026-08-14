@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-14T00:00:00.000Z",
+  "media": {
+    "hero": [null, null],
+    "carousel": []
+  },
+  "jobs": [
+    {
+      "id": "job-brand-manager",
+      "slug": "brand-manager-dubai",
+      "title": "Brand Manager",
+      "department": "Brand management",
+      "location": "Dubai, UAE",
+      "locality": "Dubai",
+      "region": "Dubai",
+      "countryCode": "AE",
+      "employmentType": "FULL_TIME",
+      "datePosted": "2026-07-28",
+      "validThrough": "2026-10-31T23:59:59+04:00",
+      "summary": "Lead the growth, positioning and commercial development of selected fragrance and beauty brands across Space markets.",
+      "description": "Space is seeking a Brand Manager to steward selected fragrance and beauty brands across regional markets. The role connects brand strategy with disciplined local execution, retail relationships and long-term commercial growth.",
+      "responsibilities": ["Own annual brand plans, launch calendars and commercial targets", "Coordinate retail execution, marketing activity and partner reporting", "Monitor sell-in, sell-through, inventory and market performance", "Protect each brand's positioning and presentation across channels"],
+      "qualifications": ["Relevant brand management experience in fragrance, beauty or luxury", "Strong commercial, analytical and presentation skills", "Ability to work across markets and stakeholder groups", "Professional fluency in English"],
+      "applyEmail": "careers@space-tr.com",
+      "active": true
+    },
+    {
+      "id": "job-sales-executive",
+      "slug": "sales-executive-nairobi",
+      "title": "Sales Executive",
+      "department": "Sales & distribution",
+      "location": "Nairobi, Kenya",
+      "locality": "Nairobi",
+      "region": "Nairobi County",
+      "countryCode": "KE",
+      "employmentType": "FULL_TIME",
+      "datePosted": "2026-07-16",
+      "validThrough": "2026-10-31T23:59:59+03:00",
+      "summary": "Develop retail relationships and deliver thoughtful sales execution for Space's fragrance and beauty portfolio in Kenya.",
+      "description": "Space is seeking a Sales Executive to develop trusted retail relationships and support the distribution of international fragrance and beauty brands in Kenya.",
+      "responsibilities": ["Manage an agreed portfolio of retail accounts", "Build sell-in plans and maintain accurate sales forecasts", "Coordinate launches, product availability and in-store execution", "Share structured market and competitor feedback"],
+      "qualifications": ["Relevant sales experience in beauty, fragrance, FMCG or luxury retail", "Strong relationship-building and negotiation skills", "Organised, accountable and comfortable working in the field", "Professional fluency in English"],
+      "applyEmail": "careers@space-tr.com",
+      "active": true
+    },
+    {
+      "id": "job-logistics-coordinator",
+      "slug": "logistics-coordinator-dubai",
+      "title": "Logistics Coordinator",
+      "department": "Operations & logistics",
+      "location": "Dubai, UAE",
+      "locality": "Dubai",
+      "region": "Dubai",
+      "countryCode": "AE",
+      "employmentType": "FULL_TIME",
+      "datePosted": "2026-07-04",
+      "validThrough": "2026-10-31T23:59:59+04:00",
+      "summary": "Coordinate reliable inventory movement, order fulfilment and documentation across Space's regional distribution network.",
+      "description": "Space is seeking a Logistics Coordinator to support dependable inventory movement, order fulfilment and documentation across regional markets.",
+      "responsibilities": ["Coordinate inbound and outbound shipments", "Maintain accurate order, inventory and shipping records", "Work with warehouses, freight partners and internal teams", "Track exceptions and communicate delivery status clearly"],
+      "qualifications": ["Relevant logistics, supply-chain or operations experience", "Strong attention to detail and follow-through", "Confidence with spreadsheets and operational systems", "Professional fluency in English"],
+      "applyEmail": "careers@space-tr.com",
+      "active": true
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-regional-knowledge",
+      "slug": "why-regional-knowledge-matters",
+      "title": "Why regional knowledge matters in fragrance distribution",
+      "topic": "Market perspective",
+      "date": "2026-08-07",
+      "excerpt": "International fragrance and beauty brands enter markets with a defined identity. The distributor's role is to preserve that identity while understanding how each retail environment actually works.",
+      "body": "International fragrance and beauty brands enter markets with a defined identity. The distributor's role is to preserve that identity while understanding how each retail environment actually works.\n\nAcross Africa, markets differ in channel structure, consumer expectations and commercial rhythm. Considered distribution connects those local realities with consistent brand representation, product availability and long-term retail relationships.",
+      "imageUrl": "/brand kit/static_1.avif",
+      "published": true
+    }
+  ]
+}

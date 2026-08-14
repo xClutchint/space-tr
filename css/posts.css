@@ -1,3 +1,4 @@
+body{caret-color:transparent}input,textarea,[contenteditable="true"]{caret-color:auto}a[href],button,summary,[role="button"]{cursor:pointer}
 :root {
   --black: #050608;
   --card: #0c0e12;

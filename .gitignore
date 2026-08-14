@@ -1,6 +1,7 @@
 .edge-preview/
 .vercel/
 node_modules/
+dist/
 .env
 .env.*
 !.env.example
@@ -34,5 +35,3 @@ assets/RAMON BEJAR/
 assets/THOO/
 assets/TIZIANA TERENZI/
 assets/XERJOFF/
-
-.vercel

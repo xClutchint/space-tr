@@ -3,7 +3,7 @@ const locationFilter = document.querySelector('[data-career-location]');
 const typeFilter = document.querySelector('[data-career-type]');
 const sortFilter = document.querySelector('[data-career-sort]');
 const list = document.querySelector('[data-career-list]');
-const rows = [...document.querySelectorAll('.career-list-row')];
+let rows = [...document.querySelectorAll('.career-list-row')];
 const status = document.querySelector('[data-career-status]');
 const empty = document.querySelector('[data-career-empty]');
 const pagination = document.querySelector('[data-career-pagination]');
@@ -76,4 +76,52 @@ pagination.addEventListener('click', event => {
   status.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
-filterCareers();
+function employmentLabel(value) {
+  return ({ FULL_TIME: 'Full time', PART_TIME: 'Part time', CONTRACTOR: 'Contract', TEMPORARY: 'Temporary', INTERN: 'Internship', OTHER: 'Other' })[value] || String(value || '').replaceAll('_', ' ');
+}
+
+function filterValue(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function refreshSelect(select, values, firstLabel) {
+  const selected = select.value;
+  select.replaceChildren(new Option(firstLabel, 'all'));
+  values.forEach(([value, label]) => select.add(new Option(label, value)));
+  if ([...select.options].some(option => option.value === selected)) select.value = selected;
+}
+
+async function hydrateCareers() {
+  try {
+    const response = await fetch('/api/content', { headers: { Accept: 'application/json' } });
+    if (!response.ok) throw new Error('CMS unavailable');
+    const content = await response.json();
+    if (!Array.isArray(content.jobs)) throw new Error('Invalid careers data');
+    list.replaceChildren(...content.jobs.map(job => {
+      const row = document.createElement('a');
+      row.className = 'career-list-row';
+      row.href = `/jobs/${encodeURIComponent(job.slug)}`;
+      row.dataset.location = filterValue(job.location);
+      row.dataset.type = filterValue(job.employmentType);
+      row.dataset.date = job.datePosted || '';
+      row.dataset.title = job.title || '';
+      const posted = job.datePosted ? new Intl.DateTimeFormat('en', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${job.datePosted}T00:00:00Z`)) : '';
+      const values = [job.title, job.department, job.location, employmentLabel(job.employmentType)];
+      const strong = document.createElement('strong'); strong.textContent = values.shift(); row.append(strong);
+      values.forEach(value => { const span = document.createElement('span'); span.textContent = value || ''; row.append(span); });
+      const time = document.createElement('time'); time.dateTime = job.datePosted || ''; time.textContent = posted; row.append(time);
+      const action = document.createElement('i'); action.textContent = 'View position'; row.append(action);
+      return row;
+    }));
+    rows = [...list.querySelectorAll('.career-list-row')];
+    const locations = [...new Map(content.jobs.map(job => [filterValue(job.location), job.location])).entries()];
+    const types = [...new Map(content.jobs.map(job => [filterValue(job.employmentType), employmentLabel(job.employmentType)])).entries()];
+    refreshSelect(locationFilter, locations, 'All locations');
+    refreshSelect(typeFilter, types, 'All types');
+  } catch (error) {
+    // The checked-in roles remain as a resilient fallback for local/static use.
+  }
+  filterCareers();
+}
+
+hydrateCareers();

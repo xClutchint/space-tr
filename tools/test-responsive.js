@@ -9,6 +9,8 @@ const PAGES = [
   'index.html',
   'about-space.html',
   'expertise.html',
+  'feelnzuri.html',
+  'space-x-maven.html',
   'posts.html',
   'careers.html',
   'career-brand-manager.html',
