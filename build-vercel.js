@@ -21,7 +21,7 @@ async function build() {
   await rm(output, { recursive: true, force: true });
   await mkdir(output, { recursive: true });
   await Promise.all(pages.map(copy));
-  await Promise.all(['css', 'js', 'assets/_catalog', 'assets/_derivatives'].map(relative => cp(path.join(root, relative), path.join(output, relative), { recursive: true })));
+  await Promise.all(['css', 'js', 'assets/_catalog', 'assets/_derivatives', 'assets/editorial'].map(relative => cp(path.join(root, relative), path.join(output, relative), { recursive: true })));
   await cp(path.join(root, 'brand kit'), path.join(output, 'brand kit'), {
     recursive: true,
     filter: source => !/Brand Guide line\.pdf$|gif_[23]\.gif$/i.test(source)
