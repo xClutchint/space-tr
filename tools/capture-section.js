@@ -64,7 +64,7 @@ async function main() {
     await send(socket, 'Page.enable');
     await send(socket, 'Runtime.enable');
     await send(socket, 'Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width <= 760 });
-    await delay(2200);
+    await delay(4200);
     if (customEvaluation) {
       const customResult = await send(socket, 'Runtime.evaluate', { expression: customEvaluation, awaitPromise: true, returnByValue: true });
       console.log(JSON.stringify(customResult.result?.value || customResult.exceptionDetails || null));
