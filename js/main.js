@@ -396,7 +396,8 @@ if(heroBrandProof){
 const selectCarouselMedia=(limit=20)=>{
   // The lower carousel is manually curated in the media catalogue. Preserve
   // that approved set exactly; never backfill it with unapproved assets.
-  return mediaPool('horizontal',null,'carousel').slice(0,limit);
+  const approved=mediaPool('horizontal',null,'carousel'),byId=new Map(approved.map(item=>[item.id,item]));
+  return (spaceMediaCuration.carousel?.included||[]).map(id=>byId.get(id)).filter(Boolean).slice(0,limit);
 };
 document.querySelectorAll('[data-campaign-carousel]').forEach(carousel=>{
   const track=carousel.querySelector('[data-campaign-track]'),rail=carousel.querySelector('[data-campaign-thumbnails]');
