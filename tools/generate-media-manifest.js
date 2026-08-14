@@ -207,7 +207,11 @@ function generateMediaManifest() {
     });
   }
   media.sort((a, b) => a.brand.localeCompare(b.brand) || a.src.localeCompare(b.src));
-  const generatedAt = new Date().toISOString();
+  let previousManifest = null;
+  try { previousManifest = JSON.parse(fs.readFileSync(path.join(ASSET_ROOT, 'media-manifest.json'), 'utf8')); } catch {}
+  const generatedAt = previousManifest && JSON.stringify(previousManifest.media) === JSON.stringify(media)
+    ? previousManifest.generatedAt
+    : new Date().toISOString();
   const manifest = {
     version: 1,
     generatedAt,
