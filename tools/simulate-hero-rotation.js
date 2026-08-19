@@ -1,8 +1,12 @@
 global.window={};
+const fs=require('node:fs');
 
 require('../assets/brand-taxonomy.js');
 require('../assets/media-curation.js');
-require('../assets/media-manifest.js');
+// Exercise the exact lightweight catalogue loaded by the homepage. Testing the
+// full authoring manifest previously hid regressions where eligible hero media
+// was accidentally omitted from the production runtime.
+require('../assets/media-runtime.js');
 require('../js/hero-scheduler.js');
 
 const taxonomy=window.SPACE_BRAND_TAXONOMY;
@@ -50,12 +54,29 @@ for(const [brand,counts] of assetsByBrand){
   if(spread>1)failures.push(`${brand}: asset exposure spread is ${spread}, expected at most 1`);
 }
 
+let priorOpening=[];
+for(let reload=0;reload<30;reload+=1){
+  const priorIds=new Set(priorOpening.map(item=>item.id));
+  const priorBrands=new Set(priorOpening.map(item=>taxonomy.canonicalize(item.brand)));
+  let candidates=pool.filter(item=>!priorIds.has(item.id)&&!priorBrands.has(taxonomy.canonicalize(item.brand)));
+  if(new Set(candidates.map(item=>taxonomy.canonicalize(item.brand))).size<2)candidates=pool.filter(item=>!priorIds.has(item.id));
+  const opening=window.SpaceHeroScheduler.create(candidates,{pairSize:2,canonicalize:taxonomy.canonicalize}).nextPair();
+  if(opening.some(item=>priorIds.has(item.id)))failures.push(`reload ${reload+1}: opening asset repeated`);
+  if(opening.some(item=>priorBrands.has(taxonomy.canonicalize(item.brand))))failures.push(`reload ${reload+1}: opening brand repeated`);
+  priorOpening=opening;
+}
+
+const homepage=fs.readFileSync(require('node:path').join(__dirname,'..','index.html'),'utf8');
+if((homepage.match(/is-opening-placeholder/g)||[]).length!==2)failures.push('homepage must contain two neutral opening placeholders');
+if(/is-opening-placeholder[^>]*>\s*<img/i.test(homepage))failures.push('opening placeholders must not download fixed photographs');
+
 console.log(JSON.stringify({
   rotations:pairs.length,
   eligibleBrands:scheduler.brandCount,
   eligibleAssets:scheduler.assetCount,
   totalExposures:stats.selections,
   brandExposureRange:[Math.min(...brandCounts),Math.max(...brandCounts)],
+  reloadOpeningsChecked:30,
   failures
 },null,2));
 

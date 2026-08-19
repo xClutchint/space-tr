@@ -90,7 +90,7 @@ function sanitizeJob(item) {
   return {
     id: clean(item.id, 100) || crypto.randomUUID(), slug: slug(item.slug || title), title,
     department: clean(item.department, 120), location: clean(item.location, 160), locality: clean(item.locality, 100), region: clean(item.region, 100), countryCode: clean(item.countryCode, 2).toUpperCase(),
-    employmentType: clean(item.employmentType, 40) || 'FULL_TIME', datePosted: clean(item.datePosted, 10), validThrough: clean(item.validThrough, 40),
+    employmentType: clean(item.employmentType, 40) || 'FULL_TIME', datePosted: clean(item.datePosted, 10), validThrough: clean(item.validThrough, 40), updatedAt: clean(item.updatedAt, 40) || clean(item.datePosted, 10),
     summary: clean(item.summary, 500), description: clean(item.description, 12000), responsibilities: cleanList(item.responsibilities), qualifications: cleanList(item.qualifications),
     applyEmail: clean(item.applyEmail, 200), active: item.active !== false
   };
@@ -99,6 +99,13 @@ function sanitizePost(item) {
   if (!item || typeof item !== 'object' || !item.title) return null;
   const title = clean(item.title, 200);
   return { id: clean(item.id, 100) || crypto.randomUUID(), slug: slug(item.slug || title), title, topic: clean(item.topic, 100), date: clean(item.date, 10), excerpt: clean(item.excerpt, 1000), body: clean(item.body, 30000), imageUrl: clean(item.imageUrl, 2000), externalUrl: clean(item.externalUrl, 2000), published: item.published !== false };
+}
+
+function isJobOpen(job, now = Date.now()) {
+  if (!job || job.active === false) return false;
+  if (!job.validThrough) return true;
+  const closingTime = Date.parse(job.validThrough);
+  return Number.isNaN(closingTime) || closingTime >= now;
 }
 
 async function blobModule() { return import('@vercel/blob'); }
@@ -126,7 +133,7 @@ async function writeState(state) {
 }
 
 function publicState(state) {
-  return { ...state, jobs: state.jobs.filter(job => job.active), posts: state.posts.filter(post => post.published) };
+  return { ...state, jobs: state.jobs.filter(job => isJobOpen(job)), posts: state.posts.filter(post => post.published) };
 }
 
-module.exports = { COOKIE_NAME, MAX_SESSION_AGE, send, parseBody, safeEqual, makeSession, setSessionCookie, isAuthenticated, sameOrigin, sanitizeState, readState, writeState, publicState, clean };
+module.exports = { COOKIE_NAME, MAX_SESSION_AGE, send, parseBody, safeEqual, makeSession, setSessionCookie, isAuthenticated, sameOrigin, sanitizeState, readState, writeState, publicState, isJobOpen, clean };

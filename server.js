@@ -1,8 +1,17 @@
 const http=require('http'),fs=require('fs'),path=require('path'),crypto=require('crypto'),zlib=require('zlib');
 const {generateMediaManifest}=require('./tools/generate-media-manifest');
 const root=__dirname,port=process.env.PORT||3000,rates=new Map(),types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.xml':'application/xml; charset=utf-8','.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.gif':'image/gif','.avif':'image/avif','.webp':'image/webp','.mp4':'video/mp4','.webm':'video/webm','.svg':'image/svg+xml'};
-try{generateMediaManifest()}catch(error){console.warn('Media catalogue could not be generated:',error.message)}
-try{let mediaRefresh;fs.watch(path.join(root,'assets'),{recursive:true},(_event,file='')=>{const normalized=String(file).replace(/\\/g,'/');if(normalized.startsWith('_catalog/')||normalized.startsWith('_derivatives/')||/media-(manifest|curation)\.(js|json)$|media-analysis\.json$/.test(normalized))return;clearTimeout(mediaRefresh);mediaRefresh=setTimeout(()=>{try{const manifest=generateMediaManifest();console.log(`Media catalogue refreshed: ${manifest.counts.webReady} web-ready files.`)}catch(error){console.warn('Media catalogue refresh failed:',error.message)}},1200)})}catch{}
+const localizedRedirects=new Map([
+  ['/','/en/'],['/index.html','/en/'],['/about-space.html','/en/about-space.html'],
+  ['/expertise.html','/en/expertise.html'],['/feelnzuri.html','/en/feelnzuri.html'],
+  ['/space-x-maven.html','/en/space-x-maven.html'],['/posts.html','/en/posts.html'],
+  ['/careers.html','/en/careers.html']
+]);
+// The catalogue is checked into the project and should be regenerated only
+// when source media changes. Scanning hundreds of OneDrive-hosted originals in
+// the HTTP process blocked local requests. Opt into live regeneration only for
+// dedicated curation sessions with SPACE_WATCH_MEDIA=1.
+if(process.env.SPACE_WATCH_MEDIA==='1')try{let mediaRefresh;fs.watch(path.join(root,'assets'),{recursive:true},(_event,file='')=>{const normalized=String(file).replace(/\\/g,'/');if(normalized.startsWith('_catalog/')||normalized.startsWith('_derivatives/')||/media-(manifest|curation|runtime)\.(js|json)$|media-analysis\.json$/.test(normalized))return;clearTimeout(mediaRefresh);mediaRefresh=setTimeout(()=>{try{const manifest=generateMediaManifest();console.log(`Media catalogue refreshed: ${manifest.counts.webReady} web-ready files.`)}catch(error){console.warn('Media catalogue refresh failed:',error.message)}},1200)})}catch{}
 function json(res,status,data){res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data))}
 function safeText(v,max){return typeof v==='string'?v.trim().slice(0,max):''}
 async function contact(req,res){let raw='';req.on('data',c=>{raw+=c;if(raw.length>16000)req.destroy()});req.on('end',async()=>{let b;try{b=JSON.parse(raw)}catch{return json(res,400,{message:'Invalid request.'})}if(b.website)return json(res,200,{message:'Thank you.'});const ip=(req.headers['x-forwarded-for']||req.socket.remoteAddress||'').split(',')[0],now=Date.now(),recent=(rates.get(ip)||[]).filter(t=>now-t<3600000);if(recent.length>=5)return json(res,429,{message:'Too many enquiries. Please try again later.'});rates.set(ip,[...recent,now]);const name=safeText(b.name,100),email=safeText(b.email,160),company=safeText(b.company,160),message=safeText(b.message,4000);if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||message.length<10)return json(res,400,{message:'Please complete all required fields.'});if(!process.env.RESEND_API_KEY||!process.env.CONTACT_TO)return json(res,503,{message:'The form is being connected. Please email info@space-tr.com directly.'});try{const response=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${process.env.RESEND_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({from:process.env.CONTACT_FROM||'Space Website <onboarding@resend.dev>',to:[process.env.CONTACT_TO],reply_to:email,subject:`Website enquiry — ${company||name}`,text:`Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\n${message}\n\nRef: ${crypto.randomUUID()}`})});if(!response.ok)throw Error();json(res,200,{message:'Thank you. Our team will be in touch.'})}catch{json(res,502,{message:'Unable to send right now. Please email info@space-tr.com.'})}})}
@@ -67,7 +76,13 @@ http.createServer((req,res)=>{
   if(!['GET','HEAD'].includes(req.method)){res.writeHead(405,{'Allow':'GET, HEAD, POST'});return res.end('Method not allowed')}
   let url;
   try{url=decodeURIComponent(req.url.split('?')[0])}catch{res.writeHead(400);return res.end('Bad request')}
+  if(localizedRedirects.has(url)){
+    const query=req.url.includes('?')?`?${req.url.split('?').slice(1).join('?')}`:'';
+    res.writeHead(308,{'Location':`${localizedRedirects.get(url)}${query}`,'Cache-Control':'no-store'});
+    return res.end();
+  }
   if(url==='/')url='/index.html';
+  else if(url.endsWith('/'))url+='index.html';
   const file=path.resolve(root,`.${url}`);
   const relative=path.relative(root,file);
   if(relative.startsWith('..')||path.isAbsolute(relative)){res.writeHead(403);return res.end('Forbidden')}

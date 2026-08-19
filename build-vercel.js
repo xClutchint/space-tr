@@ -1,5 +1,6 @@
 const { cp, mkdir, rm, copyFile } = require('node:fs/promises');
 const path = require('node:path');
+const { generateLocalizedPages } = require('./tools/generate-localized-pages');
 
 const root = __dirname;
 const output = path.join(root, 'dist');
@@ -18,10 +19,12 @@ async function copy(relative) {
 }
 
 async function build() {
+  generateLocalizedPages();
   await rm(output, { recursive: true, force: true });
   await mkdir(output, { recursive: true });
   await Promise.all(pages.map(copy));
   await Promise.all(['css', 'js', 'cms', 'assets/_catalog', 'assets/_derivatives', 'assets/editorial'].map(relative => cp(path.join(root, relative), path.join(output, relative), { recursive: true })));
+  await Promise.all(['en', 'fr'].map(relative => cp(path.join(root, relative), path.join(output, relative), { recursive: true })));
   await cp(path.join(root, 'brand kit'), path.join(output, 'brand kit'), {
     recursive: true,
     filter: source => !/Brand Guide line\.pdf$|gif_[23]\.gif$/i.test(source)

@@ -2,6 +2,14 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "redirects": [
+    { "source": "/", "destination": "/en/", "permanent": true },
+    { "source": "/index.html", "destination": "/en/", "permanent": true },
+    { "source": "/about-space.html", "destination": "/en/about-space.html", "permanent": true },
+    { "source": "/expertise.html", "destination": "/en/expertise.html", "permanent": true },
+    { "source": "/feelnzuri.html", "destination": "/en/feelnzuri.html", "permanent": true },
+    { "source": "/space-x-maven.html", "destination": "/en/space-x-maven.html", "permanent": true },
+    { "source": "/posts.html", "destination": "/en/posts.html", "permanent": true },
+    { "source": "/careers.html", "destination": "/en/careers.html", "permanent": true },
     { "source": "/cms.html", "destination": "/cms/", "permanent": true }
   ],
   "rewrites": [

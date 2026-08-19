@@ -5,15 +5,24 @@
   "dependencies": {
     "@vercel/blob": "2.8.0"
   },
+  "devDependencies": {
+    "sharp": "0.35.3"
+  },
   "scripts": {
     "optimize:media": "powershell -NoProfile -ExecutionPolicy Bypass -File ./tools/optimize-media.ps1",
     "generate:media": "node tools/generate-media-manifest.js",
+    "generate:hero-mobile": "node tools/generate-hero-mobile.js",
+    "generate:locales": "node tools/generate-localized-pages.js",
     "generate:posts": "node tools/generate-posts-page.js",
+    "sync:niche-stage": "node tools/sync-niche-stage-assets.js",
     "sync:linkedin": "node tools/sync-linkedin-posts.js",
     "test:hero-rotation": "node tools/simulate-hero-rotation.js",
     "test:responsive": "node tools/test-responsive.js",
-    "test": "npm run test:hero-rotation && npm run test:responsive",
-    "prestart": "npm run generate:media && npm run generate:posts",
+    "test:jobs": "node tools/test-job-postings.js",
+    "test:portfolio": "node tools/test-portfolio.js",
+    "test:locales": "node tools/test-locales.js",
+    "test": "npm run test:hero-rotation && npm run test:locales && npm run test:responsive && npm run test:jobs && npm run test:portfolio",
+    "prestart": "npm run generate:posts && npm run generate:locales",
     "start": "node server.js",
     "build": "node build-vercel.js"
   }

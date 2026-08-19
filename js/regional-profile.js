@@ -4,7 +4,7 @@
   const translations = {
     feelnzuri: {
       en: {
-        returnHome:'Return home', kicker:'Fragrance lounge · Nairobi',
+        returnHome:'Home', kicker:'Fragrance lounge · Nairobi',
         headline:'FeelNzuri',
         lead:'A refined fragrance lounge where niche perfumery meets the warmth of African hospitality.',
         body:'FeelNzuri creates a considered setting for fragrance discovery—bringing distinctive perfume houses, knowledgeable guidance and a welcoming retail experience together in one intimate destination.',
@@ -12,7 +12,7 @@
         next:'Explore Space × Maven', caption:'Fragrance, experienced personally'
       },
       fr: {
-        returnHome:'Retour à l’accueil', kicker:'Salon de parfumerie · Nairobi',
+        returnHome:'Accueil', kicker:'Salon de parfumerie · Nairobi',
         headline:'FeelNzuri',
         lead:'Un salon raffiné où la parfumerie de niche rencontre la chaleur de l’hospitalité africaine.',
         body:'FeelNzuri propose un cadre pensé pour la découverte olfactive, réunissant maisons de parfum singulières, conseil attentif et expérience retail accueillante au sein d’une destination intime.',

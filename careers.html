@@ -5,76 +5,88 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Explore current fragrance, beauty, sales, brand management and logistics career opportunities at Space across Africa, the UAE and regional markets.">
   <title>Careers at Space | Fragrance &amp; Beauty Distribution</title>
+  <link rel="canonical" href="https://www.space-tr.com/en/careers.html">
+  <link rel="alternate" hreflang="en" href="https://www.space-tr.com/en/careers.html">
+  <link rel="alternate" hreflang="fr" href="https://www.space-tr.com/fr/careers.html">
+  <link rel="alternate" hreflang="x-default" href="https://www.space-tr.com/en/careers.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Space">
+  <meta property="og:title" content="Careers at Space | Fragrance &amp; Beauty Distribution">
+  <meta property="og:description" content="Explore current career opportunities across the Space distribution business.">
+  <meta property="og:url" content="https://www.space-tr.com/en/careers.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css?v=careers-people-1">
-  <link rel="stylesheet" href="css/careers.css?v=9">
-  <link rel="stylesheet" href="css/responsive.css?v=5">
+  <link rel="stylesheet" href="css/careers.css?v=10">
+  <link rel="stylesheet" href="css/responsive.css?v=6">
 </head>
 <body class="careers-page">
   <header class="career-header">
     <a class="career-brand" href="index.html" aria-label="Space home"><img src="brand%20kit/identity/Space%20Logo-20-transparent.png" alt="Space"></a>
-    <a class="career-home-link" href="index.html">Return home</a>
+    <div class="career-header-actions">
+      <a class="career-home-link" href="index.html" data-i18n="home">Home</a>
+      <div class="career-language" role="group" aria-label="Language">
+        <span aria-hidden="true"></span>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+    </div>
   </header>
 
   <main>
     <section class="career-manifesto" aria-labelledby="career-quote">
       <blockquote>
         <p id="career-quote">
-          <span class="career-quote-line" style="--quote-line:0">Take away my people, but leave my factories, and soon grass will grow on the factory floors.</span>
-          <span class="career-quote-line" style="--quote-line:1">Take away my factories, but leave my people, and soon we shall have a new and better factory.</span>
+          <span class="career-quote-line" style="--quote-line:0" data-i18n="quoteOne">Take away my people, but leave my factories, and soon grass will grow on the factory floors.</span>
+          <span class="career-quote-line" style="--quote-line:1" data-i18n="quoteTwo">Take away my factories, but leave my people, and soon we shall have a new and better factory.</span>
         </p>
         <cite>Andrew Carnegie</cite>
       </blockquote>
-      <a class="career-manifesto-link" href="#open-positions">Explore open positions</a>
+      <a class="career-manifesto-link" href="#open-positions" data-i18n="explorePositions">Explore open positions</a>
     </section>
 
     <section class="career-directory" id="open-positions" aria-labelledby="open-positions-title">
       <header class="career-directory-header">
         <div>
-          <p class="career-kicker">Join Space</p>
-          <h1 id="open-positions-title">Open positions</h1>
+          <h1 id="open-positions-title" data-i18n="openPositions">Open positions</h1>
         </div>
-        <p>Explore current opportunities across our fragrance and beauty distribution business.</p>
+        <p data-i18n="directoryIntro">Explore current opportunities across our distribution business.</p>
       </header>
 
-      <form class="career-filters" aria-label="Filter open positions" onsubmit="return false">
-        <label class="career-search-field"><span>Search</span><input type="search" data-career-search placeholder="Role or department" autocomplete="off"></label>
-        <label><span>Location</span><select data-career-location><option value="all">All locations</option><option value="dubai-uae">Dubai, UAE</option><option value="nairobi-kenya">Nairobi, Kenya</option></select></label>
-        <label><span>Employment type</span><select data-career-type><option value="all">All types</option><option value="full-time">Full time</option><option value="part-time">Part time</option></select></label>
-        <label><span>Sort by</span><select data-career-sort><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="title">Role A–Z</option></select></label>
-        <button type="button" data-career-reset>Reset</button>
+      <form class="career-filters" aria-label="Filter open positions" data-i18n-aria="filtersAria" onsubmit="return false">
+        <label><span data-i18n="location">Location</span><select data-career-location><option value="all" data-i18n="allLocations">All locations</option><option value="dubai-uae">Dubai, UAE</option><option value="nairobi-kenya">Nairobi, Kenya</option></select></label>
+        <label><span data-i18n="employmentType">Employment type</span><select data-career-type><option value="all" data-i18n="allTypes">All types</option><option value="full-time" data-i18n="fullTime">Full time</option><option value="part-time" data-i18n="partTime">Part time</option></select></label>
+        <label><span data-i18n="sortBy">Sort by</span><select data-career-sort><option value="newest" data-i18n="newestFirst">Newest first</option><option value="oldest" data-i18n="oldestFirst">Oldest first</option><option value="title" data-i18n="roleAz">Role A–Z</option></select></label>
       </form>
 
       <div class="career-results-meta">
-        <p data-career-status aria-live="polite">Showing all 3 open positions</p>
-        <span>Updated opportunities</span>
+        <p data-career-status aria-live="polite" data-i18n="initialStatus">Showing all 3 open positions</p>
       </div>
 
-      <div class="career-list-head" aria-hidden="true"><span>Role</span><span>Department</span><span>Location</span><span>Type</span><span>Posted</span><span></span></div>
+      <div class="career-list-head" aria-hidden="true"><span data-i18n="role">Role</span><span data-i18n="department">Department</span><span data-i18n="location">Location</span><span data-i18n="type">Type</span><span data-i18n="posted">Posted</span><span></span></div>
       <div class="career-list" data-career-list>
         <a class="career-list-row" href="career-brand-manager.html" data-location="dubai-uae" data-type="full-time" data-date="2026-07-28" data-title="Brand Manager">
-          <strong>Brand Manager</strong><span>Brand management</span><span>Dubai, UAE</span><span>Full time</span><time datetime="2026-07-28">28 Jul 2026</time><i>View position</i>
+          <strong>Brand Manager</strong><span data-i18n="brandManagement">Brand management</span><span>Dubai, UAE</span><span data-i18n="fullTime">Full time</span><time datetime="2026-07-28">28 Jul 2026</time><i data-i18n="viewPosition">View position</i>
         </a>
         <a class="career-list-row" href="career-sales-executive.html" data-location="nairobi-kenya" data-type="full-time" data-date="2026-07-16" data-title="Sales Executive">
-          <strong>Sales Executive</strong><span>Sales &amp; distribution</span><span>Nairobi, Kenya</span><span>Full time</span><time datetime="2026-07-16">16 Jul 2026</time><i>View position</i>
+          <strong>Sales Executive</strong><span data-i18n="salesDistribution">Sales &amp; distribution</span><span>Nairobi, Kenya</span><span data-i18n="fullTime">Full time</span><time datetime="2026-07-16">16 Jul 2026</time><i data-i18n="viewPosition">View position</i>
         </a>
         <a class="career-list-row" href="career-logistics-coordinator.html" data-location="dubai-uae" data-type="full-time" data-date="2026-07-04" data-title="Logistics Coordinator">
-          <strong>Logistics Coordinator</strong><span>Operations &amp; logistics</span><span>Dubai, UAE</span><span>Full time</span><time datetime="2026-07-04">04 Jul 2026</time><i>View position</i>
+          <strong>Logistics Coordinator</strong><span data-i18n="operationsLogistics">Operations &amp; logistics</span><span>Dubai, UAE</span><span data-i18n="fullTime">Full time</span><time datetime="2026-07-04">04 Jul 2026</time><i data-i18n="viewPosition">View position</i>
         </a>
       </div>
-      <div class="career-empty" data-career-empty hidden><strong>No matching positions</strong><p>Try another search, location or employment type.</p><button type="button" data-career-empty-reset>Show all positions</button></div>
-      <nav class="career-pagination" data-career-pagination aria-label="Open-position pages"></nav>
+      <div class="career-empty" data-career-empty hidden><strong data-i18n="noMatching">No matching positions</strong><p data-i18n="tryAnother">Try another location or employment type.</p><button type="button" data-career-empty-reset data-i18n="showAll">Show all positions</button></div>
+      <nav class="career-pagination" data-career-pagination aria-label="Open-position pages" data-i18n-aria="paginationAria"></nav>
     </section>
 
     <section class="career-open-door" aria-labelledby="open-door-title">
-      <p class="career-kicker">Beyond the current openings</p>
+      <p class="career-kicker" data-i18n="beyondOpenings">Beyond the current openings</p>
       <div class="career-open-door-grid">
-        <h2 id="open-door-title">The right role may not be listed yet.</h2>
+        <h2 id="open-door-title" data-i18n="rightRole">The right role may not be listed yet.</h2>
         <div>
-          <p>We are always interested in hearing from talented people whose ability, relevant experience and perspective could contribute to Space—even when the right role is not yet listed. Every application is considered on merit, potential and the requirements of the role, with equal opportunity under applicable law.</p>
-          <a href="mailto:careers@space-tr.com?subject=Career%20interest%20at%20Space">Email our team</a>
+          <p data-i18n="openDoorBody">We welcome talented people whose experience and perspective could strengthen Space, even when no suitable role is listed. Every application is considered on merit and potential.</p>
+          <a href="mailto:careers@space-tr.com?subject=Career%20interest%20at%20Space" data-i18n="emailTeam">Email our team</a>
         </div>
       </div>
     </section>
@@ -84,12 +96,11 @@
   <footer class="site-footer compact-contact-footer">
     <a class="footer-space-mark" href="index.html" aria-label="Space home"><img src="brand%20kit/identity/Space%20Logo-20-transparent.png" alt="Space"></a>
     <div class="footer-contact-line">
-      <div class="footer-contact-item"><span>Address</span><p>Dubai World Centre, Dubai U.A.E</p></div>
-      <div class="footer-contact-item"><span>E-mail</span><a href="mailto:info@space-tr.com">info@space-tr.com</a></div>
+      <div class="footer-contact-item"><span data-i18n="address">Address</span><p>Dubai World Centre, Dubai U.A.E</p></div>
+      <div class="footer-contact-item"><span data-i18n="email">E-mail</span><a href="mailto:info@space-tr.com">info@space-tr.com</a></div>
     </div>
-    <p class="footer-statement">Global Brands, Local Reach</p>
     <div class="footer-base"><span>&copy; 2026 Space</span></div>
   </footer>
-  <script src="js/careers.js?v=4" defer></script>
+  <script src="js/careers.js?v=6" defer></script>
 </body>
 </html>

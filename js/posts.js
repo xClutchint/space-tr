@@ -1,21 +1,21 @@
 (() => {
   const copy = {
     en: {
-      home: 'Return home', kicker: 'The Space journal', headline: 'Posts.',
+      home: 'Home', kicker: 'The Space journal', headline: 'Posts.',
       intro: 'Ideas, observations and company updates from the worlds of fragrance, beauty and regional distribution.',
       featuredKicker: 'Selected posts', featuredTitle: 'From the journal.', featuredIntro: 'Scroll through recent perspectives from Space.', viewAll: 'View all posts',
       archive: 'Archive', browse: 'Browse the journal', search: 'Search', topic: 'Topic', year: 'Year',
       reset: 'Reset filters', journal: 'The latest from Space', latest: 'Perspectives & updates',
-      noResults: 'No posts match these filters.', address: 'Address', email: 'E-mail', tagline: 'Global Brands, Local Reach',
+      noResults: 'No posts match these filters.', address: 'Address', email: 'E-mail',
       searchPlaceholder: 'Search posts', allTopics: 'All topics', allYears: 'All years', onePost: '1 post', manyPosts: count => `${count} posts`
     },
     fr: {
-      home: "Retour à l'accueil", kicker: 'Le journal de Space', headline: 'Publications.',
+      home: 'Accueil', kicker: 'Le journal de Space', headline: 'Publications.',
       intro: "Idées, observations et actualités de l'entreprise dans les univers de la parfumerie, de la beauté et de la distribution régionale.",
       featuredKicker: 'Publications choisies', featuredTitle: 'Le journal.', featuredIntro: 'Parcourez les dernières perspectives de Space.', viewAll: 'Voir toutes les publications',
       archive: 'Archives', browse: 'Parcourir le journal', search: 'Rechercher', topic: 'Sujet', year: 'Année',
       reset: 'Réinitialiser', journal: 'Les dernières publications de Space', latest: 'Perspectives et actualités',
-      noResults: 'Aucune publication ne correspond à ces filtres.', address: 'Adresse', email: 'E-mail', tagline: 'Marques mondiales, portée locale',
+      noResults: 'Aucune publication ne correspond à ces filtres.', address: 'Adresse', email: 'E-mail',
       searchPlaceholder: 'Rechercher une publication', allTopics: 'Tous les sujets', allYears: 'Toutes les années', onePost: '1 publication', manyPosts: count => `${count} publications`
     }
   };

@@ -1,6 +1,6 @@
 # Portfolio brand stage imagery
 
-These local WebP derivatives power the homepage portfolio hover stage. Sources were retrieved on 2026-08-14. Official brand-owned pages and media servers were used wherever a usable campaign visual was exposed; a few campaign frames came from established retailer pages when the brand storefront blocked access or exposed only a low-quality image.
+These local WebP derivatives power the homepage portfolio hover stage. Sources were retrieved on 2026-08-14 and 2026-08-15. Official brand-owned pages and media servers were used wherever a usable campaign visual was exposed; a few campaign frames came from established retailer pages when the brand storefront blocked access or exposed only a low-quality image.
 
 Before reusing these images in paid media or outside the distributor portfolio context, confirm the applicable brand-partner usage rights.
 
@@ -33,3 +33,17 @@ Before reusing these images in paid media or outside the distributor portfolio c
 | Armaf | `armaf.webp` | [Official site](https://armaf.com/) | Official |
 | Scalpers Yacht Club | `scalpers-yacht-club.webp` | [Official product page](https://eu.scalperscompany.com/products/bp-99844-sc-yacht-eau-parfum-vapo-125ml-nos-blue) | Official |
 | Diesel | `diesel.webp` | [Lifestyle campaign listing](https://www.lifestylestores.com/in/en/SHOP-Diesel-Neutral-DIESEL-D-Red-Eau-de-Parfum-Gift-Set--Pack-of-3-For-Men/p/1000014317568) | Retailer fallback |
+| Matiere Premiere | `matiere-premiere.webp` | [Official site](https://matiere-premiere.com/en) | Official |
+| Escentric Molecules | `escentric-molecules.webp` | [Official site](https://www.escentric.com/) | Official |
+| Oman Luxury | `oman-luxury.webp` | [Official site](https://omanluxury.store/) | Official |
+| Atkinsons | `atkinsons.webp` | [Official site](https://www.atkinsons1799.com/) | Official |
+| Brunello Cucinelli | `brunello-cucinelli.webp` | [Official fragrance page](https://shop.brunellocucinelli.com/en-us/fragrances/mens-fragrances/mens-eau-de-parfum-3.4-fl.oz.-100-ml-261MQ40301010C00U01.html) | Official |
+| Akro | `akro.webp` | [Official site](https://akrofragrances.com/) | Official |
+| THOO | `thoo.webp` | [Official fragrance page](https://thoo.it/product/the-time-en/) | Official |
+| Essential Parfums | `essential-parfums.webp` | [Official site](https://www.essentialparfums.com/) | Official |
+| Born to Stand Out | `born-to-stand-out.webp` | [Official site](https://borntostandout.com/) | Official |
+| New Notes | `new-notes.webp` | [Official site](https://www.newnotesparfum.com/) | Official |
+| Sospiro | `sospiro.webp` | [Official site](https://sospirointernational.com/) | Official |
+| Spirit of Dubai | `spirit-of-dubai.webp` | [Official site](https://www.thespiritofdubai.com/) | Official |
+| Spirit of Kings | `spirit-of-kings.webp` | [Official site](https://thespiritofkings.com/) | Official |
+| Maison Noir | `maison-noir.webp` | [Official site](https://maison-noir.com/) | Official |

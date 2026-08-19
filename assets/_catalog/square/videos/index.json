@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-08-14T16:54:37.429Z",
+  "generatedAt": "2026-08-15T14:11:19.921Z",
   "entries": [
     {
       "id": "3247c59fc3aa1f0d",
       "src": "assets/ESCENTRIC MOLECULE/champaca_1080X1080_15sec_v1.mp4",
       "optimizedSrc": null,
       "thumbnailSrc": null,
+      "mobileSrc": null,
       "brand": "ESCENTRIC MOLECULE",
       "label": "champaca 1080X1080 15sec v1",
       "type": "video",
@@ -25,6 +26,7 @@
       "src": "assets/ESCENTRIC MOLECULE/Champaca_1080X1080_30sec_hero.mp4",
       "optimizedSrc": null,
       "thumbnailSrc": null,
+      "mobileSrc": null,
       "brand": "ESCENTRIC MOLECULE",
       "label": "Champaca 1080X1080 30sec hero",
       "type": "video",
@@ -44,6 +46,7 @@
       "src": "assets/ESSENTIAL PARFUMS/3760393040096_video_perfumer_98s_2160x2160_sten.mp4",
       "optimizedSrc": null,
       "thumbnailSrc": null,
+      "mobileSrc": null,
       "brand": "ESSENTIAL PARFUMS",
       "label": "3760393040096 video perfumer 98s 2160x2160 sten",
       "type": "video",

@@ -78,7 +78,6 @@ const localeCopy={
     previousMember:'Previous team member',nextMember:'Next team member',closeProfile:'Close profile',profileLabel:'Leadership profile',
     contactHeadline:'Get in touch',contactIntro:'For any inquiries or concerns, please reach out via e-mail and we will be pleased to assist you.',
     addressLabel:'Address',addressValue:'Dubai World Centre, Dubai U.A.E',emailLabel:'E-mail',
-    footerTagline:'Global Brands, Local Reach',
     footerCopyright:'© 2026 Space',
     nameLabel:'Name',formEmailLabel:'Email',messageLabel:'Message',submit:'Submit',
     languageLabel:'Language',selectedBrands:'Selected brands',campaignsLabel:'Space brand campaigns',
@@ -122,7 +121,6 @@ const localeCopy={
     previousMember:'Profil précédent',nextMember:'Profil suivant',closeProfile:'Fermer le profil',profileLabel:'Profil de direction',
     contactHeadline:'Parlons de vos projets',contactIntro:'Pour toute demande ou question, écrivez-nous. Notre équipe se fera un plaisir de vous accompagner.',
     addressLabel:'Adresse',addressValue:'Dubai World Centre, Dubaï, Émirats arabes unis',emailLabel:'E-mail',
-    footerTagline:'Marques internationales, portée locale',
     footerCopyright:'© 2026 Space',
     nameLabel:'Nom',formEmailLabel:'E-mail',messageLabel:'Message',submit:'Envoyer',
     languageLabel:'Langue',selectedBrands:'Sélection de marques',campaignsLabel:'Campagnes de marques Space',
@@ -256,7 +254,7 @@ const isEditorialAsset=item=>!/(pack[ -]?shot|png images|no background|textclipp
 // large to ship to every visitor. Legacy curated fallbacks remain available.
 const mediaPool=(orientation,type,slot)=>spaceMediaLibrary.filter(item=>item.webReady&&item.optimizedSrc&&!brandTaxonomy.isRetired(item.brand)&&item.orientation===orientation&&(!type||item.type===type)&&isEditorialAsset(item)&&(!slot||slotAllowsMedia(item,slot)));
 const mediaLabel=item=>`${item.brand||'Space'} ${item.label||'campaign'} visual`;
-const buildMediaElement=(item,{deferSource=false}={})=>{
+const buildMediaElement=(item,{deferSource=false,responsive=false}={})=>{
   const source=encodeAssetPath(item.optimizedSrc||item.src);
   if(item.type==='video'){
     const video=document.createElement('video');
@@ -266,6 +264,7 @@ const buildMediaElement=(item,{deferSource=false}={})=>{
   }
   const image=document.createElement('img');
   image.alt=mediaLabel(item);image.draggable=false;image.decoding='async';
+  if(responsive&&item.mobileSrc){image.srcset=`${encodeAssetPath(item.mobileSrc)} 800w, ${source} 1440w`;image.sizes='(max-width: 900px) 100vw, 50vw'}
   if(deferSource)image.dataset.src=source;else image.src=source;
   return image;
 };
@@ -283,9 +282,22 @@ const heroRotators=[...document.querySelectorAll('[data-asset-rotator]')];
 if(heroRotators.length){
   cmsContentPromise.then(cmsContent=>{
   const cmsHero=(cmsContent?.media?.hero||[]).map(cmsMediaItem).filter(Boolean),heroPool=mediaPool('vertical',null,'hero');
-  const scheduler=window.SpaceHeroScheduler?.create(cmsHero.length?cmsHero:(heroPool.length?heroPool:fallbackVertical),{
+  const rotationPool=cmsHero.length?cmsHero:(heroPool.length?heroPool:fallbackVertical);
+  let previousOpeningIds=[];
+  try{previousOpeningIds=JSON.parse(localStorage.getItem('space-hero-opening-v2')||'[]')}catch{previousOpeningIds=[]}
+  const previousOpeningItems=heroPool.filter(item=>previousOpeningIds.includes(item.id));
+  const previousOpeningBrands=new Set(previousOpeningItems.map(item=>brandTaxonomy.canonicalize(item.brand)));
+  let openingCandidates=heroPool.filter(item=>!previousOpeningIds.includes(item.id)&&!previousOpeningBrands.has(brandTaxonomy.canonicalize(item.brand)));
+  if(new Set(openingCandidates.map(item=>brandTaxonomy.canonicalize(item.brand))).size<heroRotators.length)openingCandidates=heroPool.filter(item=>!previousOpeningIds.includes(item.id));
+  const openingPair=!cmsHero.length&&openingCandidates.length
+    ? window.SpaceHeroScheduler?.create(openingCandidates,{pairSize:heroRotators.length,canonicalize:brandTaxonomy.canonicalize})?.nextPair()||[]
+    : [];
+  let pendingOpeningPair=[...openingPair];
+  let openingRecorded=false;
+  const scheduler=window.SpaceHeroScheduler?.create(rotationPool,{
     pairSize:heroRotators.length,
-    canonicalize:brandTaxonomy.canonicalize
+    canonicalize:brandTaxonomy.canonicalize,
+    previousItems:openingPair
   });
   const pendingRotations=new WeakMap();
   let timer;
@@ -294,7 +306,7 @@ if(heroRotators.length){
     const frame=document.createElement('div');frame.className='asset-rotator-frame is-staging';frame.dataset.assetId=item.id;
     const previewSource=item.thumbnailSrc||item.optimizedSrc||item.src;
     if(previewSource)frame.style.backgroundImage=`url("${encodeAssetPath(previewSource)}")`;
-    const media=buildMediaElement(item);frame.append(media);
+    const media=buildMediaElement(item,{responsive:true});frame.append(media);
     const isInitialFrame=!rotator.querySelector('.asset-rotator-frame.is-active');
     if(media.tagName==='IMG'&&isInitialFrame)media.fetchPriority='high';
     // Insert the matching lightweight preview immediately. The full image or
@@ -339,9 +351,20 @@ if(heroRotators.length){
       if(media.readyState>=2)activate();
     }
   };
-  const advance=()=>{if(!isNearViewport(heroRotators[0],.1))return;(cmsHero.length?cmsHero:scheduler?.nextPair()||[]).forEach((item,index)=>{if(heroRotators[index]&&item)show(heroRotators[index],item)})};
+  const advance=()=>{
+    if(!isNearViewport(heroRotators[0],.1))return;
+    const pair=cmsHero.length?cmsHero:(pendingOpeningPair.length?pendingOpeningPair.splice(0):scheduler?.nextPair()||[]);
+    if(!cmsHero.length&&pair.length&&!openingRecorded){
+      openingRecorded=true;
+      try{localStorage.setItem('space-hero-opening-v2',JSON.stringify(pair.map(item=>item.id)))}catch{}
+    }
+    pair.forEach((item,index)=>{if(heroRotators[index]&&item)show(heroRotators[index],item)});
+  };
+  // The HTML contains only a zero-byte neutral frame. Select an approved pair
+  // immediately so every load begins with fresh campaign photography without
+  // downloading a fixed pair first.
   advance();
-  const heroRotationInterval=4250;
+  const heroRotationInterval=2125;
   if(!cmsHero.length&&!reducedMotionQuery.matches&&!lowPowerMode)timer=window.setInterval(advance,heroRotationInterval);
   heroRotators.forEach(rotator=>{
     rotator.addEventListener('mouseenter',()=>window.clearInterval(timer));
@@ -984,11 +1007,25 @@ if(brandWall){
     'Montale Paris':{src:'assets/_derivatives/display/f30c6eed92ce277b.jpg',objectPosition:'50% 50%'},
     'Mancera Paris':{src:'assets/_derivatives/display/48dce12c370eabbe.jpg',objectPosition:'50% 50%'},
     'Afnan Perfumes':{src:'assets/_derivatives/display/735c4b66931fb62f.jpg',objectPosition:'50% 50%'},
-    'Atelier des Ors':{src:'assets/_derivatives/display/5eb138828dd40fb1.jpg',objectPosition:'50% 50%'}
+    'Atelier des Ors':{src:'assets/_derivatives/display/5eb138828dd40fb1.jpg',objectPosition:'50% 50%'},
+    'Matiere Premiere':{src:'assets/editorial/brands/matiere-premiere.webp',objectPosition:'50% 50%'},
+    'Escentric Molecules':{src:'assets/editorial/brands/escentric-molecules.webp',objectPosition:'50% 50%'},
+    'Oman Luxury':{src:'assets/editorial/brands/oman-luxury.webp',objectPosition:'50% 50%'},
+    'Atkinsons':{src:'assets/editorial/brands/atkinsons.webp',objectPosition:'50% 50%'},
+    'Brunello Cucinelli':{src:'assets/editorial/brands/brunello-cucinelli.webp',objectPosition:'50% 50%'},
+    'Akro':{src:'assets/editorial/brands/akro.webp',objectPosition:'50% 50%'},
+    'THOO':{src:'assets/editorial/brands/thoo.webp',objectPosition:'50% 50%'},
+    'Essential Parfums':{src:'assets/editorial/brands/essential-parfums.webp',objectPosition:'50% 50%'},
+    'Born to Stand Out':{src:'assets/editorial/brands/born-to-stand-out.webp',objectPosition:'55% 50%'},
+    'New Notes':{src:'assets/editorial/brands/new-notes.webp',objectPosition:'50% 50%'},
+    'Sospiro':{src:'assets/editorial/brands/sospiro.webp',objectPosition:'50% 50%'},
+    'Spirit of Dubai':{src:'assets/editorial/brands/spirit-of-dubai.webp',objectPosition:'50% 50%'},
+    'Spirit of Kings':{src:'assets/editorial/brands/spirit-of-kings.webp',objectPosition:'50% 50%'},
+    'Maison Noir':{src:'assets/editorial/brands/maison-noir.webp',objectPosition:'50% 50%'}
   };
   const campaignAssetsByBrand=new Map();
   Object.entries(sourcedBrandStageAssets).forEach(([name,asset])=>campaignAssetsByBrand.set(name,asset));
-  const lightCanvasBrands=new Set([1,2,3,4,5,6,7,9,13,14,15,17,19,20,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,40]);
+  const lightCanvasBrands=new Set([1,2,3,4,5,6,7,9,13,14,15,17,19,20,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,40,...Array.from({length:14},(_,index)=>index+41)]);
   const contrastCanvasBrands=new Set([21]);
   wallGrid.innerHTML=brandWallRecords.map(record=>{const name=record.name,number=record.logoNumber;return `<article class="brand-wall-item${campaignAssetsByBrand.has(name)?' has-campaign-asset':''}${lightCanvasBrands.has(number)?' has-light-canvas':''}${contrastCanvasBrands.has(number)?' needs-contrast-canvas':''}" tabindex="0" aria-label="${name}"><img src="${portfolioLogoPath(record)}" alt="${name}" loading="lazy" decoding="async"></article>`}).join('')+`<button class="brand-wall-discovery" type="button" aria-label="Discover another portfolio brand"><span class="brand-wall-discovery-orbit" aria-hidden="true"><i></i></span><span>Discover<br>another</span></button>`;
   const wallItems=[...wallGrid.querySelectorAll('.brand-wall-item')];

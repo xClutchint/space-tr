@@ -172,7 +172,7 @@ button,a,input,select,summary{touch-action:manipulation}
   /* Careers */
   .career-header{height:76px!important;padding:0 var(--mobile-gutter)!important;gap:.8rem!important}
   .career-brand{width:clamp(108px,32vw,138px)!important;flex:0 0 auto!important}
-  .career-home-link{max-width:78px!important;font-size:.48rem!important;line-height:1.25!important;letter-spacing:.1em!important;white-space:normal!important;text-align:right!important}
+  .career-home-link{max-width:none!important;min-height:31px!important;padding:0 .85rem!important;font-size:.5rem!important;line-height:1!important;letter-spacing:.12em!important;white-space:nowrap!important;text-align:center!important}
   .career-manifesto{min-height:88svh!important;padding:7rem var(--mobile-gutter) 5rem!important}
   .career-manifesto blockquote{width:calc(100vw - (2 * var(--mobile-gutter)))!important;max-width:100%!important}
   .career-manifesto blockquote p{width:100%!important;max-width:100%!important;font-size:clamp(1.3rem,5.35vw,1.85rem)!important;line-height:1.18!important;overflow-wrap:break-word!important;text-wrap:wrap!important}

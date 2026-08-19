@@ -9,8 +9,8 @@ module.exports = async function handler(req, res) {
     try {
       const previous = await readState();
       const state = await writeState(parseBody(req));
-      const protocol = String(req.headers['x-forwarded-proto'] || 'https').split(',')[0];
-      state.indexing = await notifyIndexing(previous, state, `${protocol}://${req.headers.host}`);
+      const publicOrigin = String(process.env.PUBLIC_SITE_URL || 'https://www.space-tr.com').replace(/\/+$/, '');
+      state.indexing = await notifyIndexing(previous, state, publicOrigin);
       return send(res, 200, state);
     }
     catch (error) { return send(res, 503, { error: error.message }); }

@@ -39,7 +39,7 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .about-cover-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(4,6,9,.3));pointer-events:none}
 .about-cover-media img{object-position:center;filter:saturate(.82) contrast(.96);transform:scale(1.01)}
 .about-cover-copy{position:relative;z-index:2;width:min(760px,43vw);padding:clamp(10rem,18vh,14rem) 0 clamp(5rem,10vh,8rem);margin-left:auto;margin-right:clamp(3rem,8vw,10rem);display:flex;flex-direction:column;justify-content:center}
-.cover-signature,.chapter-heading>p,.atlas-kicker,.section-kicker{margin:0 0 1.5rem;color:#8e6541;font-size:.66rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase}
+.cover-signature,.chapter-heading>p,.atlas-kicker,.section-kicker{margin:0 0 1.5rem;color:#70757b;font-size:.66rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase}
 .about-cover h1{max-width:760px;margin:0;font:400 clamp(2.8rem,3.75vw,4.75rem)/1 var(--serif);letter-spacing:-.04em;text-transform:uppercase;text-wrap:balance}
 .cover-lead{max-width:680px;margin:2.5rem 0 0;color:rgba(251,250,247,.68);font-size:clamp(.93rem,.92vw,1.06rem);line-height:1.85}
 .cover-scroll,.editorial-link{align-self:flex-start;margin-top:2rem;padding:.72rem 0 .45rem;border-bottom:1px solid currentColor;font-size:.65rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase;transition:opacity .25s ease,letter-spacing .25s ease}
@@ -100,7 +100,7 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .africa-map-svg path.is-market:hover,.africa-map-svg path.is-market:focus-visible,.africa-map-svg path.is-market.is-selected{opacity:1;filter:saturate(1.12) brightness(1.08) drop-shadow(0 9px 13px rgba(16,18,22,.2));transform:scale(1.025);outline:none}
 .africa-map-caption{position:absolute;right:0;bottom:clamp(.25rem,1vh,.8rem);width:min(300px,34vw);min-height:68px;padding:.7rem 0 .3rem;display:flex;justify-content:space-between;align-items:end;text-align:right;background:transparent}
 .africa-map-caption>div{margin-left:auto}
-.africa-map-label{color:#8e6541;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase}
+.africa-map-label{color:#747980;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase}
 .africa-map-caption strong{display:block;margin-top:.32rem;font:400 clamp(1.55rem,2.2vw,2.45rem) var(--serif);text-transform:uppercase}
 .africa-map-caption button{border:0;border-bottom:1px solid currentColor;background:none;color:var(--ink);padding:.4rem 0;cursor:pointer;font-size:.57rem;letter-spacing:.16em;text-transform:uppercase}
 .africa-editorial{min-height:100svh;padding:clamp(6rem,12vh,10rem) clamp(2rem,6vw,7rem);display:grid;grid-template-columns:minmax(340px,.82fr) minmax(520px,1.18fr);gap:clamp(3rem,9vw,10rem);align-items:center;background:#f5f1ea;color:var(--ink)}
@@ -262,13 +262,13 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 
 .business-model{min-height:100svh;background:linear-gradient(135deg,#080b11,#111a27 58%,#1b2b40);color:#f6f2ea}
 .model-scene-copy{min-height:100svh;padding:clamp(5rem,10vh,8rem) clamp(1.5rem,7vw,9rem) clamp(3rem,6vh,5rem);display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;gap:clamp(2rem,5vh,4rem);align-content:center}
-.model-scene-copy .chapter-heading{max-width:920px}.model-scene-copy .chapter-heading .section-kicker{color:#c9a56d}
+.model-scene-copy .chapter-heading{max-width:920px}.model-scene-copy .chapter-heading .section-kicker{color:rgba(246,242,234,.58)}
 .model-scene-copy .chapter-heading h2{max-width:920px;font-size:clamp(2.8rem,5.4vw,6.4rem)}
 .model-introduction{max-width:920px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,7rem);color:rgba(251,250,247,.77);font-size:clamp(.84rem,.95vw,1rem);line-height:1.82}
 .model-path{grid-column:1;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.26);border-bottom:1px solid rgba(255,255,255,.18)}
 .model-path li{min-height:150px;display:grid;grid-template-rows:auto auto auto;align-content:center;justify-items:start;gap:.8rem;padding:1.4rem 2rem;text-align:left}
 .model-path li:not(:last-child):after{right:-2.6rem;width:5.2rem;background:linear-gradient(90deg,rgba(201,165,109,.2),rgba(201,165,109,.9),rgba(201,165,109,.2))}
-.model-step{color:#c9a56d;font-size:.58rem;letter-spacing:.2em}.model-path strong{font-size:clamp(1.05rem,1.55vw,1.7rem)}
+.model-step{color:rgba(246,242,234,.52);font-size:.58rem;letter-spacing:.2em}.model-path strong{font-size:clamp(1.05rem,1.55vw,1.7rem)}
 .model-path small{max-width:250px;color:rgba(251,250,247,.6);font-size:.67rem;line-height:1.6;letter-spacing:.04em}
 
 @media(max-width:760px){
@@ -397,7 +397,7 @@ h1,h2,p,figure,dl,dd{margin-top:0}
   letter-spacing:.012em;
 }
 .africa-copy-panel .section-kicker{
-  color:#9a7550;
+  color:#70757b;
 }
 .atlas-total{
   margin-top:clamp(2rem,5vh,3.5rem);
@@ -591,7 +591,7 @@ h1,h2,p,figure,dl,dd{margin-top:0}
   color:#111820;
   text-align:right;
 }
-.map-caption-index{padding-top:.16rem;color:#9a7550;font-size:.55rem;font-weight:500;letter-spacing:.18em}
+.map-caption-index{padding-top:.16rem;color:#747980;font-size:.55rem;font-weight:500;letter-spacing:.18em}
 .africa-map-caption>div{margin:0}
 .africa-map-caption strong{display:block;margin:0;font:400 clamp(1.65rem,2.35vw,2.8rem)/.95 var(--serif);letter-spacing:-.035em;text-transform:uppercase}
 .africa-map-caption p{margin:.35rem 0 0;color:#697079;font-size:.63rem;line-height:1.45;letter-spacing:.05em}
@@ -614,11 +614,11 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .africa-copy-panel h2{margin:0 0 2rem;font:400 clamp(3rem,5.25vw,6.8rem)/.88 var(--serif);letter-spacing:-.058em;text-transform:uppercase;text-wrap:balance}
 .africa-copy-panel h3{max-width:640px;margin:.8rem 0 1.45rem;font:400 clamp(2.15rem,3.2vw,4.15rem)/.94 var(--serif);letter-spacing:-.048em;text-transform:uppercase;text-wrap:balance}
 .africa-copy-panel p:not(.section-kicker){max-width:610px;margin:0;color:#646c75;font-size:clamp(.88rem,.98vw,1.04rem);line-height:1.84;letter-spacing:.01em}
-.africa-copy-panel .section-kicker{color:#936c48}
+.africa-copy-panel .section-kicker{color:#70757b}
 .market-index{list-style:none;margin:2.2rem 0 0;padding:1.4rem 0 0;border-top:1px solid rgba(17,24,32,.14);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 1.6rem;counter-reset:markets}
 .market-index li{counter-increment:markets}
 .market-index button{width:100%;padding:.15rem 0;border:0;background:none;color:#656c73;display:flex;gap:.6rem;align-items:center;cursor:pointer;text-align:left;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;transition:color .2s ease,transform .2s ease}
-.market-index button:before{content:counter(markets,decimal-leading-zero);color:#a27b58;font-size:.48rem;letter-spacing:.12em}
+.market-index button:before{content:counter(markets,decimal-leading-zero);color:#747980;font-size:.48rem;letter-spacing:.12em}
 .market-index button:hover,.market-index button:focus-visible,.market-index button.is-active{color:#0e151d;transform:translateX(3px);outline:none}
 .atlas-total{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(17,24,32,.16);display:flex;align-items:flex-end;gap:1rem}
 .atlas-total strong{font:400 clamp(4.5rem,7vw,8rem)/.75 var(--serif);letter-spacing:-.07em;color:#111820}
@@ -646,7 +646,7 @@ h1,h2,p,figure,dl,dd{margin-top:0}
   gap:clamp(2.5rem,6vh,5rem) clamp(3rem,8vw,10rem);
   align-content:center;
 }
-.model-scene-copy .chapter-heading{max-width:800px}.model-scene-copy .chapter-heading .section-kicker{color:#c8a275}
+.model-scene-copy .chapter-heading{max-width:800px}.model-scene-copy .chapter-heading .section-kicker{color:rgba(247,243,235,.58)}
 .model-scene-copy .chapter-heading h2{max-width:800px;margin:0;font:400 clamp(3.1rem,5.1vw,6.2rem)/.91 var(--serif);letter-spacing:-.054em;text-transform:uppercase;text-wrap:balance}
 .model-introduction{max-width:660px;align-self:end;color:rgba(247,243,235,.69);font-size:clamp(.84rem,.94vw,1rem);line-height:1.82}
 .model-introduction p{margin:0}.model-introduction p+p{margin-top:1.3rem}
@@ -698,13 +698,13 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .scale-visual img{filter:saturate(.58) contrast(1.08);object-position:center}
 .scale-visual span{position:absolute;z-index:2;left:2rem;bottom:2.2rem;color:rgba(255,255,255,.54);font-size:.5rem;letter-spacing:.2em;writing-mode:vertical-rl;transform:rotate(180deg)}
 .scale-editorial{position:relative;z-index:2;grid-column:2;grid-row:1;min-height:112svh;padding:clamp(6rem,11vh,9rem) clamp(2rem,7vw,9rem);display:flex;flex-direction:column;justify-content:center}
-.scale-heading .section-kicker{color:#c8a275}
+.scale-heading .section-kicker{color:rgba(245,241,233,.55)}
 .scale-heading h2{max-width:920px;margin:0;font:400 clamp(2.9rem,4.6vw,5.7rem)/.95 var(--serif);letter-spacing:-.05em;text-transform:uppercase;text-wrap:balance}
 .scale-copy{max-width:900px;margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,3.5rem);color:rgba(245,241,233,.6);font-size:.82rem;line-height:1.78}
 .scale-numbers{width:100%;margin:clamp(2.4rem,5vh,4.5rem) 0 0;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.13);display:grid;grid-template-columns:repeat(3,1fr)}
 .scale-numbers div{min-height:142px;padding:1.55rem 1.2rem 1.3rem 0;border-right:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;justify-content:space-between}
 .scale-numbers div:not(:first-child){padding-left:1.4rem}.scale-numbers div:last-child{border-right:0}
-.scale-numbers dt{color:#d5b185;font:400 clamp(3rem,4.7vw,5.8rem)/.86 var(--serif);letter-spacing:-.04em}
+.scale-numbers dt{color:#f5f1e9;font:400 clamp(3rem,4.7vw,5.8rem)/.86 var(--serif);letter-spacing:-.04em}
 .scale-numbers dd{color:rgba(245,241,233,.48);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase}
 .scale-editorial>.editorial-link{margin-top:1.7rem;color:#f5f1e9}
 
@@ -730,7 +730,7 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .timeline-item:before{content:"";position:absolute;left:117px;top:.35rem;width:13px;height:13px;border:4px solid #f5f2ec;border-radius:50%;background:#a47751;box-shadow:0 0 0 1px rgba(164,119,81,.5);transition:transform .7s ease,box-shadow .7s ease}
 .timeline-item.is-visible{opacity:1;transform:none}
 .timeline-item.is-visible:before{transform:scale(1.12);box-shadow:0 0 0 1px rgba(164,119,81,.62),0 0 20px rgba(164,119,81,.24)}
-.timeline-item time{padding-top:.08rem;color:#9b704a;font:400 clamp(1.2rem,1.55vw,1.7rem)/1 var(--serif);letter-spacing:.04em}
+.timeline-item time{padding-top:.08rem;color:#30343a;font:400 clamp(1.2rem,1.55vw,1.7rem)/1 var(--serif);letter-spacing:.04em}
 .timeline-item h3{max-width:650px;margin:0;font:400 clamp(1.7rem,2.5vw,3rem)/1 var(--serif);letter-spacing:-.035em;text-transform:uppercase;text-wrap:balance}
 .timeline-item p{max-width:620px;margin:1rem 0 0;color:#686d72;font-size:clamp(.78rem,.85vw,.92rem);line-height:1.78}
 
@@ -836,20 +836,20 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .business-model{
   min-height:0;
   overflow:visible;
-  background:#f5f2ec;
+  background:#f4f2ed;
   color:#15171b;
 }
 .model-scene-copy{
   min-height:0;
-  padding:clamp(7rem,12vh,10rem) clamp(2rem,7vw,9rem);
+  padding:clamp(6rem,10vh,8rem) clamp(2rem,7vw,9rem);
   display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
+  grid-template-columns:minmax(0,1.22fr) minmax(290px,.78fr);
   grid-template-rows:auto auto;
-  gap:clamp(3rem,7vw,8rem);
-  align-items:start;
+  gap:clamp(2.5rem,6vw,7rem);
+  align-items:end;
 }
 .model-scene-copy .chapter-heading{max-width:820px}
-.model-scene-copy .chapter-heading .section-kicker{color:#8e6541}
+.model-scene-copy .chapter-heading .section-kicker{color:#70757b}
 .model-scene-copy .chapter-heading h2{
   max-width:820px;
   color:#15171b;
@@ -857,10 +857,11 @@ h1,h2,p,figure,dl,dd{margin-top:0}
   line-height:.96;
 }
 .model-introduction{
-  max-width:650px;
+  max-width:520px;
+  padding-bottom:.35rem;
   color:#5e6369;
-  font-size:clamp(.88rem,.96vw,1.02rem);
-  line-height:1.8;
+  font-size:clamp(.94rem,1.04vw,1.12rem);
+  line-height:1.7;
 }
 .model-path{
   grid-column:1/-1;
@@ -872,19 +873,19 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 }
 .model-path:before,.model-path:after{display:none}
 .model-path li{
-  min-height:220px;
-  padding:2rem clamp(1.25rem,2.5vw,2.8rem);
+  min-height:150px;
+  padding:1.65rem clamp(1.25rem,2.5vw,2.8rem);
   display:flex;
   flex-direction:column;
   align-items:flex-start;
   justify-content:flex-start;
-  gap:1.25rem;
+  gap:.75rem;
   border-left:1px solid rgba(21,23,27,.16);
   text-align:left;
 }
 .model-path li:first-child{border-left:0}
 .model-path li:not(:last-child):after{display:none}
-.model-step{color:#8e6541;font-size:.56rem;letter-spacing:.2em}
+.model-step{color:#747980;font-size:.56rem;letter-spacing:.2em}
 .model-path strong{
   max-width:300px;
   color:#15171b;
@@ -894,8 +895,10 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 .model-path small{
   max-width:34ch;
   color:#6c7075;
-  font-size:.72rem;
-  line-height:1.65;
+  font-size:.66rem;
+  line-height:1.5;
+  letter-spacing:.08em;
+  text-transform:uppercase;
 }
 
 @media(max-width:760px){
@@ -911,3 +914,267 @@ h1,h2,p,figure,dl,dd{margin-top:0}
 }
 
 @media(prefers-reduced-motion:reduce){.people-portraits img,.people-portraits figure,.timeline-item{transition:none}.timeline-item{opacity:1;transform:none}.timeline-progress{transform:scaleY(1)}}
+
+/* Presence chapter: one continuous white composition from statement to context. */
+.africa-atlas{
+  position:relative;
+  min-height:0;
+  background:#fff;
+  color:#111820;
+  overflow:clip;
+}
+.africa-atlas:before,
+.africa-atlas .africa-map-panel:before,
+.africa-atlas .africa-map-panel:after{display:none!important}
+.presence-opening{
+  min-height:92svh;
+  padding:clamp(7rem,14vh,11rem) clamp(1.4rem,6vw,8rem);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:#fff;
+}
+.presence-opening .section-kicker{margin-bottom:clamp(2rem,4vh,3.5rem)}
+.presence-opening h2{
+  max-width:1050px;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font:400 clamp(3.4rem,6.2vw,7.7rem)/.88 var(--serif);
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+}
+.presence-opening h2 span{
+  display:block;
+  opacity:.1;
+  filter:blur(5px);
+  transform:translateY(24px);
+  transition:opacity .7s ease,filter .7s ease,transform .8s cubic-bezier(.2,.76,.2,1);
+}
+.presence-opening h2 span.is-word-visible{opacity:1;filter:none;transform:none}
+.presence-opening-lead{
+  margin:clamp(2.5rem,5vh,4.5rem) 0 0;
+  color:#656c73;
+  font-size:clamp(.68rem,.8vw,.86rem);
+  font-weight:400;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+.presence-map-stage{
+  width:min(1540px,100%);
+  margin:0 auto;
+  padding:clamp(4rem,8vh,7rem) clamp(1.4rem,5vw,6.5rem) clamp(6rem,12vh,10rem);
+  background:#fff;
+}
+.presence-map-heading{
+  width:min(1180px,100%);
+  margin:0 auto clamp(1.8rem,4vh,3rem);
+  padding-bottom:clamp(1.3rem,2.5vh,2rem);
+  border-bottom:1px solid rgba(17,24,32,.14);
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:2rem;
+}
+.presence-map-heading .section-kicker{margin:0}
+.presence-map-heading h3{
+  max-width:560px;
+  margin:0;
+  font:400 clamp(1.55rem,2.4vw,2.8rem)/1.02 var(--serif);
+  letter-spacing:-.035em;
+  text-align:right;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
+.africa-atlas .africa-map-panel{
+  position:relative;
+  top:auto;
+  width:min(1180px,100%);
+  height:min(78svh,820px);
+  min-height:610px;
+  margin:0 auto;
+  display:grid;
+  place-items:center;
+  border:0;
+  background:#fff!important;
+  overflow:visible;
+}
+.africa-atlas .africa-map-svg{
+  width:min(72vw,900px);
+  height:min(72svh,760px);
+  max-height:none;
+  filter:none;
+  overflow:visible;
+}
+.africa-atlas .africa-map-svg path.is-context{fill:#ebe8e2!important;stroke:#fff!important}
+.africa-atlas .africa-map-svg path.is-market{fill:#17191d!important;stroke:#fff!important;filter:none}
+.africa-atlas .africa-map-svg path.is-market:hover,
+.africa-atlas .africa-map-svg path.is-market:focus-visible,
+.africa-atlas .africa-map-svg path.is-market.is-selected{
+  fill:#9a7550!important;
+  filter:none;
+  transform:scale(1.015);
+}
+.africa-atlas .africa-map-caption{
+  position:absolute;
+  right:0;
+  bottom:clamp(1rem,3vh,2.5rem);
+  width:min(330px,34vw);
+  min-height:92px;
+  padding:1rem 0 0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.85rem 1.2rem;
+  align-items:start;
+  border-top:1px solid rgba(17,24,32,.2);
+  background:#fff;
+  text-align:left;
+}
+.africa-atlas .map-caption-index{color:#8a8e92;font-size:.51rem;letter-spacing:.16em}
+.africa-atlas .africa-map-caption>div{margin:0}
+.africa-atlas .africa-map-label{display:block;color:#747980;font-size:.51rem;letter-spacing:.18em;text-transform:uppercase}
+.africa-atlas .africa-map-caption strong{display:block;margin:.38rem 0 0;font:400 clamp(1.45rem,2.1vw,2.35rem)/.95 var(--serif);letter-spacing:-.035em;text-transform:uppercase}
+.africa-atlas .africa-map-caption p{margin:.45rem 0 0;color:#697079;font-size:.61rem;line-height:1.45;letter-spacing:.04em}
+.africa-atlas .africa-map-caption button{grid-column:2;justify-self:start;border:0;border-bottom:1px solid currentColor;background:none;color:#111820;padding:.25rem 0;cursor:pointer;font-size:.51rem;letter-spacing:.16em;text-transform:uppercase}
+.africa-atlas .map-instruction{
+  position:absolute;
+  left:0;
+  bottom:clamp(1rem,3vh,2.5rem);
+  margin:0;
+  color:rgba(17,24,32,.47);
+  font-size:.51rem;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+.presence-market-index{
+  width:min(1180px,100%);
+  margin:clamp(3rem,7vh,6rem) auto 0;
+  padding-top:clamp(2rem,4vh,3.5rem);
+  border-top:1px solid rgba(17,24,32,.16);
+  display:grid;
+  grid-template-columns:minmax(160px,.3fr) minmax(0,1fr);
+  column-gap:clamp(3rem,7vw,8rem);
+  align-items:start;
+}
+.presence-market-index .atlas-total{
+  margin:0;
+  padding:0;
+  border:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:1rem;
+}
+.presence-market-index .atlas-total strong{font:400 clamp(5rem,8vw,8.5rem)/.72 var(--serif);letter-spacing:-.07em}
+.presence-market-index .atlas-total span{padding:0;color:#737b83;font-size:.57rem;letter-spacing:.18em;text-transform:uppercase}
+.presence-market-index .market-index{
+  list-style:none;
+  margin:0;
+  padding:0;
+  border:0;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.8rem 1.5rem;
+  counter-reset:markets;
+}
+.presence-market-index .market-index li{counter-increment:markets}
+.presence-market-index .market-index button{
+  width:100%;
+  padding:.2rem 0;
+  border:0;
+  background:none;
+  color:#656c73;
+  display:flex;
+  gap:.65rem;
+  align-items:center;
+  cursor:pointer;
+  text-align:left;
+  font-size:.59rem;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  transition:color .2s ease,transform .2s ease;
+}
+.presence-market-index .market-index button:before{content:counter(markets,decimal-leading-zero);color:#9a9da0;font-size:.46rem;letter-spacing:.1em}
+.presence-market-index .market-index button:hover,
+.presence-market-index .market-index button:focus-visible,
+.presence-market-index .market-index button.is-active{color:#0e151d;transform:translateX(3px);outline:none}
+.presence-market-summary{
+  grid-column:2;
+  max-width:960px;
+  margin:clamp(2rem,4vh,3rem) 0 0;
+  padding-top:1.4rem;
+  border-top:1px solid rgba(17,24,32,.1);
+  color:#747980;
+  font-size:.72rem;
+  line-height:1.75;
+}
+.presence-closing{
+  min-height:94svh;
+  padding:clamp(7rem,13vh,11rem) clamp(1.4rem,6vw,8rem);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:#fff;
+  border-top:1px solid rgba(17,24,32,.1);
+}
+.presence-closing>.section-kicker{width:min(1380px,100%);margin:0 auto clamp(3rem,7vh,6rem)}
+.presence-closing-grid{
+  width:min(1380px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);
+  gap:clamp(4rem,9vw,11rem);
+  align-items:end;
+}
+.presence-closing h2{
+  max-width:850px;
+  margin:0;
+  font:400 clamp(3.1rem,5.2vw,6.6rem)/.94 var(--serif);
+  letter-spacing:-.052em;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
+.presence-closing-copy{max-width:590px;color:#5f666d;font-size:clamp(.84rem,.9vw,1rem);line-height:1.82}
+.presence-closing-copy p{margin:0}
+.presence-closing-copy p+p{margin-top:1.6rem}
+
+@media(max-width:1100px){
+  .presence-market-index .market-index{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .presence-closing-grid{grid-template-columns:minmax(0,1fr) minmax(300px,.72fr);gap:4rem}
+}
+
+@media(max-width:760px){
+  .presence-opening{min-height:78svh;padding:6.5rem 1.25rem 5rem}
+  .presence-opening h2{font-size:clamp(2.75rem,13vw,4.7rem);line-height:.91}
+  .presence-opening h2 span{transform:translateY(16px)}
+  .presence-opening-lead{max-width:280px;margin-top:2.5rem;font-size:.56rem;line-height:1.7}
+  .presence-map-stage{padding:4.5rem 1.2rem 6rem}
+  .presence-map-heading{margin-bottom:1rem;display:block}
+  .presence-map-heading .section-kicker{margin-bottom:1.2rem}
+  .presence-map-heading h3{max-width:310px;font-size:clamp(1.6rem,7.7vw,2.4rem);text-align:left}
+  .africa-atlas .africa-map-panel{width:100%;height:62svh;min-height:430px;margin:0;border:0}
+  .africa-atlas .africa-map-svg{width:100%;height:54svh;max-height:570px}
+  .africa-atlas .africa-map-caption{right:0;bottom:2.6rem;width:min(275px,76vw);min-height:78px;padding-top:.75rem;gap:.6rem .85rem}
+  .africa-atlas .africa-map-caption strong{font-size:1.4rem}
+  .africa-atlas .africa-map-caption p{font-size:.54rem}
+  .africa-atlas .map-instruction{left:0;bottom:.7rem;max-width:74%;font-size:.43rem;line-height:1.5}
+  .presence-market-index{margin-top:2.5rem;padding-top:2rem;grid-template-columns:1fr;gap:2rem}
+  .presence-market-index .atlas-total{flex-direction:row;align-items:flex-end;gap:1rem}
+  .presence-market-index .atlas-total strong{font-size:5rem}
+  .presence-market-index .atlas-total span{padding-bottom:.2rem}
+  .presence-market-index .market-index{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem .8rem}
+  .presence-market-index .market-index button{font-size:.51rem;line-height:1.35}
+  .presence-market-summary{grid-column:1;margin-top:0;font-size:.66rem}
+  .presence-closing{min-height:0;padding:6.5rem 1.25rem 7rem}
+  .presence-closing>.section-kicker{margin-bottom:2.5rem}
+  .presence-closing-grid{grid-template-columns:1fr;gap:2.6rem}
+  .presence-closing h2{font-size:clamp(2.65rem,11.5vw,4.4rem);line-height:.96}
+  .presence-closing-copy{font-size:.84rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .presence-opening h2 span{opacity:1;filter:none;transform:none;transition:none}
+}

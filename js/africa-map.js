@@ -5,14 +5,13 @@
 
   const MARKET_IDS = ['ke','ao','sn','mz','ug','tz','ci','cd','cg','tn','ma','et','tg','bj','dj','bf','zm','bi','ng'];
   const MARKET_SET = new Set(MARKET_IDS);
-  const REGIONAL_OFFICE_IDS = new Set(['ke']);
   const overrides = {
     en: { ci:'Ivory Coast',cd:'Congo DRC',cg:'Congo Brazzaville' },
     fr: { ci:'Côte d’Ivoire',cd:'RDC',cg:'Congo-Brazzaville' }
   };
   const copy = {
-    en: { heading:'Space market atlas',continent:'Africa',selection:'Highlighted market',idle:'19 African markets highlighted',preview:'Part of the Space African market footprint',locked:'Selected market within the Space African footprint',reset:'View all' },
-    fr: { heading:'Atlas des marchés Space',continent:'Afrique',selection:'Marché mis en valeur',idle:'19 marchés africains mis en valeur',preview:'Marché faisant partie de l’empreinte africaine de Space',locked:'Marché sélectionné au sein de l’empreinte africaine de Space',reset:'Tout afficher' }
+    en: { heading:'Space market atlas',continent:'Africa',selection:'Highlighted market',idle:'19 African markets highlighted',preview:'Part of the Space African market footprint',locked:'Selected market within the Space African footprint',reset:'View all',instruction:'Hover, focus or select a market' },
+    fr: { heading:'Atlas des marchés Space',continent:'Afrique',selection:'Marché mis en valeur',idle:'19 marchés africains mis en valeur',preview:'Marché faisant partie de l’empreinte africaine de Space',locked:'Marché sélectionné au sein de l’empreinte africaine de Space',reset:'Tout afficher',instruction:'Survolez, ciblez ou sélectionnez un marché' }
   };
 
   const svg = root.querySelector('svg');
@@ -23,6 +22,7 @@
   const headingLabel = root.querySelector('.africa-map-heading span');
   const headingTitle = root.querySelector('.africa-map-heading strong');
   const selectionLabel = root.querySelector('.africa-map-label');
+  const instruction = root.querySelector('.map-instruction');
   const indexRoot = document.querySelector('[data-market-index]');
   if (indexRoot) {
     MARKET_IDS.forEach((id) => {
@@ -79,14 +79,8 @@
     }
 
     path.classList.add('is-market');
-    if (REGIONAL_OFFICE_IDS.has(location.id)) {
-      path.classList.add('is-office');
-      path.style.fill = '#111111';
-      path.dataset.regionRole = 'regional-office';
-    } else {
-      path.style.fill = '#111111';
-      path.dataset.regionRole = 'market-served';
-    }
+    path.style.fill = '#111111';
+    path.dataset.regionRole = 'market-served';
     path.setAttribute('tabindex', '0');
     path.setAttribute('role', 'button');
     path.setAttribute('aria-label', countryName(location));
@@ -130,6 +124,7 @@
     if (headingLabel) headingLabel.textContent = copy[language].heading;
     if (headingTitle) headingTitle.textContent = copy[language].continent;
     if (selectionLabel) selectionLabel.textContent = copy[language].selection;
+    if (instruction) instruction.textContent = copy[language].instruction;
     if (reset) reset.textContent = copy[language].reset;
     svg.setAttribute('aria-label', copy[language].continent);
     svg.querySelectorAll('.is-market').forEach((path) => {

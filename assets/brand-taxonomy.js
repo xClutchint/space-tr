@@ -27,7 +27,7 @@
   ];
   const mass=[
     'Nikos','Tous','Halloween','Afnan Perfumes','Armaf','Billie Eilish',
-    'Paris Hilton','Joop','Escada','Lancaster','Adidas','David Beckham','Jwahara',
+    'Paris Hilton','Joop','Escada','Lancaster','Adidas','David Beckham','Jawhara',
     'Nautica','Scalpers Yacht Club','Diesel'
   ];
 
@@ -41,14 +41,18 @@
     'Bond No. 9':22,'The Merchant of Venice':23,'Scalpers Yacht Club':29,
     'Diesel':30,'Cacharel':31,'Tous':32,'Halloween':33,'Roja':34,
     'Ormonde Jayne':35,'Ramon Bejar':36,'Montale Paris':37,
-    'Mancera Paris':38,'Goldfield & Banks':39,'Atelier des Ors':40
+    'Mancera Paris':38,'Goldfield & Banks':39,'Atelier des Ors':40,
+    'Matiere Premiere':41,'Escentric Molecules':42,'Oman Luxury':43,
+    'Atkinsons':44,'Brunello Cucinelli':45,'Akro':46,'THOO':47,
+    'Essential Parfums':48,'Born to Stand Out':49,'New Notes':50,
+    'Sospiro':51,'Spirit of Dubai':52,'Spirit of Kings':53,'Maison Noir':54
   };
 
   const normalize=value=>String(value||'')
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .toUpperCase().replace(/&/g,' AND ').replace(/[^A-Z0-9]+/g,' ').trim();
   const aliases={
-    'AFNAN':'Afnan Perfumes','ATELIER DES ORS':'Atelier des Ors',
+    'AFNAN':'Afnan Perfumes','ATELIER DES ORS':'Atelier des Ors','JWAHARA':'Jawhara',
     'BORN TO STAND OUT':'Born to Stand Out','CASAMORATI':'Casamorati',
     'ESCENTRIC MOLECULE':'Escentric Molecules','ESCENTRIC MOLECULES':'Escentric Molecules',
     'ESSENTIAL PARFUMS':'Essential Parfums','GOLDFIELD AND BANKS':'Goldfield & Banks',

@@ -12,6 +12,13 @@ const PAGES = [
   'feelnzuri.html',
   'space-x-maven.html',
   'posts.html',
+  'fr/index.html',
+  'fr/about-space.html',
+  'fr/expertise.html',
+  'fr/feelnzuri.html',
+  'fr/space-x-maven.html',
+  'fr/posts.html',
+  'fr/careers.html',
   'careers.html',
   'career-brand-manager.html',
   'career-sales-executive.html',
@@ -121,6 +128,29 @@ async function inspectPage(page) {
   return JSON.parse(result.value);
 }
 
+async function inspectHeroReload() {
+  const target = await openTarget(`${BASE_URL}/en/`);
+  const client = createCdpClient(target.webSocketDebuggerUrl);
+  await client.ready;
+  await client.send('Page.enable');
+  const readOpening = async () => {
+    await new Promise(resolve => setTimeout(resolve, 900));
+    const { result } = await client.send('Runtime.evaluate', {
+      expression: `JSON.stringify([...document.querySelectorAll('[data-asset-rotator]')].map(rotator =>
+        (rotator.querySelector('.asset-rotator-frame.is-staging') || rotator.querySelector('.asset-rotator-frame.is-active:not(.is-opening-placeholder)'))?.dataset.assetId || null
+      ))`,
+      returnByValue: true,
+    });
+    return JSON.parse(result.value);
+  };
+  await client.send('Page.navigate', { url: `${BASE_URL}/en/` });
+  const first = await readOpening();
+  await client.send('Page.reload');
+  const second = await readOpening();
+  client.close();
+  return { first, second };
+}
+
 async function main() {
   const executable = edgePath();
   if (!executable) throw new Error('Microsoft Edge was not found. Set EDGE_PATH to its executable.');
@@ -144,6 +174,11 @@ async function main() {
       if (dimensions.readyState !== 'complete' || overflow > 1) {
         failures.push({ page, overflow, ...dimensions });
       }
+    }
+    const openings = await inspectHeroReload();
+    console.log(`hero reload openings: ${openings.first.join(', ')} -> ${openings.second.join(', ')}`);
+    if (openings.first.length !== 2 || openings.second.length !== 2 || openings.first.some(id => !id) || openings.second.some(id => !id) || openings.first.some(id => openings.second.includes(id))) {
+      failures.push({ page: 'hero reload', ...openings });
     }
     if (failures.length) {
       console.error('Responsive failures:', JSON.stringify(failures, null, 2));

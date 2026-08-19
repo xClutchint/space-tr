@@ -103,7 +103,7 @@
     if (!form.reportValidity()) return false;
     const values = Object.fromEntries(new FormData(form));
     if (editor.type === 'job') {
-      const item = { ...editor.original, ...values, slug: (values.title + '-' + values.locality).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), validThrough: values.validThrough ? `${values.validThrough}T23:59:59+00:00` : '', responsibilities: values.responsibilities.split('\n').map(value => value.trim()).filter(Boolean), qualifications: values.qualifications.split('\n').map(value => value.trim()).filter(Boolean), active: form.elements.active.checked };
+      const item = { ...editor.original, ...values, slug: (values.title + '-' + values.locality).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), validThrough: values.validThrough ? `${values.validThrough}T23:59:59+00:00` : '', updatedAt: new Date().toISOString(), responsibilities: values.responsibilities.split('\n').map(value => value.trim()).filter(Boolean), qualifications: values.qualifications.split('\n').map(value => value.trim()).filter(Boolean), active: form.elements.active.checked };
       editor.index >= 0 ? state.jobs.splice(editor.index, 1, item) : state.jobs.unshift(item);
       renderJobs();
     } else {

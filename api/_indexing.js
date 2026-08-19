@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { isJobOpen } = require('./_cms');
 
 const base64url = value => Buffer.from(typeof value === 'string' ? value : JSON.stringify(value)).toString('base64url');
 
@@ -20,8 +21,8 @@ async function notifyIndexing(previous, next, origin) {
   try { credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON); } catch { return { configured: true, notified: 0, error: 'Invalid GOOGLE_SERVICE_ACCOUNT_JSON' }; }
   try {
     const token = await accessToken(credentials);
-    const before = new Map(previous.jobs.filter(job => job.active).map(job => [job.slug, JSON.stringify(job)]));
-    const after = new Map(next.jobs.filter(job => job.active).map(job => [job.slug, JSON.stringify(job)]));
+    const before = new Map(previous.jobs.filter(job => isJobOpen(job)).map(job => [job.slug, JSON.stringify(job)]));
+    const after = new Map(next.jobs.filter(job => isJobOpen(job)).map(job => [job.slug, JSON.stringify(job)]));
     const notifications = [];
     after.forEach((value, slug) => { if (before.get(slug) !== value) notifications.push({ url: `${origin}/jobs/${slug}`, type: 'URL_UPDATED' }); });
     before.forEach((value, slug) => { if (!after.has(slug)) notifications.push({ url: `${origin}/jobs/${slug}`, type: 'URL_DELETED' }); });

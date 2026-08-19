@@ -8,7 +8,7 @@
     return copy;
   };
 
-  const create=(items,{pairSize=2,canonicalize=value=>String(value||'')}={})=>{
+  const create=(items,{pairSize=2,canonicalize=value=>String(value||''),previousItems=[]}={})=>{
     const usable=items.filter(item=>item&&item.id);
     const byBrand=new Map();
     usable.forEach(item=>{
@@ -21,7 +21,8 @@
     const assetCounts=new Map(usable.map(item=>[item.id,0]));
     const brandTieBreak=new Map(shuffled([...byBrand.keys()]).map((brand,index)=>[brand,index]));
     const assetTieBreak=new Map(shuffled(usable).map((item,index)=>[item.id,index]));
-    let previousBrands=new Set(),previousAssets=new Set(),selectionCount=0;
+    let previousBrands=new Set(previousItems.map(item=>canonicalize(item?.brand)||item?.brand||'Space'));
+    let previousAssets=new Set(previousItems.map(item=>item?.id).filter(Boolean)),selectionCount=0;
 
     const rankedBrands=(blocked,avoidPrevious)=>[...byBrand.keys()]
       .filter(brand=>!blocked.has(brand)&&(!avoidPrevious||!previousBrands.has(brand)))

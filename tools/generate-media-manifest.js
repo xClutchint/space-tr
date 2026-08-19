@@ -185,12 +185,14 @@ function generateMediaManifest() {
     const id = stableId(relative);
     const displayDerivative = path.join(ASSET_ROOT, '_derivatives', 'display', `${id}.jpg`);
     const thumbnailDerivative = path.join(ASSET_ROOT, '_derivatives', 'thumbnails', `${id}.jpg`);
+    const mobileDerivative = path.join(ASSET_ROOT, '_derivatives', 'hero-mobile', `${id}.webp`);
     if (kind === 'image' && fs.existsSync(displayDerivative) && orientation !== 'unknown') webReady = true;
     media.push({
       id,
       src: relative,
       optimizedSrc: extension !== '.gif' && fs.existsSync(displayDerivative) ? publicPath(displayDerivative) : null,
       thumbnailSrc: fs.existsSync(thumbnailDerivative) ? publicPath(thumbnailDerivative) : null,
+      mobileSrc: fs.existsSync(mobileDerivative) ? publicPath(mobileDerivative) : null,
       brand: parts[1] || 'Space',
       label: labelFor(file),
       type: kind,
@@ -228,12 +230,35 @@ function generateMediaManifest() {
   };
   fs.writeFileSync(path.join(ASSET_ROOT, 'media-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   fs.writeFileSync(path.join(ASSET_ROOT, 'media-manifest.js'), `window.SPACE_MEDIA_LIBRARY=${JSON.stringify(manifest)};\n`);
-  const runtimeIds = new Set([...(curation.hero.included || []), ...(curation.carousel.included || [])]);
+  // The homepage must receive every asset that is eligible for automatic hero
+  // rotation, not just the handful of explicitly pinned assets. Explicit
+  // inclusion only overrides the light-background rule; exclusion remains the
+  // source of truth for rejected media.
+  const heroIncluded = new Set(curation.hero.included || []);
+  const heroExcluded = new Set(curation.hero.excluded || []);
+  const isEditorialAsset = item => !/(pack[ -]?shot|png images|no background|textclipping)/i.test(item.src);
+  const isLightHeroAsset = item => curation.hero.excludeLightBackgrounds !== false
+    && item.type !== 'video'
+    && (item.backgroundTone === 'light' || (item.edgeLuminance >= 205 && item.lightNeutralRatio >= .25));
+  const heroRuntimeMedia = media.filter(item => item.webReady
+    && item.optimizedSrc
+    && item.orientation === 'vertical'
+    && isEditorialAsset(item)
+    && !heroExcluded.has(item.id)
+    && (heroIncluded.has(item.id) || !isLightHeroAsset(item)));
+  const runtimeIds = new Set([
+    ...heroRuntimeMedia.map(item => item.id),
+    ...(curation.carousel.included || [])
+  ]);
   const runtimeManifest = {
     version: manifest.version,
     generatedAt: manifest.generatedAt,
     source: manifest.source,
-    counts: { total: runtimeIds.size },
+    counts: {
+      total: runtimeIds.size,
+      hero: heroRuntimeMedia.length,
+      carousel: (curation.carousel.included || []).length
+    },
     media: media.filter((item) => runtimeIds.has(item.id))
   };
   fs.writeFileSync(path.join(ASSET_ROOT, 'media-runtime.js'), `window.SPACE_MEDIA_LIBRARY=${JSON.stringify(runtimeManifest)};\n`);
