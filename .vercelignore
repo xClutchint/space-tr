@@ -2,6 +2,7 @@
 .git/
 node_modules/
 dist/
+dist-cms/
 .env
 .env.*
 *.zip
@@ -12,30 +13,19 @@ qa-*.png
 tmp-*.png
 tmp-edge-*/
 tmp/
-SPACE COMPANY PROFILE.pdf
-brand kit/Brand Guide line.pdf
-brand kit/gif_2.gif
-brand kit/gif_3.gif
+artifacts/
+docs/reference/
 server.js
 README.md
-tools/
+tools/media/
+tools/preview/
+tools/qa/
 docs/
 sitemap.xml
 
 # Raw campaign source library. Production uses the optimized derivatives and
-# generated manifests in assets/_derivatives and assets/_catalog.
-assets/Afnan/
-assets/ATELIER DES ORS/
-assets/BORN TO STAND OUT/
-assets/CASAMORATI/
-assets/COTY/
-assets/ESCENTRIC MOLECULE/
-assets/ESSENTIAL PARFUMS/
-assets/GOLDFIELD & BANKS/
-assets/MONTALE MANCERA/
-assets/NISHANE/
-assets/OMAN LUXURY/
-assets/RAMON BEJAR/
-assets/THOO/
-assets/TIZIANA TERENZI/
-assets/XERJOFF/
+# generated manifests in assets/media/generated/derivatives and assets/media/generated/catalog.
+assets/media/source/brands/
+assets/media/generated/catalog/
+data/*.database.json
+assets/media/cms/uploads/

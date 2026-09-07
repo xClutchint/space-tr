@@ -2,6 +2,14 @@
 .vercel/
 node_modules/
 dist/
+dist-cms/
+/api/admin/[action].js
+/api/cron/editorial.js
+/api/v1/blog-drafts.js
+/api/v1/media.js
+/api/v1/\[resource\].js
+/api/v1/\[endpoint\].js
+/api/preview-state.js
 .env
 .env.*
 !.env.example
@@ -15,25 +23,15 @@ tmp-*.png
 tmp-edge-*/
 /tmp/
 artifacts/
-brand kit/reference/Brand Guide line.pdf
-/SPACE COMPANY PROFILE.pdf
-brand kit/campaign/gif_2.gif
-brand kit/campaign/gif_3.gif
+/docs/reference/**/*.pdf
+.tmp-logo-check/
 
 # Keep the original campaign archive local. The website is built from the
 # optimized derivatives and generated catalog files committed alongside it.
-assets/Afnan/
-assets/ATELIER DES ORS/
-assets/BORN TO STAND OUT/
-assets/CASAMORATI/
-assets/COTY/
-assets/ESCENTRIC MOLECULE/
-assets/ESSENTIAL PARFUMS/
-assets/GOLDFIELD & BANKS/
-assets/MONTALE MANCERA/
-assets/NISHANE/
-assets/OMAN LUXURY/
-assets/RAMON BEJAR/
-assets/THOO/
-assets/TIZIANA TERENZI/
-assets/XERJOFF/
+/assets/media/source/brands/
+
+# Local CMS state and uploads are private development data. Production uses
+# Vercel Blob and never reads these files.
+/data/cms-content.local.json
+/data/*.database.json
+/assets/media/cms/uploads/

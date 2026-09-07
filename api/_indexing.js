@@ -16,7 +16,7 @@ async function accessToken(credentials) {
 }
 
 async function notifyIndexing(previous, next, origin) {
-  if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON) return { configured: false, notified: 0 };
+  if (process.env.ENABLE_SEARCH_INDEXING !== '1' || !process.env.GOOGLE_SERVICE_ACCOUNT_JSON) return { configured: false, notified: 0 };
   let credentials;
   try { credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON); } catch { return { configured: true, notified: 0, error: 'Invalid GOOGLE_SERVICE_ACCOUNT_JSON' }; }
   try {

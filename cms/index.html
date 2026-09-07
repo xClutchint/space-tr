@@ -4,85 +4,117 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <title>Space Content Studio</title>
+  <title>Space CMS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2">
-  <style>[hidden]{display:none!important}</style>
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles/base.css?v=interface-5">
+  <link rel="stylesheet" href="assets/styles/studio.css?v=interface-5">
+  <link rel="stylesheet" href="assets/styles/luxury.css?v=interface-5">
 </head>
 <body>
-  <section class="cms-login" data-login>
-    <form class="cms-login-card" data-login-form>
-      <img src="../brand%20kit/identity/Space%20Logo-20-transparent.png" alt="Space">
-      <p>Private content studio</p>
-      <h1>Welcome back.</h1>
-      <label><span>ID</span><input name="username" autocomplete="username" required></label>
+  <section class="cms-desktop-required" aria-labelledby="desktop-required-title">
+    <div><img src="../assets/brand/identity/space-logo-transparent.png" alt="Space">
+      <h1 id="desktop-required-title">Use a larger screen</h1>
+      <span>The CMS is available on laptops and desktop computers.</span>
+    </div>
+  </section>
+
+  <section class="cms-login" data-auth-shell>
+    <form class="cms-login-card" data-login-form data-auth-view="login">
+      <img src="../assets/brand/identity/space-logo-transparent.png" alt="Space">
+      <h1>Sign in</h1>
+      <label><span>Email</span><input name="email" type="email" autocomplete="username" required></label>
       <label><span>Password</span><input name="password" type="password" autocomplete="current-password" required></label>
-      <button type="submit">Enter studio</button>
+      <button type="submit">Sign in</button>
+      <button class="cms-text-action" type="button" data-forgot-password>Forgot password?</button>
       <p class="cms-form-message" data-login-message aria-live="polite"></p>
+    </form>
+    <form class="cms-login-card" data-recovery-request data-auth-view="request" hidden>
+      <img src="../assets/brand/identity/space-logo-transparent.png" alt="Space"><p>Reset password</p><h1>Enter your email</h1>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <button type="submit">Send verification code</button><button class="cms-text-action" type="button" data-back-login>Back to sign in</button>
+      <p class="cms-form-message" data-recovery-message aria-live="polite"></p>
+    </form>
+    <form class="cms-login-card" data-recovery-verify data-auth-view="verify" hidden>
+      <img src="../assets/brand/identity/space-logo-transparent.png" alt="Space"><p>Reset password</p><h1>Enter the code</h1>
+      <p class="cms-auth-explainer">If the email is registered, we sent a six-digit code.</p>
+      <label><span>Verification code</span><input name="otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required></label>
+      <button type="submit">Verify code</button><button class="cms-text-action" type="button" data-restart-recovery>Use another email</button>
+      <p class="cms-form-message" data-verify-message aria-live="polite"></p>
+    </form>
+    <form class="cms-login-card" data-recovery-reset data-auth-view="reset" hidden>
+      <img src="../assets/brand/identity/space-logo-transparent.png" alt="Space"><p>Reset password</p><h1>Create a new password</h1>
+      <label><span>New password</span><input name="password" type="password" minlength="12" autocomplete="new-password" required></label>
+      <label><span>Confirm password</span><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></label>
+      <small>Use at least 12 characters with uppercase, lowercase and a number.</small>
+      <button type="submit">Change password</button><p class="cms-form-message" data-reset-message aria-live="polite"></p>
     </form>
   </section>
 
   <div class="cms-app" data-app hidden>
     <aside class="cms-sidebar">
-      <a class="cms-mark" href="../index.html" target="_blank" aria-label="Open website"><img src="../brand%20kit/identity/Space%20Logo-20-transparent.png" alt="Space"></a>
+      <div class="cms-mark" aria-label="Space CMS"><img src="../assets/brand/identity/space-logo-transparent.png" alt="Space"></div>
       <nav aria-label="CMS sections">
-        <button class="is-active" data-section-button="overview">Overview</button>
-        <button data-section-button="media">Homepage media</button>
+        <button class="is-active" data-section-button="media">Hero media</button>
+        <button data-section-button="carousel">Carousel</button>
+        <button data-section-button="page-images">Page images</button>
+        <button data-section-button="brands">Brands</button>
         <button data-section-button="careers">Careers</button>
+        <button data-section-button="team">Team</button>
         <button data-section-button="posts">Posts</button>
         <button data-section-button="assets">Asset library</button>
       </nav>
-      <button class="cms-signout" data-logout>Sign out</button>
+      <div class="cms-sidebar-account"><span data-current-user></span><small data-current-role></small><button class="cms-signout" type="button" data-logout>Sign out</button></div>
     </aside>
     <main class="cms-main">
       <header class="cms-topbar">
-        <div><span>Space / Content Studio</span><strong data-section-title>Overview</strong></div>
-        <div class="cms-actions"><span class="cms-save-state" data-save-state>All changes published</span><a href="../index.html" target="_blank">View site</a><button data-publish>Publish changes</button></div>
+        <div><span>Space CMS</span><strong data-section-title>Hero media</strong></div>
+        <div class="cms-actions"><span class="cms-save-state" data-save-state>Saved</span><button class="cms-button-quiet" data-preview-site>Preview</button><button class="cms-button-secondary" data-save-draft>Save</button><button class="cms-button-primary" data-publish="all">Publish</button></div>
       </header>
 
-      <section class="cms-section is-active" data-section="overview">
-        <div class="cms-section-heading"><p>Editorial control</p><h1>One considered source.</h1><span>Manage the live homepage, opportunities and journal without touching code.</span></div>
-        <div class="cms-stat-grid">
-          <article><span>Open roles</span><strong data-stat-jobs>0</strong><a href="../careers.html" target="_blank">View careers</a></article>
-          <article><span>Published posts</span><strong data-stat-posts>0</strong><a href="../posts.html" target="_blank">View journal</a></article>
-          <article><span>Managed media</span><strong data-stat-media>0</strong><button data-go-assets>Open library</button></article>
-        </div>
-        <article class="cms-note"><p>Search visibility</p><h2>Every active role has its own indexable page.</h2><span>The CMS publishes Google JobPosting data on a dedicated URL and refreshes the live sitemap. Google controls crawl timing, but the technical signals update immediately.</span></article>
+      <section class="cms-section is-active" data-section="media">
+        <div class="cms-section-heading"><h1>Hero media</h1><span>Homepage images for desktop and mobile.</span></div>
+        <div class="cms-device-toolbar"><div role="group" aria-label="Hero device"><button class="is-active" data-hero-device="desktop">Desktop</button><button data-hero-device="mobile">Mobile</button></div><button data-copy-hero>Copy desktop selection to mobile</button></div>
+        <div class="cms-subheading"><div><p>Hero boards</p><h2 data-hero-heading>Desktop image pool</h2><span data-hero-count></span></div><div class="cms-inline-actions"><button data-add-hero>Add from library</button><button data-publish-device="desktop">Publish desktop only</button></div></div>
+        <div class="cms-slider-panel"><label><span>Rotation</span><strong data-hero-speed-output>5 seconds</strong></label><input data-hero-speed type="range" min="5" max="15" step="1" value="5"></div>
+        <label class="cms-dropzone cms-compact-dropzone" data-dropzone="hero"><input type="file" data-surface-upload="hero" multiple accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"><strong>Drop media</strong><span>Added to the selected device.</span></label>
+        <div class="cms-selection-grid" data-hero-grid></div>
       </section>
 
-      <section class="cms-section" data-section="media">
-        <div class="cms-section-heading"><p>Homepage</p><h1>Campaign surfaces.</h1><span>Choose two hero boards and build the lower horizontal carousel from the asset library.</span></div>
-        <div class="cms-hero-slots" data-hero-slots></div>
-        <div class="cms-subheading"><div><p>Lower carousel</p><h2>Sequence</h2></div><button data-add-carousel>Add from library</button></div>
+      <section class="cms-section" data-section="carousel">
+        <div class="cms-section-heading"><h1>Carousel</h1><span>Final homepage slide.</span></div>
+        <div class="cms-subheading"><div><h2>Display order</h2><span data-carousel-count></span></div><button data-add-carousel>Add from library</button></div>
+        <label class="cms-dropzone cms-compact-dropzone" data-dropzone="carousel"><input type="file" data-surface-upload="carousel" multiple accept="image/jpeg,image/png,image/webp,image/avif,image/gif"><strong>Drop images</strong><span>Up to 20.</span></label>
         <div class="cms-sequence" data-carousel-list></div>
       </section>
 
-      <section class="cms-section" data-section="careers">
-        <div class="cms-section-heading"><p>Careers</p><h1>Open opportunities.</h1><span>Active roles appear on the careers directory, in the sitemap and as Google Jobs-compatible pages.</span></div>
-        <div class="cms-list-toolbar"><span data-career-count></span><button data-new-job>New role</button></div>
-        <div class="cms-record-list" data-jobs-list></div>
+      <section class="cms-section" data-section="page-images">
+        <div class="cms-section-heading"><h1>Page images</h1><span>Images and crops by page.</span></div>
+        <div class="cms-page-image-grid" data-page-images-grid></div>
       </section>
 
-      <section class="cms-section" data-section="posts">
-        <div class="cms-section-heading"><p>Journal</p><h1>Posts & perspectives.</h1><span>Publish company news and market thinking directly to the Posts page.</span></div>
-        <div class="cms-list-toolbar"><span data-post-count></span><button data-new-post>New post</button></div>
-        <div class="cms-record-list" data-posts-list></div>
+      <section class="cms-section" data-section="brands">
+        <div class="cms-section-heading"><h1>Brand portfolio</h1><span>Selection, order and artwork.</span></div>
+        <div class="cms-brand-limit"><label><span>Required display count</span><input data-brand-limit type="number" min="1" max="80"></label><strong data-brand-count></strong></div>
+        <div class="cms-subheading"><div><h2>Selected brands</h2><span>Drag to change the display order.</span></div><button data-new-brand>Add brand</button></div>
+        <div class="cms-brand-sequence" data-selected-brands></div>
+        <div class="cms-subheading"><div><h2>Available brands</h2></div></div><div class="cms-brand-catalogue" data-brand-catalogue></div>
       </section>
 
-      <section class="cms-section" data-section="assets">
-        <div class="cms-section-heading"><p>Media</p><h1>Asset library.</h1><span>Upload web-ready campaign images and films. Each file can be assigned to any homepage surface.</span></div>
-        <label class="cms-dropzone"><input type="file" data-upload multiple accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"><strong>Upload assets</strong><span>JPG, PNG, WebP, AVIF, GIF, MP4 or WebM · up to 3 MB each</span></label>
-        <p class="cms-upload-state" data-upload-state aria-live="polite"></p>
-        <div class="cms-asset-grid" data-assets-grid></div>
-      </section>
+      <section class="cms-section" data-section="careers"><div class="cms-section-heading"><h1>Careers</h1><span>Roles and applications.</span></div><div class="cms-list-toolbar"><span data-career-count></span><button data-new-job>New role</button></div><div class="cms-record-list" data-jobs-list></div></section>
+      <section class="cms-section" data-section="team"><div class="cms-section-heading"><h1>Team</h1><span>People and profiles.</span></div><div class="cms-list-toolbar"><span data-team-count></span><button data-new-person>New member</button></div><div class="cms-record-list" data-team-list></div></section>
+      <section class="cms-section" data-section="posts"><div class="cms-section-heading"><h1>Posts</h1><span>Articles and drafts.</span></div><div class="cms-list-toolbar"><span data-post-count></span><button data-new-post>New article</button></div><div class="cms-record-list" data-posts-list></div></section>
+      <section class="cms-section" data-section="assets"><div class="cms-section-heading"><h1>Asset library</h1><span>Originals in. Web-ready files out.</span></div><div class="cms-dropzone" data-dropzone="library"><strong>Upload assets</strong><span>Up to 50 files or one folder.</span><div class="cms-dropzone-actions"><label>Choose files<input type="file" data-upload multiple accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"></label><label>Choose folder<input type="file" data-upload-folder multiple webkitdirectory directory accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"></label></div></div><div class="cms-upload-feedback" data-upload-feedback hidden><p class="cms-upload-state" data-upload-state aria-live="polite"></p><progress data-upload-progress max="100"></progress><button type="button" data-cancel-upload hidden>Cancel</button></div><div class="cms-asset-toolbar"><input type="search" data-asset-search placeholder="Search assets" aria-label="Search assets"><select data-asset-filter aria-label="Filter assets"><option value="all">All assets</option><option value="image">Images</option><option value="video">Videos</option><option value="processing">Processing</option></select></div><div class="cms-asset-grid" data-assets-grid></div></section>
+
     </main>
   </div>
 
-  <dialog class="cms-dialog" data-editor-dialog><form method="dialog" data-editor-form><header><div><p data-editor-kicker>Editor</p><h2 data-editor-title></h2></div><button value="cancel" aria-label="Close">×</button></header><div class="cms-editor-fields" data-editor-fields></div><footer><button value="cancel">Cancel</button><button value="save" data-editor-save>Save draft</button></footer></form></dialog>
-  <dialog class="cms-dialog cms-picker" data-picker-dialog><form method="dialog"><header><div><p>Asset library</p><h2>Choose media</h2></div><button value="cancel" aria-label="Close">×</button></header><div class="cms-picker-grid" data-picker-grid></div><footer><button value="clear" data-picker-clear>Clear selection</button><button value="cancel">Cancel</button></footer></form></dialog>
+  <dialog class="cms-dialog" data-editor-dialog><form method="dialog" data-editor-form novalidate><header><div><p data-editor-kicker></p><h2 data-editor-title></h2></div><button type="button" data-editor-cancel aria-label="Close">×</button></header><div class="cms-editor-fields" data-editor-fields></div><footer><button type="button" data-editor-cancel>Cancel</button><button type="button" data-editor-save>Save</button></footer></form></dialog>
+  <dialog class="cms-dialog cms-picker" data-picker-dialog><form method="dialog"><header><div><p>Assets</p><h2 data-picker-title>Choose media</h2></div><button value="cancel" formnovalidate aria-label="Close">×</button></header><div class="cms-picker-grid" data-picker-grid></div><footer><button value="clear" data-picker-clear>Clear</button><button value="cancel" formnovalidate>Cancel</button></footer></form></dialog>
+  <dialog class="cms-dialog cms-brand-crop-dialog" data-brand-crop-dialog><form method="dialog"><header><div><p>Brand logo</p><h2>Crop artwork</h2></div><button value="cancel" formnovalidate aria-label="Close">×</button></header><div class="cms-brand-crop-layout"><div class="cms-brand-crop-stage" data-brand-crop-stage><img data-brand-crop-image alt="Crop preview"><div class="cms-brand-crop-box" data-brand-crop-box><i data-crop-handle="nw"></i><i data-crop-handle="ne"></i><i data-crop-handle="sw"></i><i data-crop-handle="se"></i></div></div><aside><label><span>Output width</span><input type="number" min="64" max="4000" step="1" value="1000" data-brand-crop-width></label><label><span>Output height</span><input type="number" min="64" max="4000" step="1" value="1000" data-brand-crop-height></label><dl><div><dt>Source</dt><dd data-brand-crop-source></dd></div><div><dt>Output</dt><dd data-brand-crop-output></dd></div></dl><p>Drag the frame. Pull a corner to change the crop.</p></aside></div><footer><button value="cancel" formnovalidate>Cancel</button><button type="button" data-brand-crop-apply>Crop and use</button></footer></form></dialog>
+  <dialog class="cms-dialog cms-page-image-editor" data-page-image-dialog><form method="dialog"><header><div><span data-page-image-page></span><h2 data-page-image-title></h2></div><button value="cancel" formnovalidate aria-label="Close">×</button></header><div class="cms-page-image-editor-body" data-page-image-editor-body></div><footer><button value="cancel" formnovalidate>Done</button></footer></form></dialog>
   <div class="cms-toast" data-toast role="status" aria-live="polite"></div>
-  <script src="app.js?v=2" defer></script>
+  <script src="../assets/media/runtime/media-runtime.js"></script><script src="../assets/media/runtime/media-curation.js"></script><script src="../assets/media/runtime/brand-taxonomy.js"></script><script src="assets/scripts/blob-upload.js" defer></script><script src="assets/scripts/studio.js?v=workflow-9" defer></script>
 </body>
 </html>

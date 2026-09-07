@@ -1,86 +1,115 @@
 # Space corporate website
 
-A dependency-free static corporate site with a small Node development server.
+A static-first, bilingual corporate website with server-rendered careers, articles, team profiles
+and a private content studio.
 
 ## Project map
 
 | Location | Purpose |
 | --- | --- |
-| `*.html` | English authoring pages and English-only utility pages |
-| `en/`, `fr/` | Generated, indexable language routes with reciprocal `hreflang` |
-| `css/` | Shared and page-specific stylesheets |
-| `js/` | Shared and page-specific browser code |
-| `assets/` | Campaign media, optimized derivatives, manifests and curation data |
-| `brand kit/` | Approved brand material grouped into `identity/`, `brands/`, `campaign/`, `regions/`, `team/` and `ventures/` |
-| `cms/` | Private content-studio page, styles and browser code |
-| `data/` | Structured content generated or consumed by the site |
-| `tools/` | Media optimization, manifest generation and LinkedIn synchronization |
-| `docs/` | Developer setup notes |
-| `.github/workflows/` | Scheduled LinkedIn content synchronization |
+| Root `*.html` | Canonical English authoring entry points; intentionally kept at the web root |
+| `en/`, `fr/` | Indexable language routes with reciprocal `hreflang` |
+| `css/pages/`, `js/pages/` | Styles and behavior owned by one public page family |
+| `css/shared/`, `js/shared/` | Presentation and behavior reused across page families |
+| `assets/brand/` | Identity, people and portfolio assets |
+| `assets/editorial/` | Editorial imagery grouped by subject and market |
+| `assets/media/source/` | Private raw campaign library; ignored by Git and deployment |
+| `assets/media/generated/` | Generated web derivatives and authoring catalogues |
+| `assets/media/runtime/` | Minimal browser catalogues used by the live site |
+| `cms/assets/` | Private desktop content-studio styles and scripts |
+| `api/admin/`, `api/v1/` | CMS operations and secured ingestion endpoints |
+| `data/` | Structured seed and generated content |
+| `tools/build/`, `tools/media/`, `tools/qa/`, `tools/preview/` | Build, media, verification and preview utilities |
+| `docs/architecture/` | Repository and routing contracts |
 
-The root marketing URLs redirect to their `/en/` equivalents in production. The source pages
-remain at the repository root for straightforward authoring, while `npm run generate:locales`
-builds the `/en/` and `/fr/` routes. The space in `brand kit/` is retained for asset URL
-compatibility; the contents are grouped by purpose.
+Root marketing URLs redirect to their `/en/` equivalents in production. Root HTML remains the
+authoring source; `npm run generate:locales` refreshes `/en/` and `/fr/` pages.
 
-## Common commands
+See [`docs/architecture/repository-layout.md`](docs/architecture/repository-layout.md) before
+moving route files or generated media.
+
+## Commands
 
 ```powershell
-npm start              # Generate posts and serve http://localhost:3000
-npm run build          # Create the production bundle in dist/
-npm run generate:media # Rebuild catalogues after adding or curating media
-npm run generate:hero-mobile # Refresh 800px hero images for mobile devices
-npm run generate:locales # Rebuild the /en/ and /fr/ marketing routes
-npm run optimize:media # Refresh optimized display images and thumbnails
-npm run sync:linkedin  # Fetch approved LinkedIn posts, when credentials are configured
-npm test               # Run rotation and real mobile-viewport regression checks
+npm start                   # Serve http://localhost:3000
+npm run build               # Create the Vercel bundle in dist/
+npm run generate:media      # Rebuild media catalogues
+npm run generate:hero-mobile
+npm run generate:locales
+npm run optimize:media
+npm test
 ```
 
-## Source and runtime boundaries
+## Content studio
 
-- `assets/<brand>/` contains the original campaign library. Keep it as source material; it is
-  excluded from production deployment.
-- `assets/_derivatives/` contains web-ready media generated from that library.
-- `assets/_catalog/`, `assets/media-manifest.js` and `assets/media-curation.js` are generated or
-  curated runtime indexes. The site reads these instead of scanning source folders in-browser.
-- Root HTML files are the authoring source for generated localized pages. Page code belongs in
-  the matching `css/` and `js/` files rather than being added inline.
-- Temporary screenshots and browser profiles belong in `.edge-preview/`; root-level `qa-*` and
-  `tmp-*` artifacts are ignored and may be safely regenerated.
+Open `http://localhost:3000/cms/` after `npm start`. The development-only owner is
+`space-admin@localhost.test` with password `Space-Local-2026`. Override both values for any shared
+environment.
 
-`npm run test:responsive` starts a real mobile device emulation against the running local server
-and fails when a public page creates horizontal overflow. Start the site first with `npm start`.
+The studio is deliberately desktop-only. That is a presentation restriction, not a security
+boundary: accounts, opaque HTTP-only sessions, role checks, same-origin enforcement and CSRF
+validation are all enforced on the server. It provides:
 
-The dedicated hero approval catalogue is available at
-`http://localhost:3000/hero-assets.html`. It mirrors the exact homepage hero
-pool and saves local approvals directly into `assets/media-curation.js`.
+- separate desktop and mobile hero catalogues, selections and 5-15 second timing;
+- exact-count brand selection, custom logos/banners and drag ordering;
+- a drag-ordered lower carousel capped at 20 assets;
+- structured careers with indexable `JobPosting` pages;
+- bilingual team management with individual `Person` profile pages;
+- draft/published blog management with a paginated archive;
+- users and roles, OTP recovery, revisions, audit events, backup export and health monitoring.
 
-The broader local media review interface is available at
-`http://localhost:3000/tools/media-library/index.html`.
-Set `SPACE_WATCH_MEDIA=1` only during a media-curation session if you want the
-development server to rebuild catalogues after every source-asset change.
-LinkedIn setup is documented in [`docs/linkedin-posts.md`](docs/linkedin-posts.md).
+Blank lines create paragraphs. Career responsibility and qualification fields use one line per
+formatted bullet. Imported articles always remain drafts until a CMS user publishes them.
 
-## Environment variables
+Local state is stored in an ignored JSON database beside `data/cms-content.local.json`; local
+uploads use `assets/media/cms/uploads/`. Neither store touches production data. The local server
+binds to `127.0.0.1`; set `SPACE_DEV_HOST=0.0.0.0` only for explicit device testing.
 
-Copy `.env.example` into your preferred local environment setup. The contact API supports:
+## Production configuration
 
+Copy `.env.example` and configure:
+
+- `POSTGRES_URL` or `DATABASE_URL`
+- `BLOB_READ_WRITE_TOKEN`
+- `CMS_OWNER_EMAIL`
+- `CMS_OWNER_PASSWORD`
+- `CMS_SESSION_SECRET`
+- `CMS_CSRF_SECRET`
+- `CMS_OTP_SECRET`
 - `RESEND_API_KEY`
-- `CONTACT_TO`
-- `CONTACT_FROM` (optional)
+- `CMS_EMAIL_FROM` using a verified sending domain
+- `CMS_API_KEY`
+- `PUBLIC_SITE_URL`
+- `PREVIEW_SITE_URL` set to the public website origin
+- `OPENAI_API_KEY` for server-side French translation and twice-weekly editorial drafts
 
-LinkedIn synchronization uses:
+On the public project, set `CMS_PREVIEW_SOURCE_URL` to the private CMS origin
+and use the same `CMS_PREVIEW_SECRET` on both projects. This lets published
+content and signed draft previews flow directly to the live site without a new
+deployment for every CMS publish.
 
-- `LINKEDIN_ACCESS_TOKEN`
-- `LINKEDIN_AUTHOR_URN`
-- `LINKEDIN_API_VERSION` (optional)
-- `LINKEDIN_POST_COUNT` (optional)
+Generate the three CMS secrets independently, for example with `openssl rand -base64 48`. Use a
+unique 20+ character owner password in production. `GOOGLE_SERVICE_ACCOUNT_JSON` is optional and
+is used only for immediate Google Indexing API notifications when jobs change.
 
-Google Jobs discovery uses server-rendered `JobPosting` data and the dynamic sitemap by default.
-For immediate new, updated and removed job notifications from the CMS, configure:
+## CMS REST API
 
-- `PUBLIC_SITE_URL` (the canonical production origin)
-- `GOOGLE_SERVICE_ACCOUNT_JSON` (an Indexing API service account added as a Search Console owner)
+The private CMS exposes machine-authenticated draft content, post ingestion and media endpoints:
 
-Before production, place the contact endpoint behind a trusted proxy/CDN and add Turnstile or
-an equivalent challenge in addition to its existing validation, honeypot and rate limit.
+1. `GET /api/v1/content` inspects safe, non-account draft resources.
+2. `GET|POST /api/v1/posts` lists posts or creates an idempotent post draft.
+3. `POST /api/v1/media` accepts a base64 JPG, PNG, WebP, AVIF or GIF and returns its stored URL.
+4. `GET /api/v1/openapi` returns the authenticated OpenAPI document.
+
+All require `Authorization: Bearer <CMS_API_KEY>`. The key is never sent to the public site or CMS browser code. Publishing remains a human-only CMS action. See [the REST API guide](docs/api/cms-rest-api.md) for request examples, error behavior and the automated editorial flow.
+
+## Operations
+
+`GET /api/health` is a non-sensitive datastore check. Owner backup downloads omit password
+hashes, session tokens, OTP records and reset tickets. For production, enable automated PostgreSQL
+point-in-time recovery, adopt a Vercel Blob retention policy, rotate credentials, monitor health
+and function errors, and periodically test a restore into a separate database.
+
+The contact endpoint uses `RESEND_API_KEY`, `CONTACT_TO` and optional `CONTACT_FROM`. Place it
+behind a trusted proxy/CDN and add Turnstile or an equivalent challenge before a high-traffic
+launch.

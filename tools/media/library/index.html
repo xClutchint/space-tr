@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Space Media Curation</title>
+  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="catalog-overrides.css?v=3">
+</head>
+<body>
+  <header class="library-header">
+    <div>
+      <p class="eyebrow">INTERNAL MEDIA LIBRARY</p>
+      <h1>MEDIA CURATION</h1>
+      <p class="intro">Review the exact live rotation pool used by the two homepage hero boards. Every shortlisted card can appear on either side; exclude any visual you no longer want in rotation.</p>
+    </div>
+    <div class="header-actions">
+      <a href="/" class="quiet-link">VIEW WEBSITE</a>
+      <button class="save-button" data-save>Save shortlist</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="library-controls" aria-label="Media controls">
+      <div class="slot-tabs" role="tablist">
+        <button class="slot-tab is-active" data-slot="hero" role="tab">HERO BOARDS <span data-hero-count></span></button>
+        <button class="slot-tab" data-slot="carousel" role="tab">CAROUSEL <span data-carousel-count></span></button>
+      </div>
+      <label class="search-field"><span>SEARCH</span><input type="search" data-search placeholder="Brand or filename"></label>
+      <label><span>BRAND</span><select data-brand><option value="">All brands</option></select></label>
+      <label><span>MEDIA</span><select data-type><option value="">All media</option><option value="image">Images</option><option value="video">Videos</option><option value="gif">GIFs</option></select></label>
+      <label><span>STATUS</span><select data-status><option value="eligible">Shortlisted</option><option value="all">All candidates</option><option value="excluded">Excluded</option></select></label>
+    </section>
+
+    <section class="rule-panel" data-hero-rule>
+      <label class="rule-toggle"><input type="checkbox" data-exclude-light checked><span></span>Automatically remove detected white or light-background visuals from both hero boards.</label>
+      <p>The two hero boards are paired by brand. The site will never show the same brand on both sides at once.</p>
+    </section>
+
+    <section class="rule-panel carousel-rule" data-carousel-rule hidden>
+      <div><strong><span data-carousel-slot-count>20</span> LIVE SLOTS</strong><p>Select the strongest horizontal visuals for the lower homepage carousel.</p></div>
+      <p><span data-carousel-shortlisted-count>0</span> visuals selected. Use Include to build the pool; the homepage displays up to 20 selections.</p>
+    </section>
+
+    <section class="results-summary">
+      <p data-summary>Preparing catalogue…</p>
+      <p class="save-status" data-save-status aria-live="polite"></p>
+    </section>
+    <section class="media-grid" data-media-grid aria-live="polite"></section>
+  </main>
+
+  <template id="media-card-template">
+    <article class="media-card">
+      <div class="media-preview"></div>
+      <div class="media-card-copy">
+        <div><p class="media-brand"></p><p class="media-file"></p><p class="media-id"></p></div>
+        <dl><div><dt>FORMAT</dt><dd class="media-format"></dd></div><div><dt>SIZE</dt><dd class="media-size"></dd></div><div><dt>BACKGROUND</dt><dd class="media-tone"></dd></div></dl>
+        <button class="curation-button"></button>
+      </div>
+    </article>
+  </template>
+
+  <script src="/assets/media/runtime/media-curation.js"></script>
+  <script src="/assets/media/runtime/media-manifest.js"></script>
+  <script src="app.js?v=6"></script>
+</body>
+</html>

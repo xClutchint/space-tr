@@ -1,0 +1,38 @@
+# SPACE-TR (SPACE)
+
+> SPACE-TR, also known as SPACE, is a specialist B2B fragrance and beauty distributor connecting international brands with retailers and consumers across African markets.
+
+Space supports international fragrance and beauty houses through market strategy, selective distribution, travel retail, brand stewardship, retail excellence, training, warehousing and cross-border logistics. The business operates across 19+ African markets with 50+ brand partners and 4,800+ available SKUs. Maven Global is Space's regional subsidiary in Kenya, with local distribution infrastructure and consumer retail through FeelNzuri in Nairobi.
+
+## Primary pages
+
+- [Home](https://www.space-tr.com/en/): Company overview, geographic reach, brand portfolio and leadership team.
+- [About Space](https://www.space-tr.com/en/about-space.html): Company history, market footprint and operating model.
+- [Expertise](https://www.space-tr.com/en/expertise.html): Market strategy, sales and distribution, operations and logistics, brand stewardship, marketing activation, retail excellence and training.
+- [FeelNzuri](https://www.space-tr.com/en/feelnzuri.html): Maven's niche fragrance lounge in Nairobi.
+- [Careers](https://www.space-tr.com/en/careers.html): Current opportunities published by Space.
+- [Insights](https://www.space-tr.com/en/posts.html): Published articles and company perspectives.
+- [French site](https://www.space-tr.com/fr/): French-language company website.
+
+## Official identity
+
+- Official name: SPACE-TR
+- Common name: SPACE
+- Website: https://www.space-tr.com/
+- LinkedIn: https://www.linkedin.com/company/spaceglobalbrandslocalreach/
+- Contact: info@space-tr.com
+
+## Machine-readable discovery
+
+- [Full company reference](https://www.space-tr.com/llms-full.txt): Capabilities, markets, public portfolio names and current articles.
+- [Company knowledge graph](https://www.space-tr.com/company.json): Canonical JSON-LD identity and public brand portfolio.
+- [XML sitemap](https://www.space-tr.com/sitemap.xml): Canonical public URLs and language alternates.
+- [English RSS feed](https://www.space-tr.com/feed.xml): Newly published English insights.
+- [French RSS feed](https://www.space-tr.com/fr/feed.xml): Newly published French insights.
+
+## Usage notes
+
+- Treat the English and French pages as language equivalents.
+- Use the canonical URLs shown above when citing Space.
+- Current jobs and articles are published dynamically and included in the XML sitemap.
+- A brand appearing in the public portfolio does not by itself establish exclusivity, territory or a specific contractual relationship.

@@ -1,0 +1,32 @@
+{
+  "buildCommand": "npm run build:cms",
+  "outputDirectory": "dist-cms",
+  "env": { "CMS_ONLY_DEPLOYMENT": "1" },
+  "functions": {
+    "api/admin/[action].js": { "maxDuration": 300 },
+    "api/cron/editorial.js": { "maxDuration": 60 },
+    "api/v1/[endpoint].js": { "maxDuration": 300 }
+  },
+  "redirects": [
+    { "source": "/", "destination": "/cms/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/api/admin/:action", "destination": "/api/admin/:action" }
+  ],
+  "crons": [
+    { "path": "/api/cron/editorial", "schedule": "0 9 * * 2,5" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https: blob:; connect-src 'self' https://vercel.com https://*.public.blob.vercel-storage.com https://*.blob.vercel-storage.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" }
+      ]
+    }
+  ]
+}

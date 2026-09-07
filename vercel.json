@@ -6,23 +6,52 @@
     { "source": "/index.html", "destination": "/en/", "permanent": true },
     { "source": "/about-space.html", "destination": "/en/about-space.html", "permanent": true },
     { "source": "/expertise.html", "destination": "/en/expertise.html", "permanent": true },
+    { "source": "/space-x-maven.html", "destination": "/en/", "permanent": true },
+    { "source": "/en/space-x-maven.html", "destination": "/en/", "permanent": true },
+    { "source": "/fr/space-x-maven.html", "destination": "/fr/", "permanent": true },
     { "source": "/feelnzuri.html", "destination": "/en/feelnzuri.html", "permanent": true },
-    { "source": "/space-x-maven.html", "destination": "/en/space-x-maven.html", "permanent": true },
     { "source": "/posts.html", "destination": "/en/posts.html", "permanent": true },
-    { "source": "/careers.html", "destination": "/en/careers.html", "permanent": true },
-    { "source": "/cms.html", "destination": "/cms/", "permanent": true }
+    { "source": "/careers.html", "destination": "/en/careers.html", "permanent": true }
   ],
   "rewrites": [
     { "source": "/jobs/:slug", "destination": "/api/job?slug=:slug" },
-    { "source": "/sitemap.xml", "destination": "/api/sitemap" }
+    { "source": "/en/posts/:slug", "destination": "/api/post?language=en&slug=:slug" },
+    { "source": "/fr/posts/:slug", "destination": "/api/post?language=fr&slug=:slug" },
+    { "source": "/posts/:slug", "destination": "/api/post?slug=:slug" },
+    { "source": "/en/team/:slug", "destination": "/api/team?language=en&slug=:slug" },
+    { "source": "/fr/team/:slug", "destination": "/api/team?language=fr&slug=:slug" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/company.json", "destination": "/api/company" },
+    { "source": "/feed.xml", "destination": "/api/feed?language=en" },
+    { "source": "/fr/feed.xml", "destination": "/api/feed?language=fr" },
+    { "source": "/llms-full.txt", "destination": "/api/llms-full" }
   ],
   "headers": [
     {
-      "source": "/(.*)\\.(avif|webp|jpg|jpeg|png|svg|mp4|webm)",
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
+      ]
+    },
+    {
+      "source": "/assets/media/generated/derivatives/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=604800"
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(brand|editorial)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800"
         }
       ]
     },
@@ -36,7 +65,7 @@
       ]
     },
     {
-      "source": "/assets/media-(manifest|curation|runtime).js",
+      "source": "/assets/media/runtime/(brand-taxonomy|media-runtime).js",
       "headers": [
         {
           "key": "Cache-Control",
@@ -45,19 +74,32 @@
       ]
     },
     {
-      "source": "/cms",
+      "source": "/assets/media/runtime/media-curation.(js|json)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" },
-        { "key": "X-Frame-Options", "value": "DENY" }
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
       ]
     },
     {
-      "source": "/cms/(.*)",
+      "source": "/api/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/api/admin/(.*)",
+      "headers": [
         { "key": "Cache-Control", "value": "private, no-store" },
-        { "key": "X-Frame-Options", "value": "DENY" }
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/api/v1/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
       ]
     }
   ]

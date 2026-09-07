@@ -1,0 +1,67 @@
+User-agent: *
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+# Search and answer engines. Public editorial pages are intentionally crawlable.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: CCBot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: Amazonbot
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /cms/
+Disallow: /api/
+
+Sitemap: https://www.space-tr.com/sitemap.xml

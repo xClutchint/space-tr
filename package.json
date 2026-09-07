@@ -3,27 +3,37 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@vercel/blob": "2.8.0"
-  },
-  "devDependencies": {
+    "@vercel/blob": "2.8.0",
+    "ffmpeg-static": "5.3.0",
+    "postgres": "3.4.7",
     "sharp": "0.35.3"
   },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
   "scripts": {
-    "optimize:media": "powershell -NoProfile -ExecutionPolicy Bypass -File ./tools/optimize-media.ps1",
-    "generate:media": "node tools/generate-media-manifest.js",
-    "generate:hero-mobile": "node tools/generate-hero-mobile.js",
-    "generate:locales": "node tools/generate-localized-pages.js",
-    "generate:posts": "node tools/generate-posts-page.js",
-    "sync:niche-stage": "node tools/sync-niche-stage-assets.js",
-    "sync:linkedin": "node tools/sync-linkedin-posts.js",
-    "test:hero-rotation": "node tools/simulate-hero-rotation.js",
-    "test:responsive": "node tools/test-responsive.js",
-    "test:jobs": "node tools/test-job-postings.js",
-    "test:portfolio": "node tools/test-portfolio.js",
-    "test:locales": "node tools/test-locales.js",
-    "test": "npm run test:hero-rotation && npm run test:locales && npm run test:responsive && npm run test:jobs && npm run test:portfolio",
-    "prestart": "npm run generate:posts && npm run generate:locales",
+    "optimize:media": "powershell -NoProfile -ExecutionPolicy Bypass -File ./tools/media/optimize-media.ps1",
+    "generate:media": "node tools/media/generate-media-manifest.js",
+    "generate:hero-mobile": "node tools/media/generate-hero-mobile.js",
+    "generate:locales": "node tools/build/generate-localized-pages.js",
+    "sync:niche-stage": "node tools/media/sync-niche-stage-assets.js",
+    "test:hero-rotation": "node tools/qa/simulate-hero-rotation.js",
+    "test:responsive": "node tools/qa/test-responsive.js",
+    "test:jobs": "node tools/qa/test-job-postings.js",
+    "test:cms": "node tools/qa/test-cms-local.js",
+    "test:portfolio": "node tools/qa/test-portfolio.js",
+    "test:media-pipeline": "node tools/qa/test-media-pipeline.js",
+    "test:film-performance": "node tools/qa/profile-film-transition.js",
+    "test:scroll-performance": "node tools/qa/profile-scroll-performance.js",
+    "test:live": "node tools/qa/test-live-smoke.js",
+    "test:seo": "node tools/qa/test-seo.js",
+    "test:locales": "node tools/qa/test-locales.js",
+    "test": "npm run test:hero-rotation && npm run test:locales && npm run test:responsive && npm run test:jobs && npm run test:cms && npm run test:portfolio && npm run test:seo",
+    "prestart": "npm run generate:locales",
     "start": "node server.js",
-    "build": "node build-vercel.js"
+    "build": "node tools/build/build-vercel.js",
+    "build:site": "node tools/build/build-vercel.js",
+    "build:cms": "node tools/build/build-cms.js",
+    "prepare:cms-deploy": "node tools/build/prune-cms-functions.js"
   }
 }

@@ -1,83 +1,162 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-08-14T00:00:00.000Z",
+  "settings": {
+    "heroRotationSeconds": 5
+  },
   "media": {
-    "hero": [null, null],
+    "hero": [],
     "carousel": []
   },
-  "jobs": [
+  "jobs": [],
+  "posts": [],
+  "team": [
     {
-      "id": "job-brand-manager",
-      "slug": "brand-manager-dubai",
-      "title": "Brand Manager",
-      "department": "Brand management",
-      "location": "Dubai, UAE",
-      "locality": "Dubai",
-      "region": "Dubai",
-      "countryCode": "AE",
-      "employmentType": "FULL_TIME",
-      "datePosted": "2026-07-28",
-      "validThrough": "2026-10-31T23:59:59+04:00",
-      "updatedAt": "2026-08-14T00:00:00.000Z",
-      "summary": "Lead the growth, positioning and commercial development of selected fragrance and beauty brands across Space markets.",
-      "description": "Space is seeking a Brand Manager to steward selected fragrance and beauty brands across regional markets. The role connects brand strategy with disciplined local execution, retail relationships and long-term commercial growth.",
-      "responsibilities": ["Own annual brand plans, launch calendars and commercial targets", "Coordinate retail execution, marketing activity and partner reporting", "Monitor sell-in, sell-through, inventory and market performance", "Protect each brand's positioning and presentation across channels"],
-      "qualifications": ["Relevant brand management experience in fragrance, beauty or luxury", "Strong commercial, analytical and presentation skills", "Ability to work across markets and stakeholder groups", "Professional fluency in English"],
-      "applyEmail": "careers@space-tr.com",
+      "id": "team-vipul-mathur",
+      "name": "Vipul Mathur",
+      "role": "Founder",
+      "roleFr": "Fondateur",
+      "imageUrl": "/assets/brand/people/vipul-mathur.jpg",
+      "linkedin": "https://www.linkedin.com/in/mathvipul/",
+      "summary": "Founder of Space TR, with commercial experience across Africa, the Caribbean, North America and the Middle East since 2007.",
+      "summaryFr": "Fondateur de Space TR, avec une expérience commerciale développée depuis 2007 en Afrique, dans les Caraïbes, en Amérique du Nord et au Moyen-Orient.",
+      "bio": [
+        "Vipul Mathur is the Founder of Space TR, a specialist beauty and fragrance distribution company focused on travel retail and domestic markets across Africa.",
+        "Since 2007, he has developed commercial experience across Africa, the Caribbean, North America and the Middle East, with a particular focus on building luxury beauty and fragrance businesses in emerging markets.",
+        "Before establishing Space TR, Vipul held senior corporate leadership positions including General Manager, Vice President and Director. Today, he leads the company's expansion across Africa, developing travel retail and domestic distribution while building long-term partnerships."
+      ],
+      "bioFr": [
+        "Vipul Mathur est le fondateur de Space TR, une société spécialisée dans la distribution de parfums et de produits de beauté sur les marchés domestiques et du travel retail en Afrique.",
+        "Depuis 2007, il développe une expérience commerciale en Afrique, dans les Caraïbes, en Amérique du Nord et au Moyen-Orient, avec un intérêt particulier pour le développement des activités de parfumerie et de beauté de luxe sur les marchés émergents.",
+        "Avant de créer Space TR, Vipul a occupé plusieurs fonctions de direction, notamment celles de directeur général, vice-président et directeur. Il pilote aujourd'hui l'expansion de l'entreprise en Afrique, tout en construisant des partenariats durables."
+      ],
+      "profileScale": 1,
+      "profilePosition": "center 15%",
+      "profileAlignmentVersion": 2,
       "active": true
     },
     {
-      "id": "job-sales-executive",
-      "slug": "sales-executive-nairobi",
-      "title": "Sales Executive",
-      "department": "Sales & distribution",
-      "location": "Nairobi, Kenya",
-      "locality": "Nairobi",
-      "region": "Nairobi County",
-      "countryCode": "KE",
-      "employmentType": "FULL_TIME",
-      "datePosted": "2026-07-16",
-      "validThrough": "2026-10-31T23:59:59+03:00",
-      "updatedAt": "2026-08-14T00:00:00.000Z",
-      "summary": "Develop retail relationships and deliver thoughtful sales execution for Space's fragrance and beauty portfolio in Kenya.",
-      "description": "Space is seeking a Sales Executive to develop trusted retail relationships and support the distribution of international fragrance and beauty brands in Kenya.",
-      "responsibilities": ["Manage an agreed portfolio of retail accounts", "Build sell-in plans and maintain accurate sales forecasts", "Coordinate launches, product availability and in-store execution", "Share structured market and competitor feedback"],
-      "qualifications": ["Relevant sales experience in beauty, fragrance, FMCG or luxury retail", "Strong relationship-building and negotiation skills", "Organised, accountable and comfortable working in the field", "Professional fluency in English"],
-      "applyEmail": "careers@space-tr.com",
+      "id": "team-kj-thomas",
+      "name": "K. J. Thomas",
+      "role": "Operations Head",
+      "roleFr": "Responsable des opérations",
+      "imageUrl": "/assets/brand/people/kj-thomas.jpg",
+      "linkedin": "https://www.linkedin.com/in/kjthomsi/",
+      "summary": "More than 15 years of experience across fragrance, beauty and travel retail, with responsibility for operations, procurement and supply chain at Space.",
+      "summaryFr": "Plus de quinze ans d'expérience dans la parfumerie, la beauté et le travel retail, avec la responsabilité des opérations, des achats et de la chaîne d'approvisionnement chez Space.",
+      "bio": [
+        "K. J. Thomas brings more than 15 years of experience in the fragrance, beauty and travel retail industry.",
+        "He previously served as Senior General Manager of Beauty at Shoppers Stop and Category Lead for Beauty at Parcos. In these roles, he led commercial strategy, category management, retail operations and local store marketing across premium beauty and fragrance brands.",
+        "At Space, K. J. leads strategic business operations, procurement and supply chain management across Africa, the Indian Subcontinent and travel retail. He holds an MBA in Marketing and a postgraduate qualification in Retail Management."
+      ],
+      "bioFr": [
+        "K. J. Thomas possède plus de quinze ans d'expérience dans les secteurs de la parfumerie, de la beauté et du travel retail.",
+        "Il a notamment occupé les fonctions de Senior General Manager Beauty chez Shoppers Stop et de Category Lead Beauty chez Parcos. À ces postes, il a dirigé la stratégie commerciale, la gestion des catégories, les opérations retail et le marketing local en magasin pour des marques premium.",
+        "Chez Space, K. J. dirige les opérations stratégiques, les achats et la gestion de la chaîne d'approvisionnement. Il est titulaire d'un MBA en marketing et d'un diplôme de troisième cycle en management du retail."
+      ],
+      "profileScale": 1,
+      "profilePosition": "center top",
+      "profileAlignmentVersion": 2,
+      "profileEdge": "#bca98f",
       "active": true
     },
     {
-      "id": "job-logistics-coordinator",
-      "slug": "logistics-coordinator-dubai",
-      "title": "Logistics Coordinator",
-      "department": "Operations & logistics",
-      "location": "Dubai, UAE",
-      "locality": "Dubai",
-      "region": "Dubai",
-      "countryCode": "AE",
-      "employmentType": "FULL_TIME",
-      "datePosted": "2026-07-04",
-      "validThrough": "2026-10-31T23:59:59+04:00",
-      "updatedAt": "2026-08-14T00:00:00.000Z",
-      "summary": "Coordinate reliable inventory movement, order fulfilment and documentation across Space's regional distribution network.",
-      "description": "Space is seeking a Logistics Coordinator to support dependable inventory movement, order fulfilment and documentation across regional markets.",
-      "responsibilities": ["Coordinate inbound and outbound shipments", "Maintain accurate order, inventory and shipping records", "Work with warehouses, freight partners and internal teams", "Track exceptions and communicate delivery status clearly"],
-      "qualifications": ["Relevant logistics, supply-chain or operations experience", "Strong attention to detail and follow-through", "Confidence with spreadsheets and operational systems", "Professional fluency in English"],
-      "applyEmail": "careers@space-tr.com",
+      "id": "team-sundeep-sharma",
+      "name": "Sundeep Sharma",
+      "role": "Co-Founder and Director, Maven Global Ltd.",
+      "roleFr": "Cofondateur et directeur, Maven Global Ltd.",
+      "imageUrl": "/assets/brand/people/sundeep-sharma.jpg",
+      "linkedin": "https://www.linkedin.com/in/sundeepsharmaceo/",
+      "summary": "Co-Founder and Director of Maven Global Ltd., with extensive experience in African markets and travel retail.",
+      "summaryFr": "Cofondateur et directeur de Maven Global Ltd., avec une connaissance approfondie des marchés africains et du travel retail.",
+      "bio": [
+        "Sundeep Sharma is the Co-Founder and Director of Maven Global Ltd., established in 2016. Maven Global is described as East Africa's largest in-country distributor of luxury, niche and prestige fragrances.",
+        "Based in Nairobi since 2002, Sundeep has developed extensive knowledge of African market dynamics. Before establishing Maven Global, he spent 14 years with Flemingo Travel Retail Ltd.",
+        "At the age of 36, he was appointed the company's youngest Regional Chief Executive Officer for Africa. During his tenure, the regional business grew from two to 50 retail outlets across 16 countries. Sundeep holds a Bachelor of Commerce from the University of Mumbai."
+      ],
+      "bioFr": [
+        "Sundeep Sharma est cofondateur et directeur de Maven Global Ltd., créée en 2016 et spécialisée dans la distribution locale de parfums de luxe, de niche et de prestige en Afrique de l'Est.",
+        "Installé à Nairobi depuis 2002, Sundeep a acquis une connaissance approfondie des marchés africains. Avant de créer Maven Global, il a travaillé pendant quatorze ans chez Flemingo Travel Retail Ltd.",
+        "À 36 ans, il est devenu le plus jeune directeur général régional Afrique de l'entreprise. Sous sa direction, l'activité régionale est passée de deux à cinquante points de vente répartis dans seize pays."
+      ],
+      "profileScale": 1,
+      "profilePosition": "center top",
+      "profileAlignmentVersion": 2,
+      "profileEdge": "#c8b79f",
       "active": true
-    }
-  ],
-  "posts": [
+    },
     {
-      "id": "post-regional-knowledge",
-      "slug": "why-regional-knowledge-matters",
-      "title": "Why regional knowledge matters in fragrance distribution",
-      "topic": "Market perspective",
-      "date": "2026-08-07",
-      "excerpt": "International fragrance and beauty brands enter markets with a defined identity. The distributor's role is to preserve that identity while understanding how each retail environment actually works.",
-      "body": "International fragrance and beauty brands enter markets with a defined identity. The distributor's role is to preserve that identity while understanding how each retail environment actually works.\n\nAcross Africa, markets differ in channel structure, consumer expectations and commercial rhythm. Considered distribution connects those local realities with consistent brand representation, product availability and long-term retail relationships.",
-      "imageUrl": "/brand kit/campaign/static_1.avif",
-      "published": true
+      "id": "team-chandni-rana",
+      "name": "Chandni Rana",
+      "role": "Commercial Head & Brand Manager",
+      "roleFr": "Directrice commerciale et responsable de marque",
+      "imageUrl": "/assets/brand/people/chandni-rana.jpg",
+      "linkedin": "https://www.linkedin.com/in/chandni-rana-897351137/",
+      "summary": "More than a decade of experience building luxury fragrance, skincare and cosmetics businesses across India and Africa.",
+      "summaryFr": "Plus de dix ans d'expérience dans le développement d'activités de parfumerie, de soin et de cosmétique de luxe en Inde et en Afrique.",
+      "bio": [
+        "Chandni Rana brings more than a decade of experience in building luxury fragrance, skincare and cosmetics businesses across India and Africa, covering both travel retail and domestic markets.",
+        "At Space TR, she leads commercial strategy, distribution and brand partnerships. She works closely with international brand principals to develop their presence across the company's markets.",
+        "Her experience includes pricing, product assortment, retail environments and understanding the consumer. Chandni takes a hands-on and entrepreneurial approach to leadership and has a track record of identifying new commercial opportunities."
+      ],
+      "bioFr": [
+        "Chandni Rana possède plus de dix ans d'expérience dans le développement d'activités de parfumerie, de soin et de cosmétique de luxe en Inde et en Afrique, sur les marchés domestiques comme en travel retail.",
+        "Chez Space TR, elle dirige la stratégie commerciale, la distribution et les partenariats avec les marques. Elle travaille étroitement avec les maisons internationales afin de développer leur présence sur les marchés de l'entreprise.",
+        "Son expérience couvre la tarification, l'assortiment, l'environnement retail et la compréhension des consommateurs. Chandni adopte une approche entrepreneuriale et opérationnelle du management."
+      ],
+      "profileScale": 1,
+      "profilePosition": "center top",
+      "profileAlignmentVersion": 2,
+      "profileEdge": "#bdb7ae",
+      "active": true
+    },
+    {
+      "id": "team-krishnamachari-rangarajan",
+      "name": "Krishnamachari Rangarajan",
+      "role": "Head of Finance",
+      "roleFr": "Responsable de la finance",
+      "imageUrl": "/assets/brand/people/krishnamachari-rangarajan.jpg",
+      "linkedin": "https://www.linkedin.com/in/rangarajan-krishnamachari-9476a925/",
+      "summary": "Nearly four decades of experience in accounting, finance and factory commercial operations within the FMCG industry.",
+      "summaryFr": "Près de quarante ans d'expérience en comptabilité, finance et opérations commerciales industrielles dans le secteur des biens de grande consommation.",
+      "bio": [
+        "Krishnamachari Rangarajan brings nearly four decades of experience in accounting, finance and factory commercial operations within the FMCG industry.",
+        "In his previous role, he served as Factory Chief Financial Officer for the international business of one of India's largest multinational companies in personal care and hair care manufacturing.",
+        "At Space, Krish leads Finance, Treasury Management, Human Resources and Administration. His work includes streamlining, automating and digitising business processes, controlling costs and supporting competitive pricing that meets customer expectations."
+      ],
+      "bioFr": [
+        "Krishnamachari Rangarajan possède près de quarante ans d'expérience en comptabilité, finance et opérations commerciales industrielles dans le secteur des biens de grande consommation.",
+        "Dans ses fonctions précédentes, il était directeur financier d'usine pour les activités internationales de l'un des plus grands groupes multinationaux indiens spécialisés dans les produits de soin.",
+        "Chez Space, Krish dirige la finance, la trésorerie, les ressources humaines et l'administration. Il contribue à rationaliser, automatiser et numériser les processus tout en maîtrisant les coûts."
+      ],
+      "profileScale": 1,
+      "profilePosition": "center top",
+      "profileAlignmentVersion": 2,
+      "active": true
+    },
+    {
+      "id": "team-baptiste-vesin",
+      "name": "Baptiste Vesin",
+      "role": "Business Development Director",
+      "roleFr": "Directeur du développement commercial",
+      "imageUrl": "/assets/brand/people/baptiste-vesin.png",
+      "linkedin": "https://www.linkedin.com/in/baptiste-vesin-b523b9351/",
+      "summary": "More than 20 years of experience developing distributor and retailer relationships across African local and travel retail markets.",
+      "summaryFr": "Plus de vingt ans d'expérience dans le développement de réseaux de distributeurs et de détaillants sur les marchés africains domestiques et du travel retail.",
+      "bio": [
+        "Baptiste Vesin brings more than 20 years of experience in developing and consolidating distributor and retailer networks across Africa.",
+        "He specialises in luxury and niche brands, including COTY, L'Oreal Luxe, EuroItalia, LVMH, Xerjoff, Nishane, Tiziana Terenzi, Montale, Matiere Premiere, Parfums de Marly, Atelier des Ors, Ramon Bejar and Sospiro.",
+        "At Space, Baptiste is responsible for business development. Fluent in French, Spanish, Italian, Portuguese and English, he focuses on building long-term partnerships across African local and travel retail markets."
+      ],
+      "bioFr": [
+        "Baptiste Vesin possède plus de vingt ans d'expérience dans le développement et la consolidation de réseaux de distributeurs et de détaillants en Afrique.",
+        "Il est spécialisé dans les marques de luxe et de niche, notamment COTY, L'Oréal Luxe, EuroItalia, LVMH, Xerjoff, Nishane, Tiziana Terenzi, Montale, Matière Première, Parfums de Marly, Atelier des Ors, Ramon Bejar et Sospiro.",
+        "Chez Space, Baptiste est responsable du développement commercial. Il parle couramment français, espagnol, italien, portugais et anglais et privilégie la construction de partenariats durables."
+      ],
+      "profileScale": 1,
+      "profilePosition": "center top",
+      "profileAlignmentVersion": 2,
+      "active": true
     }
   ]
 }
