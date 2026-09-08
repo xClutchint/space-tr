@@ -1194,7 +1194,8 @@ if(teamCarousel){
 const brandWall=document.querySelector('[data-brand-wall]');
 if(brandWall){
   cmsContentPromise.then(cmsContent=>{
-  const configuredBrands=(cmsContent?.brands||[]).filter(record=>record.active!==false&&record.name);
+  const canonicalLogoNumberByName=new Map((brandTaxonomy.logos||[]).map(record=>[brandTaxonomy.normalize?.(record.name)||record.name,record.logoNumber]));
+  const configuredBrands=(cmsContent?.brands||[]).filter(record=>record.active!==false&&record.name).map(record=>{const canonicalNumber=canonicalLogoNumberByName.get(brandTaxonomy.normalize?.(record.name)||record.name);return record.logoUrl||!canonicalNumber?record:{...record,logoNumber:canonicalNumber}});
   const brandWallRecords=configuredBrands.length?configuredBrands:portfolioBrandRecords;
   const brandWallNames=brandWallRecords.map(record=>record.name);
   const wallGrid=brandWall.querySelector('[data-brand-wall-grid]');

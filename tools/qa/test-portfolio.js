@@ -39,6 +39,13 @@ const expectedFeaturedOrder = [
 assert.deepEqual(Array.from(taxonomy.featuredLogos, record => record.name), expectedFeaturedOrder, 'The homepage portfolio must retain the approved luxury-first hierarchy.');
 assert.equal(new Set(taxonomy.ordered).size, 64, 'Portfolio names must be unique.');
 assert.equal(new Set(taxonomy.logos.map(record => record.logoNumber)).size, 50, 'Logo mappings must be unique.');
+const correctedLogoNumbers = new Map([
+  ['Gucci', 39], ['Lancome', 11], ['Prada', 9], ['Valentino', 10],
+  ['Ralph Lauren', 12], ['Goldfield & Banks', 16]
+]);
+for (const [name, logoNumber] of correctedLogoNumbers) {
+  assert.equal(taxonomy.logos.find(record => record.name === name)?.logoNumber, logoNumber, `${name} must use the logo file that visibly belongs to it.`);
+}
 assert.equal(taxonomy.canonicalize('JWAHARA'), 'Jawhara', 'The supplied spelling must resolve to official Jawhara.');
 const additions = taxonomy.logos.filter(record => record.logoNumber >= 41 && record.logoNumber <= 54);
 assert.equal(additions.length, 14, 'Exactly fourteen missing niche brands should be added.');

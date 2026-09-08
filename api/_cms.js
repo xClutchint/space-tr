@@ -3,6 +3,10 @@ const store = require('./_store');
 const auth = require('./_auth');
 const seedContent = require('../data/cms-content.json');
 const seededTeam = new Map((seedContent.team || []).flatMap(person => [[person.id, person], [String(person.name || '').toLowerCase(), person]]));
+const legacyBrandLogoCorrections = new Map([
+  ['Gucci:9', 39], ['Lancome:10', 11], ['Prada:11', 9],
+  ['Valentino:12', 10], ['Ralph Lauren:16', 12], ['Goldfield & Banks:39', 16]
+]);
 
 function send(res, status, body, headers = {}) {
   Object.entries({ 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...headers }).forEach(([key, value]) => res.setHeader(key, value));
@@ -89,7 +93,8 @@ function sanitizeTeam(item) {
 }
 function sanitizeBrand(item) {
   if (!item || typeof item !== 'object' || !item.name) return null;
-  const name = clean(item.name, 160), logoNumber = Number(item.logoNumber);
+  const name = clean(item.name, 160), suppliedLogoNumber = Number(item.logoNumber);
+  const logoNumber = legacyBrandLogoCorrections.get(`${name}:${suppliedLogoNumber}`) || suppliedLogoNumber;
   return {
     id: clean(item.id, 120) || slug(name), slug: slug(item.slug || name), name,
     category: ['niche','premium','mass'].includes(item.category) ? item.category : 'niche',

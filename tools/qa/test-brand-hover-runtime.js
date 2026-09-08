@@ -15,6 +15,14 @@ const EXPECTED_PATHS = {
   'Ralph Lauren':'/assets/editorial/brands/ralph-lauren.webp',
   'Goldfield & Banks':'/assets/editorial/brands/goldfield-banks.webp',
 };
+const EXPECTED_LOGO_PATHS = {
+  Gucci:'/assets/brand/portfolio/logos/brand-39-web-white.avif',
+  Prada:'/assets/brand/portfolio/logos/brand-09-web-white.avif',
+  Lancome:'/assets/brand/portfolio/logos/brand-11-web-white.avif',
+  Valentino:'/assets/brand/portfolio/logos/brand-10-web-white.avif',
+  'Ralph Lauren':'/assets/brand/portfolio/logos/brand-12-web-white.avif',
+  'Goldfield & Banks':'/assets/brand/portfolio/logos/brand-16-web-white.avif',
+};
 
 function edgePath() {
   return [
@@ -110,7 +118,8 @@ async function main() {
             await wait(50);
           }
           const media=document.querySelector('[data-brand-wall-stage-media]');
-          results.push({name,stageName:document.querySelector('[data-brand-wall-stage-name]')?.textContent?.trim(),src:media?new URL(media.currentSrc||media.src,location.href).pathname:'',srcAttribute:media?.getAttribute('src')||'',alt:media?.alt||''});
+          const logo=item.querySelector('img');
+          results.push({name,stageName:document.querySelector('[data-brand-wall-stage-name]')?.textContent?.trim(),src:media?new URL(media.currentSrc||media.src,location.href).pathname:'',srcAttribute:media?.getAttribute('src')||'',alt:media?.alt||'',logoSrc:logo?new URL(logo.currentSrc||logo.src,location.href).pathname:'',logoAlt:logo?.alt||''});
         }
         return results;
       })()`,
@@ -120,7 +129,7 @@ async function main() {
     client.close();
     const records = result.result.value;
     console.log(JSON.stringify(records, null, 2));
-    const failures = records.filter(record => record.error || record.stageName !== record.name || record.src !== EXPECTED_PATHS[record.name] || !record.alt.startsWith(`${record.name} `));
+    const failures = records.filter(record => record.error || record.stageName !== record.name || record.src !== EXPECTED_PATHS[record.name] || record.logoSrc !== EXPECTED_LOGO_PATHS[record.name] || record.logoAlt !== record.name || !record.alt.startsWith(`${record.name} `));
     if (failures.length) process.exitCode = 1;
   } finally {
     browser.kill();
