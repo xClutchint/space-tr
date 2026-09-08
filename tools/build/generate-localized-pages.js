@@ -33,7 +33,7 @@ const pages = [
     file: 'expertise.html', slug: 'expertise.html',
     en: {
       title: 'Perfume Distribution in Africa | Space Expertise',
-      description: 'Space provides selective perfume and beauty distribution, market entry, travel retail, brand management and logistics across African markets.'
+      description: 'Space provides selective perfume distribution, market entry, travel retail, brand management and logistics across African markets.'
     },
     fr: {
       title: 'Distribution de parfums en Afrique | Expertise Space',

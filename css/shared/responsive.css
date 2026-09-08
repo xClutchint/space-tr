@@ -7,6 +7,12 @@ input,textarea,select,[contenteditable="true"]{caret-color:auto}
 img,video{max-width:100%}
 button,a,input,select,summary{touch-action:manipulation}
 
+.footer-address-row{display:flex;align-items:center;gap:.58rem}
+.footer-address-row>p{min-width:0}
+.footer-map-link{display:inline-grid!important;flex:0 0 auto;width:1.75rem;height:1.75rem;place-items:center;border:1px solid rgba(255,255,255,.28)!important;border-radius:50%;color:rgba(255,255,255,.78)!important;transition:border-color .22s ease,color .22s ease,transform .22s ease}
+.footer-map-link svg{width:.88rem;height:.88rem;fill:currentColor}
+.footer-map-link:hover,.footer-map-link:focus-visible{border-color:#fff!important;color:#fff!important;transform:translateY(-1px)}
+
 /* Shared mobile navigation for editorial pages. Desktop headers remain unchanged. */
 .page-menu-toggle,
 .page-mobile-nav{

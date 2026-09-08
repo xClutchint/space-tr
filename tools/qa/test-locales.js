@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, '../..');
 const pagesRoot = path.join(root, 'src', 'pages');
 const failures = [];
 const frenchBodyMarkers = {
-  'index.html': 'Rapprocher les plus grandes marques mondiales',
+  'index.html': 'L’EXCELLENCE DE LA PARFUMERIE ET DE LA BEAUTÉ',
   'about-space.html': 'Le partenaire de chaque étape',
   'expertise.html': 'Le relais de l’expertise',
   'feelnzuri.html': 'Un salon raffiné',

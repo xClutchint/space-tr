@@ -48,8 +48,8 @@ function updateSmartHeader(){
 window.addEventListener('scroll',updateSmartHeader,{passive:true});updateSmartHeader();
 const translations={
   'About':'À propos','Brands':'Marques','Expertise':'Expertise','Markets':'Marchés','People':'Équipe','Team':'Équipe','Careers':'Carrières','Contact':'Contact','Contact Us':'Contactez-nous','Posts':'Publications',
-  'Bringing the best of global beauty brands to local audiences':'Rapprocher les plus grandes marques mondiales de beauté des publics locaux',
-  'Space is a specialist fragrance and beauty distributor connecting international brands with retailers and consumers across Africa.':'Space est un distributeur spécialisé en parfumerie et beauté, reliant les marques internationales aux détaillants et aux consommateurs en Afrique.',
+  'Bringing the best of global beauty brands to local audiences':'L’EXCELLENCE DE LA PARFUMERIE ET DE LA BEAUTÉ AU PLUS PRÈS DES CONSOMMATEURS',
+  'Space is a specialist fragrance and beauty distributor connecting international brands with retailers and consumers across Africa.':'SPACE, distributeur spécialisé en parfumerie et haute parfumerie qui connecte les maisons internationales au public africain',
   'View all brands':'Voir toutes les marques',
   'About Space':'À propos de Space','Discover Space':'Découvrir Space','Countries served':'Pays desservis','Brand partners':'Marques partenaires','Available SKUs':'Références disponibles','Approved points of sale':'Points de vente agréés',
   'Trusted with brands that define beauty.':'La confiance des marques qui définissent la beauté.','Explore the portfolio. Hover, focus or tap a brand card to reveal more.':'Découvrez le portefeuille. Survolez, sélectionnez ou touchez une carte pour en savoir plus.',
@@ -122,7 +122,7 @@ const localeCopy={
   },
   fr:{
     expertiseSectionLabel:'Notre savoir-faire',exploreExpertisePage:'Découvrir notre expertise en distribution',
-    expertiseWordYoung:'Jeune',expertiseWordInOne:'encore.',expertiseWordYears:'Toujours',expertiseWordAhead:'en',expertiseWordInTwo:'mouvement.',expertiseWordMotion:'Pr\u00e9cise',expertiseWordPrecise:'dans',expertiseWordInThree:'son',expertiseWordExecution:'ex\u00e9cution.',
+    expertiseWordYoung:'Jeune',expertiseWordInOne:'par son',expertiseWordYears:'histoire,',expertiseWordAhead:'Toujours',expertiseWordInTwo:'en',expertiseWordMotion:'mouvement,',expertiseWordPrecise:'Pr\u00e9cise',expertiseWordInThree:'dans son',expertiseWordExecution:'ex\u00e9cution.',
     expertiseMarketLong:'Des lancements et activations adapt\u00e9s \u00e0 chaque march\u00e9, tout en pr\u00e9servant les standards et l\u2019ADN de chaque Maison.',
     expertiseSalesLong:'Un r\u00e9seau de partenaires s\u00e9lectionn\u00e9s de mani\u00e8re strat\u00e9gique afin de construire une pr\u00e9sence s\u00e9lective et coh\u00e9rente sur les march\u00e9s domestiques, duty-free et e-commerce.',
     expertiseStewardshipLong:'L\u2019image, les standards et la valeur \u00e0 long terme de chaque marque sont prot\u00e9g\u00e9s march\u00e9 par march\u00e9.',
@@ -131,16 +131,16 @@ const localeCopy={
     expertiseTraining:'Excellence & d\u00e9veloppement retail',
     expertiseTrainingLong:'De la formation \u00e0 l\u2019accompagnement sur le terrain, nous renfor\u00e7ons l\u2019expertise des \u00e9quipes, \u00e9levons l\u2019exp\u00e9rience client et favorisons l\u2019excellence retail, tout en restant fid\u00e8les \u00e0 l\u2019ADN de chaque Maison.',
     navAbout:'À propos',navExpertise:'Expertise',navBrands:'Marques',navTeam:'Équipe',navCareers:'Carrières',navContact:'Nous contacter',navPosts:'Publications',openNavigation:'Ouvrir la navigation',closeNavigation:'Fermer la navigation',
-    heroHeadline:'Rapprocher les plus grandes marques mondiales de beauté des publics locaux',viewBrands:'Découvrir nos marques',
+    heroHeadline:'L’EXCELLENCE DE LA PARFUMERIE ET DE LA BEAUTÉ AU PLUS PRÈS DES CONSOMMATEURS',viewBrands:'Découvrir nos marques',
     brandsEyebrow:'Notre portefeuille',brandsTitle:'Marques',brandsHeadline:'La confiance des marques qui façonnent la beauté.',
     brandsIntro:'Les marques avec lesquelles nous sommes fiers de collaborer.',brandsCount:'Partenaires internationaux de la parfumerie & de la beauté',
-    aboutHeadline:'Space est un distributeur spécialisé en parfumerie et beauté qui connecte les marques internationales aux détaillants et aux consommateurs en Afrique.',
-    aboutIntro:'Space est un distributeur spécialisé en parfumerie et beauté. Nous connectons les marques internationales aux détaillants et aux consommateurs en Afrique.',
+    aboutHeadline:'SPACE, distributeur spécialisé en parfumerie et haute parfumerie qui connecte les maisons internationales au public africain',
+    aboutIntro:'SPACE, distributeur spécialisé en parfumerie et haute parfumerie qui connecte les maisons internationales au public africain',
     aboutDetail:'Grâce à notre connaissance des marchés locaux, à notre réseau de distribution et à une gestion rigoureuse des marques, nos équipes pilotent l’ensemble de la mise sur le marché, de la planification commerciale et du développement retail à la coordination des stocks et à la croissance durable des marques.',
     markets:'Marchés',brandPartners:'Marques partenaires',availableSkus:'Références disponibles',discoverSpace:'Découvrir Space',
     ourPresence:'Nos bureaux',africa:'Africa',uae:'UAE',france:'France',india:'Indian Subcontinent',
-    filmHeadline:'Marques internationales,<br>Portée locale',expertiseSwipe:'Balayez pour explorer',teamHeadline:'L’équipe',teamLeadership:'L’équipe',teamSwipe:'Balayez ou utilisez les flèches pour découvrir l’équipe',campaignSwipe:'Balayez pour découvrir les campagnes',viewProfile:'Voir le profil',
-    expertiseEyebrow:'Notre expertise',expertiseHeadline:'Jeune encore. Toujours en mouvement. Précise dans son exécution.',
+    filmHeadline:'Des marques internationales,<br>une présence et expertise locale',expertiseSwipe:'Balayez pour explorer',teamHeadline:'L’équipe',teamLeadership:'L’équipe',teamSwipe:'Balayez ou utilisez les flèches pour découvrir l’équipe',campaignSwipe:'Balayez pour découvrir les campagnes',viewProfile:'Voir le profil',
+    expertiseEyebrow:'Notre expertise',expertiseHeadline:'Jeune par son histoire, Toujours en mouvement, Précise dans son exécution.',
     expertiseInstruction:'Sélectionnez une expertise',expertiseMarket:'Stratégie de marché',expertiseSales:'Vente & distribution',
     expertiseStewardship:'Pilotage de marque',expertiseMarketing:'Marketing & activation',expertiseOperations:'Logistique & chaîne d’approvisionnement',
     expertiseMarketCopy:'Évaluation du marché, positionnement, planification des lancements et développement commercial à long terme.',
@@ -1252,7 +1252,7 @@ if(brandWall){
     'Maison Noir':{src:'assets/editorial/brands/maison-noir.webp',objectPosition:'50% 50%'}
   };
   const campaignAssetsByBrand=new Map();
-  const brandStageRevision='20260824-2';
+  const brandStageRevision='20260908-3';
   Object.entries(sourcedBrandStageAssets).forEach(([name,asset])=>{
     const source=asset.src.startsWith('assets/editorial/brands/')?`${asset.src}?v=${brandStageRevision}`:asset.src;
     campaignAssetsByBrand.set(name,{...asset,src:source});
@@ -1262,8 +1262,22 @@ if(brandWall){
   const contrastCanvasBrands=new Set([21]);
   wallGrid.innerHTML=brandWallRecords.map(record=>{const name=record.name,number=record.logoNumber,usesWhiteCanvasLogo=whiteCanvasLogoNumbers.has(number),logoVariant=usesWhiteCanvasLogo?'web-white':'avif';return `<article class="brand-wall-item${campaignAssetsByBrand.has(name)?' has-campaign-asset':''}${!usesWhiteCanvasLogo&&lightCanvasBrands.has(number)?' has-light-canvas':''}${!usesWhiteCanvasLogo&&contrastCanvasBrands.has(number)?' needs-contrast-canvas':''}" data-brand-name="${name}" tabindex="0" aria-label="${name}"><img src="${portfolioLogoPath(record,logoVariant)}" alt="${name}" loading="lazy" decoding="async"></article>`}).join('')+`<button class="brand-wall-discovery" type="button" aria-label="More portfolio brands"><span class="brand-wall-discovery-orbit" aria-hidden="true"><i></i></span><span>&amp;<br>More</span></button>`;
   const wallItems=[...wallGrid.querySelectorAll('.brand-wall-item')];
-  let activeStageIndex=-1,stageSwapTimer;
-  const showBrandOnStage=index=>{if(!stage||index===activeStageIndex)return;activeStageIndex=index;const record=brandWallRecords[index],name=record.name,asset=campaignAssetsByBrand.get(name),source=asset?.optimizedSrc||asset?.src||portfolioLogoPath(record,'mark'),preload=new Image();preload.onload=()=>{window.clearTimeout(stageSwapTimer);stage.classList.add('is-changing');stageSwapTimer=window.setTimeout(()=>{stage.classList.toggle('is-logo-only',!asset);stageMedia.src=source;stageMedia.style.objectPosition=asset?.objectPosition||'50% 50%';stageMedia.style.setProperty('--brand-stage-scale',asset?.scale||1);stageMedia.alt=asset?`${name} campaign visual`:`${name} logo`;stageName.textContent=name;stageKicker.textContent='Portfolio partner';requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('is-changing')))},180)};preload.src=source};
+  let activeStageIndex=-1,stageSwapTimer,brandStageRequest=0;
+  const showBrandOnStage=index=>{
+    if(!stage||index===activeStageIndex)return;
+    activeStageIndex=index;
+    const request=++brandStageRequest,record=brandWallRecords[index],name=record.name,asset=campaignAssetsByBrand.get(name),source=asset?.optimizedSrc||asset?.src||portfolioLogoPath(record,'mark'),preload=new Image();
+    preload.onload=()=>{
+      if(request!==brandStageRequest||activeStageIndex!==index)return;
+      window.clearTimeout(stageSwapTimer);
+      stage.classList.add('is-changing');
+      stageSwapTimer=window.setTimeout(()=>{
+        if(request!==brandStageRequest||activeStageIndex!==index)return;
+        stage.classList.toggle('is-logo-only',!asset);stageMedia.src=source;stageMedia.style.objectPosition=asset?.objectPosition||'50% 50%';stageMedia.style.setProperty('--brand-stage-scale',asset?.scale||1);stageMedia.alt=asset?`${name} campaign visual`:`${name} logo`;stageName.textContent=name;stageKicker.textContent='Portfolio partner';requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('is-changing')))
+      },180);
+    };
+    preload.src=source;
+  };
   const setWallFocus=(item,index)=>{brandWall.classList.toggle('has-brand-focus',Boolean(item));wallItems.forEach(candidate=>candidate.classList.toggle('is-focused',candidate===item));if(item)showBrandOnStage(index)};
   wallItems.forEach((item,index)=>{
     const activate=()=>setWallFocus(item,index);

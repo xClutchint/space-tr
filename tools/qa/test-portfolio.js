@@ -86,6 +86,16 @@ for (const file of refreshedStageFiles) {
   assert.ok(homepageScript.includes(`assets/editorial/brands/${file}`), `${file} is not registered in the refreshed portfolio interaction.`);
 }
 assert.match(homepageScript, /brandStageRevision='\d{8}-\d+'/, 'The refreshed hover-stage assets must use a cache-busting revision.');
+const stageAssetBlock = homepageScript.match(/const sourcedBrandStageAssets=\{([\s\S]*?)\n  \};/);
+assert.ok(stageAssetBlock, 'The named brand-stage asset map must be present.');
+const stageAssets = new Map(
+  [...stageAssetBlock[1].matchAll(/^\s*'([^']+)':\{src:'([^']+)'/gm)].map(match => [match[1], match[2]]),
+);
+for (const record of taxonomy.featuredLogos) {
+  assert.ok(stageAssets.has(record.name), `${record.name} must map directly to its own hover-stage asset.`);
+  assert.ok(existsWithContent(stageAssets.get(record.name)), `${record.name} points to a missing hover-stage asset.`);
+}
+assert.match(homepageScript, /request!==brandStageRequest\|\|activeStageIndex!==index/, 'Stale hover image loads must not overwrite the currently selected brand.');
 assert.ok(existsWithContent('assets/editorial/brands/michael-kors.webp'), 'Michael Kors is missing its fragrance hover visual.');
 assert.ok(homepageScript.includes('assets/editorial/brands/michael-kors.webp'), 'Michael Kors is not registered in the portfolio interaction.');
 
