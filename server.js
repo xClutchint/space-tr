@@ -29,6 +29,8 @@ const cmsHandlers=new Map([
   ['/api/v1/blog-drafts',require('./cms/functions/v1-blog-drafts')],
   ['/api/v1/posts',require('./cms/functions/v1-blog-drafts')],
   ['/api/v1/content',require('./cms/functions/v1-content')],
+  ['/api/v1/preview',require('./cms/functions/v1-preview')],
+  ['/api/v1/publish',require('./cms/functions/v1-publish')],
   ['/api/v1/openapi',require('./cms/functions/v1-openapi')],
   ['/api/health',require('./api/health')]
 ]);

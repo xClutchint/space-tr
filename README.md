@@ -94,14 +94,16 @@ is used only for immediate Google Indexing API notifications when jobs change.
 
 ## CMS REST API
 
-The private CMS exposes machine-authenticated draft content, post ingestion and media endpoints:
+The private CMS exposes a machine-authenticated, draft-first content API:
 
-1. `GET /api/v1/content` inspects safe, non-account draft resources.
+1. `GET|POST|PATCH|PUT|DELETE /api/v1/content` manages every non-account CMS resource.
 2. `GET|POST /api/v1/posts` lists posts or creates an idempotent post draft.
-3. `POST /api/v1/media` accepts a base64 JPG, PNG, WebP, AVIF or GIF and returns its stored URL.
-4. `GET /api/v1/openapi` returns the authenticated OpenAPI document.
+3. `GET|POST|DELETE /api/v1/media` manages optimised image assets.
+4. `POST /api/v1/preview` creates a short-lived signed draft preview.
+5. `POST /api/v1/publish` explicitly publishes an approved draft.
+6. `GET /api/v1/openapi` returns the complete authenticated OpenAPI document.
 
-All require `Authorization: Bearer <CMS_API_KEY>`. The key is never sent to the public site or CMS browser code. Publishing remains a human-only CMS action. See [the REST API guide](docs/api/cms-rest-api.md) for request examples, error behavior and the automated editorial flow.
+All require `Authorization: Bearer <CMS_API_KEY>`. The key is never sent to the public site or CMS browser code. Every content mutation remains a draft until the separate publish endpoint is called. See [the REST API guide](docs/api/cms-rest-api.md) or the API guide inside the CMS for exact schemas, examples and the automated editorial flow.
 
 ## Operations
 

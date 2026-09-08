@@ -12,7 +12,8 @@ const child = spawn(process.execPath, ['server.js'], {
   cwd: root,
   env: { ...process.env, PORT:String(port), CMS_OWNER_EMAIL:ownerEmail, CMS_OWNER_PASSWORD:ownerPassword,
     CMS_SESSION_SECRET:'cms-test-session-secret-long', CMS_CSRF_SECRET:'cms-test-csrf-secret-long', CMS_OTP_SECRET:'cms-test-otp-secret-long',
-    CMS_API_KEY:ingestKey, OPENAI_API_KEY:'', SPACE_CMS_LOCAL_CONTENT:path.join(temporary,'content.json'), SPACE_CMS_LOCAL_ASSET_ROOT:path.join(temporary,'uploads') },
+    CMS_API_KEY:ingestKey, CMS_PREVIEW_SECRET:'cms-test-preview-secret-at-least-thirty-two-characters', PUBLIC_SITE_URL:origin,
+    OPENAI_API_KEY:'', SPACE_CMS_LOCAL_CONTENT:path.join(temporary,'content.json'), SPACE_CMS_LOCAL_ASSET_ROOT:path.join(temporary,'uploads') },
   stdio:['ignore','pipe','pipe']
 });
 const waitForServer = () => new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Local CMS server did not start.')),15000);child.once('error',reject);child.stdout.on('data',chunk=>{if(String(chunk).includes('Space site running')){clearTimeout(timer);resolve()}});child.stderr.on('data',chunk=>process.stderr.write(chunk))});
@@ -45,6 +46,7 @@ async function run() {
   let result=await request('/cms/');
   assert.equal(result.response.status,200); const cmsHtml=await (await fetch(origin+'/cms/')).text();
   assert.match(cmsHtml,/desktop-required-title/); assert.match(cmsHtml,/Forgot password/); assert.match(cmsHtml,/Hero media/); assert.match(cmsHtml,/data-section="carousel"/); assert.match(cmsHtml,/data-upload-folder/); assert.match(cmsHtml,/webkitdirectory/); assert.match(cmsHtml,/data-brand-crop-dialog/); assert.match(cmsHtml,/data-crop-handle="se"/);
+  assert.match(cmsHtml,/data-section="api-guide"/); assert.match(cmsHtml,/GET \/api\/v1\/openapi/); assert.match(cmsHtml,/Never call \/api\/v1\/publish unless/);
   assert.doesNotMatch(cmsHtml,/data-section="overview"/); assert.doesNotMatch(cmsHtml,/data-section="security"/); assert.doesNotMatch(cmsHtml,/data-section="history"/);
   result=await request('/api/health'); assert.equal(result.response.status,200); assert.equal(result.body.status,'ok');
   result=await request('/api/admin/content'); assert.equal(result.response.status,401,'CMS content must require a session.');
@@ -111,15 +113,25 @@ async function run() {
 
   result=await request('/api/v1/media',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'api.png',type:'image/png',data:png})}); assert.equal(result.response.status,401);
   result=await request('/api/v1/media',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({name:'api.png',type:'image/png',data:png})}); assert.equal(result.response.status,201); const apiImage=result.body.url;
-  const article={sourceId:'external-article-001',title:'A securely imported article',body:'This draft arrives through the restricted blog ingestion endpoint. '.repeat(4),excerpt:'A controlled draft import.',imageUrl:apiImage,language:'en'};
-  result=await request('/api/v1/blog-drafts',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify(article)}); assert.equal(result.response.status,201); assert.equal(result.body.status,'draft');
+  const apiAssetId=result.body.mediaId;
+  result=await request('/api/v1/media',{headers:{Authorization:`Bearer ${ingestKey}`}}); assert.equal(result.response.status,200); assert.ok(result.body.assets.some(asset=>asset.id===apiAssetId));
+  const article={sourceId:'external-article-001',title:'A securely imported article',body:'This draft arrives through the restricted blog ingestion endpoint.\n\n## Market context\n\nSpace protects **brand value** through disciplined execution.',excerpt:'A controlled draft import.',imageUrl:apiImage,language:'en'};
+  result=await request('/api/v1/blog-drafts',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify(article)}); assert.equal(result.response.status,201); assert.equal(result.body.status,'draft'); const importedId=result.body.id; let importedSlug=result.body.slug;
   result=await request('/api/content'); assert.equal(result.body.posts.some(post=>post.sourceId===article.sourceId),false,'API imports must not self-publish.');
   result=await request('/api/admin/content',{headers:{Cookie:owner.cookie,Origin:origin}}); assert.equal(result.body.posts.filter(post=>post.sourceId===article.sourceId).length,1);
-  result=await request('/api/v1/blog-drafts',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({...article,title:'Updated imported article'})}); assert.equal(result.response.status,200,'Repeated source IDs should update the draft.');
+  result=await request('/api/v1/blog-drafts',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({...article,title:'Updated imported article'})}); assert.equal(result.response.status,200,'Repeated source IDs should update the draft.'); importedSlug=result.body.slug;
   result=await request('/api/v1/posts?status=draft&includeBody=1',{headers:{Authorization:`Bearer ${ingestKey}`}}); assert.equal(result.response.status,200); assert.ok(result.body.posts.some(post=>post.sourceId===article.sourceId&&post.body));
   result=await request('/api/v1/content?resource=brands',{headers:{Authorization:`Bearer ${ingestKey}`}}); assert.equal(result.response.status,200); assert.equal(result.body.resource,'brands'); assert.ok(Array.isArray(result.body.data));
+  result=await request('/api/v1/content?resource=team',{headers:{Authorization:`Bearer ${ingestKey}`}}); const teamVersion=result.body.version;
+  result=await request('/api/v1/content?resource=team',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({item:{id:'api-test-person',name:'API Test Person',role:'Tester',imageUrl:apiImage,bio:['Created through the complete content API.'],active:false},expectedVersion:teamVersion})}); assert.equal(result.response.status,201); let automationVersion=result.body.version;
+  result=await request('/api/v1/content?resource=team&id=api-test-person',{method:'PATCH',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({patch:{role:'API Tester'},expectedVersion:automationVersion})}); assert.equal(result.response.status,200); automationVersion=result.body.version; assert.equal(result.body.data.find(person=>person.id==='api-test-person').role,'API Tester');
+  result=await request('/api/v1/content?resource=team&id=api-test-person',{method:'DELETE',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({expectedVersion:automationVersion})}); assert.equal(result.response.status,200); assert.equal(result.body.data.some(person=>person.id==='api-test-person'),false); automationVersion=result.body.version;
+  result=await request('/api/v1/preview',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({path:'/en/posts/securely-imported-article'})}); assert.equal(result.response.status,200); assert.match(result.body.url,/preview=/);
+  result=await request(`/api/v1/content?resource=posts&id=${encodeURIComponent(importedId)}`,{method:'PATCH',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({patch:{published:true},expectedVersion:automationVersion})}); assert.equal(result.response.status,200); automationVersion=result.body.version;
+  result=await request('/api/v1/publish',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${ingestKey}`},body:JSON.stringify({scope:'all',expectedVersion:automationVersion})}); assert.equal(result.response.status,200); assert.equal(result.body.status,'published');
+  const importedHtml=await (await fetch(`${origin}/en/posts/${importedSlug}`)).text(); assert.match(importedHtml,/<h2>Market context<\/h2>/); assert.match(importedHtml,/<strong>brand value<\/strong>/);
   result=await request('/api/v1/content?resource=users',{headers:{Authorization:`Bearer ${ingestKey}`}}); assert.equal(result.response.status,400,'Account data must not be exposed by the automation API.');
-  result=await request('/api/v1/openapi',{headers:{Authorization:`Bearer ${ingestKey}`}}); assert.equal(result.response.status,200); assert.equal(result.body.openapi,'3.1.0'); assert.ok(result.body.paths['/api/v1/posts']);
+  result=await request('/api/v1/openapi',{headers:{Authorization:`Bearer ${ingestKey}`}}); assert.equal(result.response.status,200); assert.equal(result.body.openapi,'3.1.0'); assert.ok(result.body.paths['/api/v1/posts']); assert.ok(result.body.paths['/api/v1/publish']); assert.ok(result.body.components.schemas.MediaState);
 
   result=await request('/api/admin/activity',{headers:{Cookie:owner.cookie,Origin:origin}}); assert.equal(result.response.status,200); assert.ok(result.body.events.some(event=>event.event==='published')); assert.ok(result.body.revisions.length>=2);
   result=await request('/api/admin/backup',{headers:{Cookie:owner.cookie,Origin:origin}}); assert.equal(result.response.status,200); const backupText=JSON.stringify(result.body); assert.equal(/passwordHash|password_hash|sessions|otps|resetTickets/.test(backupText),false,'Backups must omit authentication secrets.'); assert.ok(Array.isArray(result.body.assets));
@@ -129,7 +141,7 @@ async function run() {
   result=await request('/fr/team/vipul-mathur'); assert.equal(result.response.status,200); const frenchProfile=await (await fetch(origin+'/fr/team/vipul-mathur')).text(); assert.match(frenchProfile,/"@type":"Person"/); assert.match(frenchProfile,/Fondateur/); assert.match(frenchProfile,/hreflang="en"/);
   result=await request('/en/posts/scale-0'); assert.equal(result.response.status,200); const englishPost=await (await fetch(origin+'/en/posts/scale-0')).text(); assert.match(englishPost,/"@type":"BlogPosting"/); assert.match(englishPost,/lang="en"/); assert.match(englishPost,/\/en\/posts\/scale-0/);
   const sitemap=await (await fetch(origin+'/sitemap.xml')).text(); assert.match(sitemap,/\/fr\/team\/vipul-mathur/); assert.match(sitemap,/\/jobs\//); assert.match(sitemap,/\/en\/posts\/scale-0/);
-  console.log('Validated auth, OTP recovery, roles, CSRF, draft isolation, revisions, exact brand counts, 205-post pagination, media signatures, blog ingestion, jobs, bilingual team SEO, backup and health monitoring.');
+  console.log('Validated auth, OTP recovery, roles, CSRF, draft isolation, complete REST mutations, signed preview, OpenAPI, revisions, media, posts, jobs, bilingual team SEO, backup and health monitoring.');
 }
 
 run().catch(error=>{console.error(error);process.exitCode=1}).finally(()=>{child.kill();fs.rmSync(temporary,{recursive:true,force:true})});

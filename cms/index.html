@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles/base.css?v=interface-5">
   <link rel="stylesheet" href="assets/styles/studio.css?v=interface-5">
-  <link rel="stylesheet" href="assets/styles/luxury.css?v=interface-5">
+  <link rel="stylesheet" href="assets/styles/luxury.css?v=api-guide-1">
 </head>
 <body>
   <section class="cms-desktop-required" aria-labelledby="desktop-required-title">
@@ -64,6 +64,7 @@
         <button data-section-button="team">Team</button>
         <button data-section-button="posts">Posts</button>
         <button data-section-button="assets">Asset library</button>
+        <button data-section-button="api-guide">API guide</button>
       </nav>
       <div class="cms-sidebar-account"><span data-current-user></span><small data-current-role></small><button class="cms-signout" type="button" data-logout>Sign out</button></div>
     </aside>
@@ -107,6 +108,94 @@
       <section class="cms-section" data-section="posts"><div class="cms-section-heading"><h1>Posts</h1><span>Articles and drafts.</span></div><div class="cms-list-toolbar"><span data-post-count></span><button data-new-post>New article</button></div><div class="cms-record-list" data-posts-list></div></section>
       <section class="cms-section" data-section="assets"><div class="cms-section-heading"><h1>Asset library</h1><span>Originals in. Web-ready files out.</span></div><div class="cms-dropzone" data-dropzone="library"><strong>Upload assets</strong><span>Up to 50 files or one folder.</span><div class="cms-dropzone-actions"><label>Choose files<input type="file" data-upload multiple accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"></label><label>Choose folder<input type="file" data-upload-folder multiple webkitdirectory directory accept="image/jpeg,image/png,image/webp,image/avif,image/gif,video/mp4,video/webm"></label></div></div><div class="cms-upload-feedback" data-upload-feedback hidden><p class="cms-upload-state" data-upload-state aria-live="polite"></p><progress data-upload-progress max="100"></progress><button type="button" data-cancel-upload hidden>Cancel</button></div><div class="cms-asset-toolbar"><input type="search" data-asset-search placeholder="Search assets" aria-label="Search assets"><select data-asset-filter aria-label="Filter assets"><option value="all">All assets</option><option value="image">Images</option><option value="video">Videos</option><option value="processing">Processing</option></select></div><div class="cms-asset-grid" data-assets-grid></div></section>
 
+      <section class="cms-section cms-api-guide" data-section="api-guide">
+        <div class="cms-section-heading"><h1>API guide</h1><span>Private automation. Draft first.</span></div>
+        <div class="cms-api-intro">
+          <article><span>Base URL</span><code data-api-origin></code></article>
+          <article><span>Authentication</span><code>Authorization: Bearer $CMS_API_KEY</code></article>
+          <article><span>Machine contract</span><code>GET /api/v1/openapi</code></article>
+        </div>
+        <div class="cms-api-warning"><strong>Keep the key server-side.</strong><span>Set <code>CMS_API_KEY</code> in Vercel. Never place it in a website, mobile app, prompt, repository or URL.</span></div>
+
+        <section class="cms-api-chapter">
+          <header><span>01</span><h2>Safe workflow</h2></header>
+          <ol><li>Read the current resource and note <code>version</code>.</li><li>Upload images, then use the returned <code>url</code>.</li><li>Create or update content. It remains a draft.</li><li>Request a signed preview and review it.</li><li>Publish only after approval.</li></ol>
+        </section>
+
+        <section class="cms-api-chapter">
+          <header><span>02</span><h2>Article draft</h2></header>
+          <p>Use a stable idempotency key. Reusing it updates the same draft instead of creating a duplicate.</p>
+          <div class="cms-code-block"><button type="button" data-copy-code>Copy</button><pre><code>curl -X POST "$CMS_URL/api/v1/posts" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "X-Idempotency-Key: weekly-editorial-2026-37" \
+  -d '{
+    "title": "Why selective distribution matters",
+    "slug": "why-selective-distribution-matters",
+    "date": "2026-09-08",
+    "language": "en",
+    "excerpt": "A concise summary, maximum 300 characters.",
+    "seoTitle": "Selective fragrance distribution in Africa",
+    "seoDescription": "How disciplined distribution protects fragrance brands.",
+    "author": "Space Editorial Team",
+    "imageUrl": "https://...",
+    "thumbnailUrl": "https://...",
+    "body": "Opening paragraph.\n\n## Market context\n\nUse **bold emphasis**, *italics* and [trusted links](https://example.com).\n\n- First point\n- Second point"
+  }'</code></pre></div>
+          <div class="cms-api-format"><span>Article formatting</span><dl><div><dt>Paragraph</dt><dd>Separate blocks with one blank line.</dd></div><div><dt>Heading</dt><dd><code>## Heading</code> or <code>### Heading</code></dd></div><div><dt>Bold</dt><dd><code>**important words**</code></dd></div><div><dt>Italic</dt><dd><code>*emphasis*</code></dd></div><div><dt>List</dt><dd>Begin every line with <code>- </code></dd></div><div><dt>Link</dt><dd><code>[label](https://example.com)</code></dd></div></dl></div>
+        </section>
+
+        <section class="cms-api-chapter">
+          <header><span>03</span><h2>Images</h2></header>
+          <p>Images are stored in the asset library and optimised automatically. Maximum decoded upload size: 8 MB.</p>
+          <div class="cms-code-block"><button type="button" data-copy-code>Copy</button><pre><code>BASE64=$(base64 -i campaign.jpg)
+curl -X POST "$CMS_URL/api/v1/media" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"name\":\"campaign.jpg\",\"type\":\"image/jpeg\",\"data\":\"$BASE64\"}"</code></pre></div>
+          <p>Use the response <code>url</code> for a post, team portrait, brand artwork, page image or media assignment. List assets with <code>GET /api/v1/media</code>. Delete everywhere with <code>DELETE /api/v1/media?id=ASSET_ID</code>.</p>
+        </section>
+
+        <section class="cms-api-chapter">
+          <header><span>04</span><h2>All content</h2></header>
+          <div class="cms-api-endpoints">
+            <article><code>GET /api/v1/content?resource=posts</code><span>Read a draft resource.</span></article>
+            <article><code>POST /api/v1/content?resource=team</code><span>Create an item with <code>{"item": {...}}</code>.</span></article>
+            <article><code>PATCH /api/v1/content?resource=brands&amp;id=ID</code><span>Update with <code>{"patch": {...}, "expectedVersion": 12}</code>.</span></article>
+            <article><code>DELETE /api/v1/content?resource=jobs&amp;id=ID</code><span>Delete from the draft.</span></article>
+            <article><code>PUT /api/v1/content?resource=pageImages</code><span>Replace a complete resource with <code>{"data": [...]}</code>.</span></article>
+          </div>
+          <p>Resources: <code>brands</code>, <code>jobs</code>, <code>team</code>, <code>posts</code>, <code>media</code>, <code>pageImages</code>, <code>settings</code>. Exact fields and limits are defined in OpenAPI.</p>
+        </section>
+
+        <section class="cms-api-chapter">
+          <header><span>05</span><h2>Preview and publish</h2></header>
+          <div class="cms-code-grid">
+            <div class="cms-code-block"><button type="button" data-copy-code>Copy</button><pre><code>curl -X POST "$CMS_URL/api/v1/preview" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"path":"/en/posts/article-slug"}'</code></pre></div>
+            <div class="cms-code-block"><button type="button" data-copy-code>Copy</button><pre><code>curl -X POST "$CMS_URL/api/v1/publish" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"scope":"all","expectedVersion":12}'</code></pre></div>
+          </div>
+          <p>A preview URL expires after ten minutes. Before publishing a new article, PATCH that post with <code>{"patch":{"published":true}}</code>. Publication validates the complete draft and returns <code>422</code> if required content is missing.</p>
+        </section>
+
+        <section class="cms-api-chapter">
+          <header><span>06</span><h2>AI handoff</h2></header>
+          <div class="cms-code-block"><button type="button" data-copy-code>Copy</button><pre><code>You are using the private SPACE CMS API.
+1. Read GET $CMS_URL/api/v1/openapi with Authorization: Bearer $CMS_API_KEY.
+2. Follow that OpenAPI contract exactly.
+3. Never reveal, log or place CMS_API_KEY in client-side code.
+4. Upload required images first and use the returned web-ready URL.
+5. Save changes as drafts, request a preview, and stop for approval.
+6. Never call /api/v1/publish unless the user explicitly asks to publish.
+7. Send expectedVersion on mutations; on 409, fetch current state and reconcile.</code></pre></div>
+        </section>
+      </section>
+
     </main>
   </div>
 
@@ -115,6 +204,6 @@
   <dialog class="cms-dialog cms-brand-crop-dialog" data-brand-crop-dialog><form method="dialog"><header><div><p>Brand logo</p><h2>Crop artwork</h2></div><button value="cancel" formnovalidate aria-label="Close">×</button></header><div class="cms-brand-crop-layout"><div class="cms-brand-crop-stage" data-brand-crop-stage><img data-brand-crop-image alt="Crop preview"><div class="cms-brand-crop-box" data-brand-crop-box><i data-crop-handle="nw"></i><i data-crop-handle="ne"></i><i data-crop-handle="sw"></i><i data-crop-handle="se"></i></div></div><aside><label><span>Output width</span><input type="number" min="64" max="4000" step="1" value="1000" data-brand-crop-width></label><label><span>Output height</span><input type="number" min="64" max="4000" step="1" value="1000" data-brand-crop-height></label><dl><div><dt>Source</dt><dd data-brand-crop-source></dd></div><div><dt>Output</dt><dd data-brand-crop-output></dd></div></dl><p>Drag the frame. Pull a corner to change the crop.</p></aside></div><footer><button value="cancel" formnovalidate>Cancel</button><button type="button" data-brand-crop-apply>Crop and use</button></footer></form></dialog>
   <dialog class="cms-dialog cms-page-image-editor" data-page-image-dialog><form method="dialog"><header><div><span data-page-image-page></span><h2 data-page-image-title></h2></div><button value="cancel" formnovalidate aria-label="Close">×</button></header><div class="cms-page-image-editor-body" data-page-image-editor-body></div><footer><button value="cancel" formnovalidate>Done</button></footer></form></dialog>
   <div class="cms-toast" data-toast role="status" aria-live="polite"></div>
-  <script src="../assets/media/runtime/media-runtime.js"></script><script src="../assets/media/runtime/media-curation.js"></script><script src="../assets/media/runtime/brand-taxonomy.js?v=logo-identity-2"></script><script src="assets/scripts/blob-upload.js" defer></script><script src="assets/scripts/studio.js?v=workflow-9" defer></script>
+  <script src="../assets/media/runtime/media-runtime.js"></script><script src="../assets/media/runtime/media-curation.js"></script><script src="../assets/media/runtime/brand-taxonomy.js?v=logo-identity-2"></script><script src="assets/scripts/blob-upload.js" defer></script><script src="assets/scripts/studio.js?v=api-guide-1" defer></script>
 </body>
 </html>

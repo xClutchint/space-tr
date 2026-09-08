@@ -164,7 +164,7 @@ async function handleLocal(req, res, authentication) {
   return send(res, 405, { error: 'Method not allowed' }, { Allow: 'GET, POST, DELETE' });
 }
 
-module.exports = async function handler(req, res) {
+async function handler(req, res) {
   const body = parseBody(req), callback = body.type === 'blob.upload-completed';
   let authentication = null;
   if (!callback) {
@@ -213,4 +213,12 @@ module.exports = async function handler(req, res) {
     return send(res, 200, { ok: true, deleted: true });
   }
   return send(res, 405, { error: 'Method not allowed' }, { Allow: 'GET, POST, DELETE' });
-};
+}
+
+handler.assetId = assetId;
+handler.deleteAssetEverywhere = deleteAssetEverywhere;
+handler.processImage = processImage;
+handler.validSignature = validSignature;
+handler.LOCAL_ASSET_ROOT = LOCAL_ASSET_ROOT;
+handler.LOCAL_ASSET_URL = LOCAL_ASSET_URL;
+module.exports = handler;

@@ -24,9 +24,11 @@ module.exports = async function handler(req, res) {
   const state = await readDraftState(), identifier = sourceId || crypto.randomUUID();
   const item = {
     id: clean(body.id, 100) || `post-${identifier}`, sourceId, slug: slug(body.slug || title), title, format: 'blog',
-    topic: clean(body.topic, 100) || 'Perspective', date: clean(body.date, 10) || new Date().toISOString().slice(0, 10),
-    excerpt: clean(body.excerpt, 1200) || articleBody.replace(/\s+/g, ' ').slice(0, 280), body: articleBody,
-    imageUrl, thumbnailUrl: clean(body.thumbnailUrl, 2000) || imageUrl, language: body.language === 'fr' ? 'fr' : 'en', published: false
+    date: clean(body.date, 10) || new Date().toISOString().slice(0, 10),
+    excerpt: clean(body.excerpt, 300) || articleBody.replace(/[#*_[\]()]/g, '').replace(/\s+/g, ' ').slice(0, 280), body: articleBody,
+    imageUrl, thumbnailUrl: clean(body.thumbnailUrl, 2000) || imageUrl,
+    seoTitle: clean(body.seoTitle, 70), seoDescription: clean(body.seoDescription, 170), author: clean(body.author, 120) || 'Space Editorial Team',
+    language: body.language === 'fr' ? 'fr' : 'en', published: false
   };
   const existing = sourceId ? state.posts.findIndex(post => post.sourceId === sourceId) : -1;
   if (existing >= 0) state.posts.splice(existing, 1, item); else state.posts.unshift(item);

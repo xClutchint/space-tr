@@ -5,6 +5,8 @@ const handlers = Object.freeze({
   posts: require('./v1-blog-drafts'),
   media: require('./v1-media'),
   content: require('./v1-content'),
+  publish: require('./v1-publish'),
+  preview: require('./v1-preview'),
   openapi: require('./v1-openapi'),
 });
 

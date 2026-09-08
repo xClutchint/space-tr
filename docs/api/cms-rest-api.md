@@ -1,106 +1,149 @@
 # SPACE CMS REST API
 
-The CMS exposes a private, draft-first API for trusted automations. It is hosted with the CMS, not the public website.
+The private CMS exposes a draft-first API for trusted server-side automations. It is hosted with the CMS, not the public website.
 
 Base URL: `https://space-tr-cms.vercel.app`
 
 ## Authentication
 
-Set `CMS_API_KEY` only in the `space-tr-cms` Vercel project. Send it on every request:
+Set `CMS_API_KEY` only in the `space-tr-cms` Vercel project and the secret manager used by the calling automation.
 
 ```http
 Authorization: Bearer YOUR_CMS_API_KEY
 ```
 
-Never put this key in public JavaScript, the public Vercel project, a prompt, a URL, or a committed file. Use an environment variable in the automation that calls the API. Requests are rate-limited to 120 per hour per source IP.
+Never put this key in browser JavaScript, a mobile app, a URL, a committed file, or a prompt. Requests are rate-limited to 120 per hour per source IP.
 
-On this workstation the generated credential is stored in the ignored `.env.cms-api.local` file. A PowerShell client can load it without printing it:
-
-```powershell
-$line = Get-Content .env.cms-api.local -Raw
-$key = $line.Substring($line.IndexOf('=') + 1)
-$headers = @{ Authorization = "Bearer $key" }
-Invoke-RestMethod 'https://space-tr-cms.vercel.app/api/v1/content' -Headers $headers
-```
-
-## Endpoints
-
-### Inspect draft content
+The authenticated machine-readable contract is:
 
 ```bash
-curl "https://space-tr-cms.vercel.app/api/v1/content" \
-  -H "Authorization: Bearer $CMS_API_KEY"
-```
-
-Add `?resource=brands`, `jobs`, `team`, `posts`, `media`, `pageImages`, or `settings` to retrieve one draft resource. User accounts, sessions, revisions, recovery records, and audit data are never returned.
-
-### List posts
-
-```bash
-curl "https://space-tr-cms.vercel.app/api/v1/posts?status=draft&limit=20" \
-  -H "Authorization: Bearer $CMS_API_KEY"
-```
-
-The default response omits the long article body. Add `includeBody=1` when the caller actually needs it. `status` accepts `draft`, `published`, or `all`; `limit` accepts 1–100.
-
-### Create or update a post draft
-
-```bash
-curl -X POST "https://space-tr-cms.vercel.app/api/v1/posts" \
-  -H "Authorization: Bearer $CMS_API_KEY" \
-  -H "Content-Type: application/json" \
-  -H "X-Idempotency-Key: editorial-2026-09-08-africa-fragrance" \
-  --data '{
-    "title": "Fragrance retail momentum across African markets",
-    "excerpt": "A concise editorial summary.",
-    "body": "The complete article body, with blank lines between paragraphs...",
-    "language": "en",
-    "imageUrl": "https://...public.blob.vercel-storage.com/...webp",
-    "date": "2026-09-08"
-  }'
-```
-
-The API always writes a draft. It cannot publish. Reusing `sourceId` or `X-Idempotency-Key` updates the same draft, making retries safe. A CMS editor reviews and publishes from the top-right Publish control.
-
-The legacy `/api/v1/blog-drafts` route remains an alias of `/api/v1/posts`.
-
-### Upload a blog image
-
-`POST /api/v1/media` accepts JSON containing `name`, a supported image MIME `type`, and raw base64 bytes in `data`. The decoded file limit is 8 MB. Supported formats are JPG, PNG, WebP, AVIF, and GIF. The response contains the stored `url`; pass that URL as `imageUrl` when creating the draft.
-
-For high-volume general asset ingestion, use the CMS browser uploader. It uploads directly to Vercel Blob and processes in parallel without routing large files through this JSON endpoint.
-
-### OpenAPI document
-
-```bash
-curl "https://space-tr-cms.vercel.app/api/v1/openapi" \
+curl "$CMS_URL/api/v1/openapi" \
   -H "Authorization: Bearer $CMS_API_KEY" \
   --output space-cms-openapi.json
 ```
 
-The OpenAPI document is itself authenticated so the private CMS surface is not advertised to crawlers.
+## Safe workflow
+
+1. Read the resource and retain its returned `version`.
+2. Upload images first and retain the web-ready `url`.
+3. Create or update content. Mutations only save the draft.
+4. Request a signed preview URL and review the result.
+5. Call the publish endpoint only after explicit approval.
+
+For a new article, first update that post with `{"patch":{"published":true}}`; the final publish call then makes it public. Keeping `published:false` allows other approved CMS changes to go live while that article remains a draft.
+
+Include `expectedVersion` in mutations. A `409` means another editor changed the draft; fetch the current resource, reconcile the edits, and retry.
+
+## Content resources
+
+`/api/v1/content` supports:
+
+- `GET` to list resource counts or read one resource.
+- `POST` to create one item in `brands`, `jobs`, `team`, `posts`, or `pageImages`.
+- `PATCH` to update one collection item, or merge `media` and `settings`.
+- `PUT` to replace a complete resource.
+- `DELETE` to remove one collection item from the draft.
+
+The valid resource names are `brands`, `jobs`, `team`, `posts`, `media`, `pageImages`, and `settings`.
+
+```bash
+curl "$CMS_URL/api/v1/content?resource=team" \
+  -H "Authorization: Bearer $CMS_API_KEY"
+
+curl -X PATCH "$CMS_URL/api/v1/content?resource=team&id=TEAM_ID" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"patch":{"role":"Commercial Director"},"expectedVersion":12}'
+```
+
+User accounts, sessions, password recovery, revisions, and audit records are never exposed through this API.
+
+## Article drafts
+
+`GET /api/v1/posts?status=draft&limit=20&includeBody=1` lists articles. `POST /api/v1/posts` creates or idempotently updates a draft. Reusing `sourceId` or `X-Idempotency-Key` updates the same draft instead of creating a duplicate.
+
+```bash
+curl -X POST "$CMS_URL/api/v1/posts" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "X-Idempotency-Key: weekly-editorial-2026-37" \
+  -d '{
+    "title": "Why selective distribution matters",
+    "slug": "why-selective-distribution-matters",
+    "date": "2026-09-08",
+    "language": "en",
+    "excerpt": "A concise summary, maximum 300 characters.",
+    "seoTitle": "Selective fragrance distribution in Africa",
+    "seoDescription": "How disciplined distribution protects fragrance brands.",
+    "author": "Space Editorial Team",
+    "imageUrl": "https://...",
+    "thumbnailUrl": "https://...",
+    "body": "Opening paragraph.\n\n## Market context\n\nUse **bold emphasis** and [trusted links](https://example.com)."
+  }'
+```
+
+Article body formatting is restricted Markdown:
+
+- Separate paragraphs with a blank line.
+- `## Heading` and `### Heading` create section headings.
+- `**text**` creates bold emphasis.
+- `*text*` creates italic emphasis.
+- Consecutive lines beginning with `- ` create a list.
+- `[label](https://example.com)` creates a safe external link.
+
+The legacy `/api/v1/blog-drafts` route remains an alias of `/api/v1/posts`.
+
+## Image assets
+
+`POST /api/v1/media` accepts JSON containing `name`, a supported image MIME `type`, and base64 bytes in `data`. The decoded limit is 8 MB. JPG, PNG, WebP, AVIF and GIF are supported. Deployed uploads are stored in Vercel Blob, added to the asset library, and converted to web-ready variants. Use the returned `url` in any image field.
+
+`GET /api/v1/media` lists assets. `DELETE /api/v1/media?id=ASSET_ID` deletes the source, derivatives, library record, and all draft and published content references.
+
+For large batches, use the CMS browser uploader. It supports up to 50 files or a folder and sends files directly to Vercel Blob.
+
+## Preview and publish
+
+```bash
+curl -X POST "$CMS_URL/api/v1/preview" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"path":"/en/posts/article-slug"}'
+```
+
+The signed preview URL expires after ten minutes.
+
+```bash
+curl -X POST "$CMS_URL/api/v1/publish" \
+  -H "Authorization: Bearer $CMS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"scope":"all","expectedVersion":12}'
+```
+
+`scope` accepts `all`, `desktop`, or `mobile`. Publication validates the complete draft and returns `422` when required content is missing.
 
 ## Automated editorial flow
 
-The CMS already schedules `/api/cron/editorial` at 09:00 UTC every Tuesday and Friday. Vercel authenticates the cron with `CRON_SECRET`; the server calls the OpenAI Responses API with `OPENAI_API_KEY`, requests a strict structured result, and stores the result as a draft. It never auto-publishes.
+The CMS schedules `/api/cron/editorial` every Tuesday and Friday. Vercel authenticates it with `CRON_SECRET`; the server calls OpenAI with `OPENAI_API_KEY`, requests structured output, and stores the result as a draft. It never auto-publishes.
 
-Required CMS environment variables:
+Required CMS variables:
 
 - `CMS_API_KEY` for external REST clients.
-- `OPENAI_API_KEY` for the internal editorial generator and French translation.
-- `OPENAI_EDITORIAL_MODEL` and `OPENAI_TRANSLATION_MODEL` to choose the models.
-- `CRON_SECRET` for the scheduled endpoint.
-- `BLOB_READ_WRITE_TOKEN` for media storage.
+- `CMS_PREVIEW_SECRET` shared with the public site.
+- `PUBLIC_SITE_URL` for signed previews.
+- `OPENAI_API_KEY` for editorial generation and French translation.
+- `OPENAI_EDITORIAL_MODEL` and `OPENAI_TRANSLATION_MODEL` to select models.
+- `CRON_SECRET` for scheduled generation.
+- `BLOB_READ_WRITE_TOKEN` for asset storage.
 
-A separate automation may use the same review-safe path: generate an article, optionally call `/api/v1/media`, then call `/api/v1/posts` with a stable idempotency key. Keep all AI and CMS credentials server-side.
-
-## Error behavior
+## Status codes
 
 - `400`: invalid resource or content.
 - `401`: missing or invalid bearer key.
-- `405`: unsupported HTTP method.
+- `404`: item or asset not found.
+- `409`: optimistic-lock version conflict.
 - `413`: image exceeds the API limit.
+- `422`: publication validation failed.
 - `429`: rate limit reached; respect `Retry-After`.
-- `503`: the API key or storage is not configured.
+- `503`: API key, preview secret, or storage is not configured.
 
-Responses use JSON and CMS API responses are served with private, no-store headers.
+All API responses use private, no-store cache headers.

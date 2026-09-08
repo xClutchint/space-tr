@@ -268,9 +268,18 @@ async function inspectMobileHomepage() {
       const initiallyRevealed = brandWall?.classList.contains('is-mobile-revealed') || false;
     brandDirectory?.scrollIntoView({block:'start',behavior:'instant'});
   await new Promise(resolve=>setTimeout(resolve,800));
+      const emptyGrid=brandGrid?.cloneNode(false);
+      if(emptyGrid)brandGrid.before(emptyGrid);
+      const emptyReservedHeight=emptyGrid?Math.round(emptyGrid.getBoundingClientRect().height):0;
+      emptyGrid?.remove();
       return JSON.stringify({
         filmHeadline: document.querySelector('.film-statement')?.innerHTML || '',
         filmFontSize: parseFloat(getComputedStyle(document.querySelector('.film-statement')).fontSize),
+        filmPosition: getComputedStyle(film).position,
+        filmFallbackSrc: film?.querySelector('[data-motion-fallback]')?.getAttribute('src') || '',
+        filmFallbackDisplay: getComputedStyle(film?.querySelector('[data-motion-fallback]')).display,
+        filmVideoDisplay: getComputedStyle(video).display,
+        emptyReservedHeight,
         visibleBeforeSevenSeconds,
         hiddenInsideSevenSeconds,
         visibleOpacity,
@@ -438,7 +447,7 @@ async function main() {
     }
     const mobileHomepage = await inspectMobileHomepage();
     console.log(`mobile homepage refinement check: ${JSON.stringify(mobileHomepage)}`);
-    if (mobileHomepage.filmHeadline !== 'Global Brands,<br>Local Reach' || mobileHomepage.filmFontSize < 43 || mobileHomepage.filmFontSize > 46 || mobileHomepage.visibleBeforeSevenSeconds !== true || mobileHomepage.hiddenInsideSevenSeconds !== true || mobileHomepage.visibleOpacity !== '1' || mobileHomepage.hiddenOpacity !== '0' || mobileHomepage.campaignCarousel !== 'none' || mobileHomepage.campaignBuiltSlides !== 0 || mobileHomepage.expertiseCue === 'none' || mobileHomepage.marketCardShadow !== 'none' || mobileHomepage.mobileExpertiseLink === 'none' || mobileHomepage.desktopExpertiseLink !== 'none' || !/\/en\/expertise\.html$/.test(mobileHomepage.mobileLinkHref) || !mobileHomepage.linkBelowGallery || mobileHomepage.initiallyRevealed !== false || mobileHomepage.brandWallRevealed !== true || mobileHomepage.brandDirectoryOpacity !== '1' || mobileHomepage.brandGridColumns !== 4 || mobileHomepage.brandGridBackground !== 'rgb(231, 225, 220)' || mobileHomepage.brandItemBorder !== '0px' || mobileHomepage.lancomeObjectFit !== 'cover' || mobileHomepage.feelNzuriKickerColor !== 'rgb(255, 255, 255)' || mobileHomepage.feelNzuriKickerOpacity !== '1') {
+    if (mobileHomepage.filmHeadline !== 'Global Brands,<br>Local Reach' || mobileHomepage.filmFontSize < 43 || mobileHomepage.filmFontSize > 46 || mobileHomepage.filmPosition !== 'relative' || !/campaign-hero-static\.avif$/.test(mobileHomepage.filmFallbackSrc) || mobileHomepage.filmFallbackDisplay === 'none' || mobileHomepage.filmVideoDisplay === 'none' || mobileHomepage.emptyReservedHeight < 900 || mobileHomepage.visibleBeforeSevenSeconds !== true || mobileHomepage.hiddenInsideSevenSeconds !== true || mobileHomepage.visibleOpacity !== '1' || mobileHomepage.hiddenOpacity !== '0' || mobileHomepage.campaignCarousel !== 'none' || mobileHomepage.campaignBuiltSlides !== 0 || mobileHomepage.expertiseCue === 'none' || mobileHomepage.marketCardShadow !== 'none' || mobileHomepage.mobileExpertiseLink === 'none' || mobileHomepage.desktopExpertiseLink !== 'none' || !/\/en\/expertise\.html$/.test(mobileHomepage.mobileLinkHref) || !mobileHomepage.linkBelowGallery || mobileHomepage.initiallyRevealed !== false || mobileHomepage.brandWallRevealed !== true || mobileHomepage.brandDirectoryOpacity !== '1' || mobileHomepage.brandGridColumns !== 4 || mobileHomepage.brandGridBackground !== 'rgb(231, 225, 220)' || mobileHomepage.brandItemBorder !== '0px' || mobileHomepage.lancomeObjectFit !== 'cover' || mobileHomepage.feelNzuriKickerColor !== 'rgb(255, 255, 255)' || mobileHomepage.feelNzuriKickerOpacity !== '1') {
       failures.push({ page: 'mobile homepage refinements', ...mobileHomepage });
     }
     const mobileTeam = await inspectMobileTeamGrid();

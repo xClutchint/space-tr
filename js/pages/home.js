@@ -542,7 +542,10 @@ if(managedMedia.length){
   const mediaInView=new WeakMap();
   const mediaByFrame=new WeakMap();
   const mediaReleaseTimers=new WeakMap();
-  const releaseDecodedMedia=coarsePointerQuery.matches;
+  // There is one short, device-sized campaign film. Keeping its source
+  // hydrated is cheaper and visually steadier than tearing down the decoder
+  // every time a touch user crosses the section boundary.
+  const releaseDecodedMedia=false;
   const hydrateMedia=media=>{
     if(media.dataset.sourceHydrated)return;
     let changed=false;

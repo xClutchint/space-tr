@@ -2059,3 +2059,58 @@ button,a,input,select,summary{touch-action:manipulation}
 .film-frame.is-video-active .film-motion-fallback{
   display:none!important;
 }
+
+/* Mobile scroll stability. The CMS brand grid is populated asynchronously;
+   reserve its final footprint so that its arrival cannot move the visitor.
+   The campaign poster and video stay composited together and cross-fade,
+   avoiding the black frame caused by display/visibility swaps. */
+@media (max-width:900px){
+  .film-slide.scroll-slide{
+    position:relative!important;
+    top:auto!important;
+  }
+
+  .film-slide .film-frame .film-motion-fallback,
+  .film-slide .film-frame video{
+    position:absolute!important;
+    inset:0!important;
+    display:block!important;
+    visibility:visible!important;
+    backface-visibility:hidden!important;
+    -webkit-backface-visibility:hidden!important;
+    transform:translateZ(0)!important;
+  }
+
+  .film-slide .film-frame .film-motion-fallback{
+    z-index:1!important;
+    opacity:1!important;
+    transition:opacity .16s linear!important;
+  }
+
+  .film-slide .film-frame video{
+    z-index:2!important;
+    opacity:0!important;
+    transition:opacity .16s linear!important;
+  }
+
+  .film-slide .film-frame.is-video-active video{
+    opacity:1!important;
+  }
+
+  .film-slide .film-frame.is-video-active .film-motion-fallback{
+    opacity:0!important;
+  }
+
+  .homepage-brand-wall .brand-wall-grid{
+    --stable-grid-gap:clamp(7px,2vw,10px);
+    --stable-grid-pad:clamp(10px,3vw,16px);
+    --stable-grid-cell:calc((100vw - (2 * var(--stable-grid-pad)) - (3 * var(--stable-grid-gap))) / 4);
+    min-height:calc((10 * var(--stable-grid-cell)) + (10 * var(--stable-grid-gap)) + clamp(4.5rem,20vw,6.25rem) + (2 * var(--stable-grid-pad)))!important;
+  }
+
+  .film-slide,
+  .team-carousel,
+  .homepage-brand-wall .brand-wall-directory{
+    overflow-anchor:none;
+  }
+}
