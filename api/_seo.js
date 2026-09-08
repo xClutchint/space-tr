@@ -4,7 +4,7 @@ const MARKETS = [
   'Morocco', 'Tunisia', 'Senegal', 'Ivory Coast', 'Togo', 'Benin',
   'Burkina Faso', 'Nigeria', 'Angola', 'Democratic Republic of the Congo',
   'Republic of the Congo', 'Kenya', 'Uganda', 'Tanzania', 'Ethiopia',
-  'Djibouti', 'Burundi', 'Mozambique', 'Zambia'
+  'Djibouti', 'Burundi', 'Mozambique', 'Zambia', 'Zimbabwe', 'Western Sahara'
 ];
 
 const CAPABILITIES = [
@@ -47,7 +47,7 @@ function companyGraph(state) {
         image: `${base}/assets/brand/campaigns/campaign-hero-static.avif`,
         email: 'info@space-tr.com',
         foundingDate: '2018',
-        description: 'SPACE-TR, also known as SPACE, is a specialist B2B fragrance and beauty distributor connecting international brands with retailers and consumers across African markets.',
+        description: 'SPACE-TR, also known as SPACE, is a specialist B2B fragrance distributor connecting international perfume houses with retailers and consumers across African markets.',
         sameAs: ['https://www.linkedin.com/company/spaceglobalbrandslocalreach/'],
         areaServed: MARKETS.map(name => ({ '@type': 'Country', name })),
         knowsAbout: CAPABILITIES

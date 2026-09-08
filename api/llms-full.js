@@ -22,7 +22,7 @@ module.exports = async function handler(req, res) {
     '',
     '> Canonical company reference for SPACE-TR, also known as SPACE.',
     '',
-    'SPACE is a specialist B2B fragrance and beauty distributor connecting international brands with retailers and consumers across African markets.',
+    'SPACE is a specialist B2B fragrance distributor connecting international perfume houses with retailers and consumers across African markets.',
     '',
     '## Canonical identity',
     '',

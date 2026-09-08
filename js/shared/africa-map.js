@@ -11,7 +11,7 @@
     cd:'democratic-republic-of-the-congo', dj:'djibouti', et:'ethiopia',
     ci:'ivory-coast', ke:'kenya', ma:'morocco', mz:'mozambique', ng:'nigeria',
     cg:'republic-of-the-congo', sn:'senegal', tz:'tanzania', tg:'togo',
-    tn:'tunisia', ug:'uganda', zm:'zambia'
+    tn:'tunisia', ug:'uganda', zm:'zambia', zw:'zimbabwe'
   };
   const marketSceneUrl = (id) => MARKET_SCENES[id] ? `assets/editorial/regions/markets/${MARKET_SCENES[id]}.webp` : '';
   const MARKET_GROUPS = [
@@ -19,7 +19,7 @@
     { id:'west', markets:['sn','ci','tg','bj','bf','ng'] },
     { id:'central', markets:['ao','cd','cg'] },
     { id:'east', markets:['ke','ug','tz','et','dj','bi'] },
-    { id:'southern', markets:['mz','zm'] }
+    { id:'southern', markets:['mz','zm','zw'] }
   ];
   const MARKET_ORDER = MARKET_GROUPS.flatMap((region) => region.markets);
   const RAIL_ORDER = ['overview', ...MARKET_ORDER];

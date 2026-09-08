@@ -10,12 +10,12 @@ const pages = [
   {
     file: 'index.html', slug: '',
     en: {
-      title: 'Space | Perfume & Beauty Distributor in Africa',
-      description: 'Space is a specialist B2B perfume, fragrance and beauty distributor connecting international brands with retailers across Africa.'
+      title: 'Space | International Fragrance Distributor in Africa',
+      description: 'Space is a specialist B2B fragrance distributor connecting international perfume houses with retailers across Africa.'
     },
     fr: {
-      title: 'Space | Distributeur de parfums et beauté en Afrique',
-      description: 'Space est un distributeur B2B spécialisé en parfumerie et beauté, reliant les marques internationales aux détaillants en Afrique.'
+      title: 'Space | Distributeur international de parfums en Afrique',
+      description: 'Space est un distributeur B2B spécialisé en parfumerie, reliant les maisons internationales aux détaillants en Afrique.'
     }
   },
   {

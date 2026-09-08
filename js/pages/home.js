@@ -1260,25 +1260,29 @@ if(brandWall){
   brandWallRecords.forEach(record=>{if(record.bannerUrl)campaignAssetsByBrand.set(record.name,{src:record.bannerUrl,objectPosition:'50% 50%'})});
   const lightCanvasBrands=new Set([1,2,3,4,5,6,7,9,13,14,15,17,19,20,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,40,56,...Array.from({length:14},(_,index)=>index+41)]);
   const contrastCanvasBrands=new Set([21]);
-  wallGrid.innerHTML=brandWallRecords.map(record=>{const name=record.name,number=record.logoNumber,usesWhiteCanvasLogo=whiteCanvasLogoNumbers.has(number),logoVariant=usesWhiteCanvasLogo?'web-white':'avif';return `<article class="brand-wall-item${campaignAssetsByBrand.has(name)?' has-campaign-asset':''}${!usesWhiteCanvasLogo&&lightCanvasBrands.has(number)?' has-light-canvas':''}${!usesWhiteCanvasLogo&&contrastCanvasBrands.has(number)?' needs-contrast-canvas':''}" data-brand-name="${name}" tabindex="0" aria-label="${name}"><img src="${portfolioLogoPath(record,logoVariant)}" alt="${name}" loading="lazy" decoding="async"></article>`}).join('')+`<button class="brand-wall-discovery" type="button" aria-label="More portfolio brands"><span class="brand-wall-discovery-orbit" aria-hidden="true"><i></i></span><span>&amp;<br>More</span></button>`;
+  wallGrid.innerHTML=brandWallRecords.map(record=>{const name=record.name,number=record.logoNumber,asset=campaignAssetsByBrand.get(name),stageSource=asset?.optimizedSrc||asset?.src||portfolioLogoPath(record,'mark'),usesWhiteCanvasLogo=whiteCanvasLogoNumbers.has(number),logoVariant=usesWhiteCanvasLogo?'web-white':'avif';return `<article class="brand-wall-item${asset?' has-campaign-asset':''}${!usesWhiteCanvasLogo&&lightCanvasBrands.has(number)?' has-light-canvas':''}${!usesWhiteCanvasLogo&&contrastCanvasBrands.has(number)?' needs-contrast-canvas':''}" data-brand-name="${name}" data-brand-stage-src="${stageSource}" data-brand-stage-position="${asset?.objectPosition||'50% 50%'}" data-brand-stage-scale="${asset?.scale||1}" data-brand-stage-has-asset="${asset?'true':'false'}" tabindex="0" aria-label="${name}"><img src="${portfolioLogoPath(record,logoVariant)}" alt="${name}" loading="lazy" decoding="async"></article>`}).join('')+`<button class="brand-wall-discovery" type="button" aria-label="More portfolio brands"><span class="brand-wall-discovery-orbit" aria-hidden="true"><i></i></span><span>&amp;<br>More</span></button>`;
   const wallItems=[...wallGrid.querySelectorAll('.brand-wall-item')];
-  let activeStageIndex=-1,stageSwapTimer,brandStageRequest=0;
-  const showBrandOnStage=index=>{
-    if(!stage||index===activeStageIndex)return;
+  let activeStageIndex=-1;
+  const showBrandOnStage=(item,index)=>{
+    if(!stage||!item)return;
     activeStageIndex=index;
-    const request=++brandStageRequest,record=brandWallRecords[index],name=record.name,asset=campaignAssetsByBrand.get(name),source=asset?.optimizedSrc||asset?.src||portfolioLogoPath(record,'mark'),preload=new Image();
-    preload.onload=()=>{
-      if(request!==brandStageRequest||activeStageIndex!==index)return;
-      window.clearTimeout(stageSwapTimer);
-      stage.classList.add('is-changing');
-      stageSwapTimer=window.setTimeout(()=>{
-        if(request!==brandStageRequest||activeStageIndex!==index)return;
-        stage.classList.toggle('is-logo-only',!asset);stageMedia.src=source;stageMedia.style.objectPosition=asset?.objectPosition||'50% 50%';stageMedia.style.setProperty('--brand-stage-scale',asset?.scale||1);stageMedia.alt=asset?`${name} campaign visual`:`${name} logo`;stageName.textContent=name;stageKicker.textContent='Portfolio partner';requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove('is-changing')))
-      },180);
-    };
-    preload.src=source;
+    const name=item.dataset.brandName,source=item.dataset.brandStageSrc,hasAsset=item.dataset.brandStageHasAsset==='true';
+    stage.classList.add('is-changing');
+    stage.classList.toggle('is-logo-only',!hasAsset);
+    stageMedia.loading='eager';
+    stageMedia.fetchPriority='high';
+    const revealStage=()=>{if(stageMedia.getAttribute('src')===source)requestAnimationFrame(()=>stage.classList.remove('is-changing'))};
+    stageMedia.onload=revealStage;
+    stageMedia.onerror=revealStage;
+    stageMedia.src=source;
+    stageMedia.style.objectPosition=item.dataset.brandStagePosition||'50% 50%';
+    stageMedia.style.setProperty('--brand-stage-scale',item.dataset.brandStageScale||1);
+    stageMedia.alt=hasAsset?`${name} campaign visual`:`${name} logo`;
+    stageName.textContent=name;
+    stageKicker.textContent='Portfolio partner';
+    if(stageMedia.complete)revealStage();
   };
-  const setWallFocus=(item,index)=>{brandWall.classList.toggle('has-brand-focus',Boolean(item));wallItems.forEach(candidate=>candidate.classList.toggle('is-focused',candidate===item));if(item)showBrandOnStage(index)};
+  const setWallFocus=(item,index)=>{brandWall.classList.toggle('has-brand-focus',Boolean(item));wallItems.forEach(candidate=>candidate.classList.toggle('is-focused',candidate===item));if(item)showBrandOnStage(item,index)};
   wallItems.forEach((item,index)=>{
     const activate=()=>setWallFocus(item,index);
     item.addEventListener('mouseenter',activate);
@@ -1294,7 +1298,8 @@ if(brandWall){
     setWallFocus(selection.item,selection.index);
     selection.item.focus({preventScroll:true});
   });
-  showBrandOnStage(Math.max(0,brandWallNames.findIndex(name=>campaignAssetsByBrand.has(name))));
+  const initialStageIndex=Math.max(0,brandWallNames.findIndex(name=>campaignAssetsByBrand.has(name)));
+  showBrandOnStage(wallItems[initialStageIndex],initialStageIndex);
   if(!lowPowerMode&&window.matchMedia('(pointer:fine)').matches)brandWall.addEventListener('pointermove',event=>{const bounds=brandWall.getBoundingClientRect();const isHomepageWall=brandWall.classList.contains('homepage-brand-wall');brandWall.style.setProperty('--wall-x',`${event.clientX-bounds.left}px`);brandWall.style.setProperty('--wall-y',`${isHomepageWall?event.clientY:event.clientY-bounds.top}px`)},{passive:true});
   if(brandWall.classList.contains('homepage-brand-wall')){
     const mobileBrandDirectory=brandWall.querySelector('.brand-wall-directory');

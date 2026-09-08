@@ -95,7 +95,9 @@ for (const record of taxonomy.featuredLogos) {
   assert.ok(stageAssets.has(record.name), `${record.name} must map directly to its own hover-stage asset.`);
   assert.ok(existsWithContent(stageAssets.get(record.name)), `${record.name} points to a missing hover-stage asset.`);
 }
-assert.match(homepageScript, /request!==brandStageRequest\|\|activeStageIndex!==index/, 'Stale hover image loads must not overwrite the currently selected brand.');
+assert.match(homepageScript, /data-brand-stage-src="\$\{stageSource\}"/, 'Each rendered logo must carry its own hover-stage asset URL.');
+assert.match(homepageScript, /stageMedia\.src=source/, 'Hovering a logo must apply that tile’s own source directly.');
+assert.doesNotMatch(homepageScript, /preload\.onload/, 'Brand switching must not wait on an asynchronous preload callback.');
 assert.ok(existsWithContent('assets/editorial/brands/michael-kors.webp'), 'Michael Kors is missing its fragrance hover visual.');
 assert.ok(homepageScript.includes('assets/editorial/brands/michael-kors.webp'), 'Michael Kors is not registered in the portfolio interaction.');
 
@@ -110,6 +112,9 @@ assert.ok(homepageScript.includes('End-to-end logistics management'), 'The reque
 assert.ok(homepageScript.includes('From training to on-the-ground coaching'), 'The requested retail development copy must be present.');
 assert.match(africaMapScript, /MARKET_IDS[^;]*'zw'[^;]*'eh'/, 'Zimbabwe and Western Sahara must be highlighted as served territories.');
 assert.match(africaMapScript, /20\+ and counting/, 'The Africa map must display the 20+ and counting label.');
+assert.match(africaMapScript, /zw:'zimbabwe'/, 'Zimbabwe must use its dedicated market image.');
+assert.match(africaMapScript, /markets:\['mz','zm','zw'\]/, 'Zimbabwe must appear in the southern Africa rail.');
+assert.ok(existsWithContent('assets/editorial/regions/markets/zimbabwe.webp'), 'The Zimbabwe market image is missing.');
 assert.equal((homepage.match(/data-maven-drawer-open/g) || []).length, 0, 'The retired Maven drawer trigger must not remain.');
 assert.doesNotMatch(homepage, /data-i18n="learnMore"/, 'The duplicated regional learn-more links must be removed.');
 assert.match(homepage, /data-i18n="mavenBodyTwo"/, 'The homepage Maven section must include the regional operating evidence.');
