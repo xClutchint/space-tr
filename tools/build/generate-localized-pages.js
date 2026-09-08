@@ -79,12 +79,7 @@ const pages = [
 const localizedRoutes = new Map(pages.map(page => [page.file, page.slug]));
 const localeUrl = (language, slug) => `${ORIGIN}/${language}/${slug}`;
 
-function portfolioNames() {
-  const sandbox = { window: {} };
-  vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'assets/media/runtime/brand-taxonomy.js'), 'utf8'), sandbox);
-  return (sandbox.window.SPACE_BRAND_TAXONOMY?.featuredLogos || []).map(item => item.name).filter(Boolean);
-}
-const PORTFOLIO_NAMES = portfolioNames();
+const PORTFOLIO_NAMES = require('../../data/portfolio-brands.json');
 
 function addPortfolioSchema(html, language) {
   return html.replace(/<script type="application\/ld\+json">\s*(\{"@context":"https:\/\/schema\.org","@graph":\[[\s\S]*?\]\})\s*<\/script>/, (whole, payload) => {

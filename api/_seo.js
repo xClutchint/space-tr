@@ -1,4 +1,5 @@
 const { readState, publicState } = require('./_cms');
+const portfolioBrands = require('../data/portfolio-brands.json');
 
 const MARKETS = [
   'Morocco', 'Tunisia', 'Senegal', 'Ivory Coast', 'Togo', 'Benin',
@@ -27,7 +28,10 @@ async function publishedState() {
 
 function companyGraph(state) {
   const base = origin();
-  const brands = (state.brands || []).filter(brand => brand.active !== false);
+  const publishedBrands = (state.brands || []).filter(brand => brand.active !== false);
+  const brands = publishedBrands.length
+    ? publishedBrands
+    : portfolioBrands.map(name => ({ name }));
   return {
     '@context': 'https://schema.org',
     '@graph': [
