@@ -75,7 +75,7 @@ async function copyPublishedDerivatives() {
 
 async function addVercelObservability() {
   const scripts = [];
-  if (process.env.ENABLE_VERCEL_ANALYTICS === '1') scripts.push('<script defer src="/_vercel/insights/script.js"></script>');
+  if (process.env.ENABLE_VERCEL_ANALYTICS !== '0') scripts.push('<script defer src="/_vercel/insights/script.js"></script>');
   if (process.env.ENABLE_VERCEL_SPEED_INSIGHTS === '1') scripts.push('<script defer src="/_vercel/speed-insights/script.js"></script>');
   if (!scripts.length) return 0;
   let count = 0;

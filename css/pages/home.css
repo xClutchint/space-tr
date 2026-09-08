@@ -3997,6 +3997,31 @@ body.team-profile-open{overflow:hidden}
   text-transform:none;
 }
 .regional-operation-body p+p{margin-top:1rem}
+.regional-operation-maven-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  margin:clamp(1.7rem,3vh,2.5rem) auto 0;
+  padding:.65rem 1rem;
+  border:1px solid rgba(17,19,23,.6);
+  border-radius:999px;
+  color:#17191d;
+  font:500 .54rem var(--sans);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  transition:background-color .3s ease,border-color .3s ease,color .3s ease,transform .3s ease;
+}
+.regional-operation-maven-link:hover{
+  border-color:#17191d;
+  background:#17191d;
+  color:#fff;
+  transform:translateY(-1px);
+}
+.regional-operation-maven-link:focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:4px;
+}
 .regional-operation-kicker{
   margin:0 0 clamp(1.8rem,3vh,2.8rem);
   color:#696c70;

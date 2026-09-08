@@ -108,6 +108,7 @@ module.exports = async function handler(req, res) {
       <div class="career-detail-apply"><p>Send your CV and a short introduction to our careers team at ${escapeHtml(applyEmail)}.</p><a href="${escapeHtml(applyUrl)}">Apply by email</a></div>
     </section>
   </main>
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>`;
 
