@@ -4,7 +4,7 @@
   if (!root || !map) return;
 
   const SVG_NS = 'http://www.w3.org/2000/svg';
-  const MARKET_IDS = ['ke','ao','sn','mz','ug','tz','ci','cd','cg','tn','ma','et','tg','bj','dj','bf','zm','bi','ng'];
+  const MARKET_IDS = ['ke','ao','sn','mz','ug','tz','ci','cd','cg','tn','ma','et','tg','bj','dj','bf','zm','bi','ng','zw','eh'];
   const MARKET_SET = new Set(MARKET_IDS);
   const MARKET_SCENES = {
     ao:'angola', bj:'benin', bf:'burkina-faso', bi:'burundi',
@@ -13,7 +13,7 @@
     cg:'republic-of-the-congo', sn:'senegal', tz:'tanzania', tg:'togo',
     tn:'tunisia', ug:'uganda', zm:'zambia'
   };
-  const marketSceneUrl = (id) => `assets/editorial/regions/markets/${MARKET_SCENES[id]}.webp`;
+  const marketSceneUrl = (id) => MARKET_SCENES[id] ? `assets/editorial/regions/markets/${MARKET_SCENES[id]}.webp` : '';
   const MARKET_GROUPS = [
     { id:'north', markets:['ma','tn'] },
     { id:'west', markets:['sn','ci','tg','bj','bf','ng'] },
@@ -56,11 +56,12 @@
   const prefetchedScenes = new Set();
 
   const prefetchScene = (id) => {
-    if (!id || id === 'overview' || prefetchedScenes.has(id)) return;
+    const source = marketSceneUrl(id);
+    if (!source || id === 'overview' || prefetchedScenes.has(id)) return;
     prefetchedScenes.add(id);
     const scene = new Image();
     scene.decoding = 'async';
-    scene.src = marketSceneUrl(id);
+    scene.src = source;
   };
 
   if (backdropRoot) {
@@ -86,9 +87,10 @@
 
   const railItems = [...document.querySelectorAll('[data-rail-market]')];
   const showBackdrop = (id = '') => {
-    backdropRoot?.classList.toggle('has-active-market', Boolean(id));
+    const source = marketSceneUrl(id);
+    backdropRoot?.classList.toggle('has-active-market', Boolean(source));
     if (!backdropRoot || !backdropItems.length) return;
-    if (!id) {
+    if (!source) {
       backdropRequest += 1;
       activeBackdropId = '';
       backdropItems.forEach((item) => item.classList.remove('is-active'));
@@ -106,7 +108,7 @@
       activeBackdropId = id;
     };
     nextBackdrop.onload = reveal;
-    nextBackdrop.src = marketSceneUrl(id);
+    nextBackdrop.src = source;
     if (nextBackdrop.complete) window.requestAnimationFrame(reveal);
   };
 
@@ -288,7 +290,7 @@
     });
     railItems.forEach((item) => {
       if (item.dataset.railMarket === 'overview') {
-        item.textContent = language === 'fr' ? '19+ et toujours plus' : '19+ and counting';
+        item.textContent = language === 'fr' ? '20+ et toujours plus' : '20+ and counting';
         return;
       }
       const location = map.locations.find((entry) => entry.id === item.dataset.railMarket);
