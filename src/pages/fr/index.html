@@ -7,6 +7,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <base href="/">
   <script src="/js/shared/locale-routing.js"></script>
+  <script>
+    (()=>{if(!matchMedia('(max-width:900px)').matches)return;const height=Math.round(window.visualViewport?.height||innerHeight);if(height>0)document.documentElement.style.setProperty('--stable-mobile-viewport',`${height}px`)})();
+  </script>
   <meta name="description" content="Space est un distributeur B2B spécialisé en parfumerie, reliant les maisons internationales aux détaillants en Afrique.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <title>Space | Distributeur international de parfums en Afrique</title>
@@ -34,8 +37,8 @@
   <link rel="preload" as="image" href="assets/media/generated/derivatives/hero-desktop/043096a3856caadf.avif" media="(min-width:901px)" fetchpriority="high">
   <link rel="preload" as="image" href="assets/media/generated/derivatives/hero-mobile/0b16e12365f40d6c.webp" media="(max-width:900px)" fetchpriority="high">
   <link rel="preload" as="image" href="assets/media/generated/derivatives/hero-desktop/0b16e12365f40d6c.avif" media="(min-width:901px)" fetchpriority="high">
-  <link rel="stylesheet" href="css/pages/home.css?v=mobile-stability-1">
-  <link rel="stylesheet" href="css/shared/responsive.css?v=mobile-stability-1">
+  <link rel="stylesheet" href="css/pages/home.css?v=mobile-stability-2">
+  <link rel="stylesheet" href="css/shared/responsive.css?v=mobile-stability-2">
 </head>
 <body>
   <header class="site-header landing-header" data-header>
@@ -129,8 +132,8 @@
       <h2 class="film-statement" data-i18n-html="filmHeadline">Des marques internationales,<br>une présence et expertise locale</h2>
       <div class="film-frame">
         <img class="film-motion-fallback" src="assets/brand/campaigns/campaign-hero-static.avif" data-motion-fallback="assets/brand/campaigns/campaign-hero-static.avif" alt="" aria-hidden="true" decoding="async">
-        <video muted loop playsinline webkit-playsinline preload="metadata" poster="assets/brand/campaigns/campaign-hero-static.avif" data-managed-media disablepictureinpicture>
-          <source media="(max-width: 900px)" data-src="assets/brand/campaigns/brand-stewardship-mobile.mp4" type="video/mp4">
+        <video muted loop autoplay playsinline webkit-playsinline preload="auto" poster="assets/brand/campaigns/campaign-hero-static.avif" data-managed-media disablepictureinpicture aria-hidden="true">
+          <source media="(max-width: 900px)" src="assets/brand/campaigns/brand-stewardship-mobile.mp4" data-src="assets/brand/campaigns/brand-stewardship-mobile.mp4" type="video/mp4">
           <source data-src="assets/brand/campaigns/brand-stewardship.mp4" type="video/mp4">
         </video>
       </div>
@@ -337,6 +340,6 @@
   <script src="assets/media/runtime/media-curation.js" defer></script>
   <script src="assets/media/runtime/media-runtime.js?v=hero-pool-2" defer></script>
   <script src="js/shared/hero-scheduler.js?v=atelier-spacing-1" defer></script>
-  <script src="js/pages/home.js?v=mobile-stability-1" defer></script>
+  <script src="js/pages/home.js?v=mobile-stability-2" defer></script>
 </body>
 </html>

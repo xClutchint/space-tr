@@ -1,5 +1,5 @@
 /* Shared responsive and low-power layer. Loaded last on every public page. */
-:root{--mobile-gutter:clamp(1.1rem,5vw,1.75rem)}
+:root{--mobile-gutter:clamp(1.1rem,5vw,1.75rem);--stable-mobile-viewport:100svh}
 html{scroll-behavior:auto!important;scroll-snap-type:none!important}
 html,body{max-width:100%;overflow-x:clip}
 body{caret-color:transparent}
@@ -2062,12 +2062,31 @@ button,a,input,select,summary{touch-action:manipulation}
 
 /* Mobile scroll stability. The CMS brand grid is populated asynchronously;
    reserve its final footprint so that its arrival cannot move the visitor.
-   The campaign poster and video stay composited together and cross-fade,
-   avoiding the black frame caused by display/visibility swaps. */
+   The campaign poster remains underneath the video, which is revealed only
+   after a decoded frame exists. Neither layer can alter document geometry. */
 @media (max-width:900px){
+  html,
+  body,
+  body>main,
+  body>main>section{
+    overflow-anchor:none!important;
+  }
+
+  body>main>section{
+    scroll-snap-align:none!important;
+    scroll-snap-stop:normal!important;
+  }
+
   .film-slide.scroll-slide{
     position:relative!important;
     top:auto!important;
+  }
+
+  .film-slide.immersive-film,
+  .film-slide.immersive-film.scroll-slide{
+    height:var(--stable-mobile-viewport)!important;
+    min-height:var(--stable-mobile-viewport)!important;
+    contain:layout paint size!important;
   }
 
   .film-slide .film-frame .film-motion-fallback,
@@ -2076,21 +2095,21 @@ button,a,input,select,summary{touch-action:manipulation}
     inset:0!important;
     display:block!important;
     visibility:visible!important;
-    backface-visibility:hidden!important;
-    -webkit-backface-visibility:hidden!important;
-    transform:translateZ(0)!important;
+    backface-visibility:visible!important;
+    -webkit-backface-visibility:visible!important;
+    transform:none!important;
   }
 
   .film-slide .film-frame .film-motion-fallback{
     z-index:1!important;
     opacity:1!important;
-    transition:opacity .16s linear!important;
+    transition:none!important;
   }
 
   .film-slide .film-frame video{
     z-index:2!important;
     opacity:0!important;
-    transition:opacity .16s linear!important;
+    transition:none!important;
   }
 
   .film-slide .film-frame.is-video-active video{
@@ -2098,7 +2117,8 @@ button,a,input,select,summary{touch-action:manipulation}
   }
 
   .film-slide .film-frame.is-video-active .film-motion-fallback{
-    opacity:0!important;
+    display:block!important;
+    opacity:1!important;
   }
 
   .homepage-brand-wall .brand-wall-grid{

@@ -276,9 +276,14 @@ async function inspectMobileHomepage() {
         filmHeadline: document.querySelector('.film-statement')?.innerHTML || '',
         filmFontSize: parseFloat(getComputedStyle(document.querySelector('.film-statement')).fontSize),
         filmPosition: getComputedStyle(film).position,
+        filmHeightBeforeChromeResize: Math.round(film.getBoundingClientRect().height),
+        stableViewportValue: getComputedStyle(document.documentElement).getPropertyValue('--stable-mobile-viewport').trim(),
+        mainOverflowAnchor: getComputedStyle(document.querySelector('main')).overflowAnchor,
         filmFallbackSrc: film?.querySelector('[data-motion-fallback]')?.getAttribute('src') || '',
         filmFallbackDisplay: getComputedStyle(film?.querySelector('[data-motion-fallback]')).display,
+        filmFallbackOpacity: getComputedStyle(film?.querySelector('[data-motion-fallback]')).opacity,
         filmVideoDisplay: getComputedStyle(video).display,
+        filmMobileSourceReady: Boolean(video?.querySelector('source[media*="max-width"][src]')),
         emptyReservedHeight,
         visibleBeforeSevenSeconds,
         hiddenInsideSevenSeconds,
@@ -306,8 +311,21 @@ async function inspectMobileHomepage() {
     returnByValue: true,
     awaitPromise: true,
   });
+  await client.send('Emulation.setDeviceMetricsOverride', {
+    width: 390,
+    height: 700,
+    deviceScaleFactor: 1,
+    mobile: true,
+    screenWidth: 390,
+    screenHeight: 844,
+  });
+  await new Promise(resolve => setTimeout(resolve, 350));
+  const { result: resizedResult } = await client.send('Runtime.evaluate', {
+    expression: `Math.round(document.querySelector('.immersive-film').getBoundingClientRect().height)`,
+    returnByValue: true,
+  });
   client.close();
-  return JSON.parse(result.value);
+  return { ...JSON.parse(result.value), filmHeightAfterChromeResize: resizedResult.value };
 }
 
 async function inspectMobileTeamGrid() {
@@ -447,7 +465,7 @@ async function main() {
     }
     const mobileHomepage = await inspectMobileHomepage();
     console.log(`mobile homepage refinement check: ${JSON.stringify(mobileHomepage)}`);
-    if (mobileHomepage.filmHeadline !== 'Global Brands,<br>Local Reach' || mobileHomepage.filmFontSize < 43 || mobileHomepage.filmFontSize > 46 || mobileHomepage.filmPosition !== 'relative' || !/campaign-hero-static\.avif$/.test(mobileHomepage.filmFallbackSrc) || mobileHomepage.filmFallbackDisplay === 'none' || mobileHomepage.filmVideoDisplay === 'none' || mobileHomepage.emptyReservedHeight < 900 || mobileHomepage.visibleBeforeSevenSeconds !== true || mobileHomepage.hiddenInsideSevenSeconds !== true || mobileHomepage.visibleOpacity !== '1' || mobileHomepage.hiddenOpacity !== '0' || mobileHomepage.campaignCarousel !== 'none' || mobileHomepage.campaignBuiltSlides !== 0 || mobileHomepage.expertiseCue === 'none' || mobileHomepage.marketCardShadow !== 'none' || mobileHomepage.mobileExpertiseLink === 'none' || mobileHomepage.desktopExpertiseLink !== 'none' || !/\/en\/expertise\.html$/.test(mobileHomepage.mobileLinkHref) || !mobileHomepage.linkBelowGallery || mobileHomepage.initiallyRevealed !== false || mobileHomepage.brandWallRevealed !== true || mobileHomepage.brandDirectoryOpacity !== '1' || mobileHomepage.brandGridColumns !== 4 || mobileHomepage.brandGridBackground !== 'rgb(231, 225, 220)' || mobileHomepage.brandItemBorder !== '0px' || mobileHomepage.lancomeObjectFit !== 'cover' || mobileHomepage.feelNzuriKickerColor !== 'rgb(255, 255, 255)' || mobileHomepage.feelNzuriKickerOpacity !== '1') {
+    if (mobileHomepage.filmHeadline !== 'Global Brands,<br>Local Reach' || mobileHomepage.filmFontSize < 43 || mobileHomepage.filmFontSize > 46 || mobileHomepage.filmPosition !== 'relative' || mobileHomepage.filmHeightBeforeChromeResize !== mobileHomepage.filmHeightAfterChromeResize || !/px$/.test(mobileHomepage.stableViewportValue) || mobileHomepage.mainOverflowAnchor !== 'none' || !/campaign-hero-static\.avif$/.test(mobileHomepage.filmFallbackSrc) || mobileHomepage.filmFallbackDisplay === 'none' || mobileHomepage.filmFallbackOpacity !== '1' || mobileHomepage.filmVideoDisplay === 'none' || mobileHomepage.filmMobileSourceReady !== true || mobileHomepage.emptyReservedHeight < 900 || mobileHomepage.visibleBeforeSevenSeconds !== true || mobileHomepage.hiddenInsideSevenSeconds !== true || mobileHomepage.visibleOpacity !== '1' || mobileHomepage.hiddenOpacity !== '0' || mobileHomepage.campaignCarousel !== 'none' || mobileHomepage.campaignBuiltSlides !== 0 || mobileHomepage.expertiseCue === 'none' || mobileHomepage.marketCardShadow !== 'none' || mobileHomepage.mobileExpertiseLink === 'none' || mobileHomepage.desktopExpertiseLink !== 'none' || !/\/en\/expertise\.html$/.test(mobileHomepage.mobileLinkHref) || !mobileHomepage.linkBelowGallery || mobileHomepage.initiallyRevealed !== false || mobileHomepage.brandWallRevealed !== true || mobileHomepage.brandDirectoryOpacity !== '1' || mobileHomepage.brandGridColumns !== 4 || mobileHomepage.brandGridBackground !== 'rgb(231, 225, 220)' || mobileHomepage.brandItemBorder !== '0px' || mobileHomepage.lancomeObjectFit !== 'cover' || mobileHomepage.feelNzuriKickerColor !== 'rgb(255, 255, 255)' || mobileHomepage.feelNzuriKickerOpacity !== '1') {
       failures.push({ page: 'mobile homepage refinements', ...mobileHomepage });
     }
     const mobileTeam = await inspectMobileTeamGrid();

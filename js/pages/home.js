@@ -4,6 +4,18 @@ const reducedMotionQuery=window.matchMedia('(prefers-reduced-motion: reduce)');
 const coarsePointerQuery=window.matchMedia('(pointer: coarse)');
 const lowPowerMode=coarsePointerQuery.matches||Boolean(navigator.connection?.saveData)||Boolean(navigator.connection&&/2g/.test(navigator.connection.effectiveType||''))||Boolean(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)||Boolean(navigator.deviceMemory&&navigator.deviceMemory<=4);
 document.documentElement.classList.toggle('low-power-mode',lowPowerMode);
+/* Mobile browser chrome changes visualViewport.height while the user scrolls.
+   Keep a session-stable layout height and only recalculate after a genuine
+   orientation change, so full-screen chapters cannot push the scroll offset. */
+const mobileViewportQuery=window.matchMedia('(max-width: 900px)');
+const lockMobileViewport=()=>{
+  if(!mobileViewportQuery.matches){document.documentElement.style.removeProperty('--stable-mobile-viewport');return}
+  const height=Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight);
+  if(height>0)document.documentElement.style.setProperty('--stable-mobile-viewport',`${height}px`);
+};
+if(!document.documentElement.style.getPropertyValue('--stable-mobile-viewport'))lockMobileViewport();
+mobileViewportQuery.addEventListener?.('change',lockMobileViewport);
+window.addEventListener('orientationchange',()=>window.setTimeout(lockMobileViewport,320),{passive:true});
 const isNearViewport=(element,margin=.35)=>{if(!element||document.hidden)return false;const bounds=element.getBoundingClientRect(),buffer=innerHeight*margin;return bounds.bottom>-buffer&&bounds.top<innerHeight+buffer};
 if(menu){menu.addEventListener('click',()=>{const open=body.classList.toggle('menu-open');menu.setAttribute('aria-expanded',String(open))});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{body.classList.remove('menu-open');menu.setAttribute('aria-expanded','false')}))}
 const scrollToHomeSection=(target,hash)=>{
@@ -560,13 +572,24 @@ if(managedMedia.length){
     const frame=media.closest('.film-frame'),fallback=frame?.querySelector('[data-motion-fallback]');
     if(!frame||!fallback)return;
     if(!fallback.getAttribute('src'))fallback.setAttribute('src',fallback.dataset.motionFallback);
+    /* Once a decoded frame has been presented, never swap back to the poster.
+       The last video frame is steadier during a transient decoder stall. */
+    if(media.dataset.firstFrameReady==='true')return;
     frame.classList.add('is-motion-fallback');
     frame.classList.remove('is-video-active');
   };
   const showFilmVideo=media=>{
     const frame=media.closest('.film-frame');
-    frame?.classList.remove('is-motion-fallback');
-    frame?.classList.add('is-video-active');
+    if(!frame||media.dataset.firstFrameReady==='true'||media.dataset.frameRevealPending==='true')return;
+    const reveal=()=>{
+      delete media.dataset.frameRevealPending;
+      media.dataset.firstFrameReady='true';
+      frame.classList.remove('is-motion-fallback');
+      frame.classList.add('is-video-active');
+    };
+    media.dataset.frameRevealPending='true';
+    if(typeof media.requestVideoFrameCallback==='function')media.requestVideoFrameCallback(reveal);
+    else requestAnimationFrame(()=>requestAnimationFrame(reveal));
   };
   const clearMediaRelease=media=>{
     const timer=mediaReleaseTimers.get(media);
@@ -645,8 +668,17 @@ if(managedMedia.length){
     media.addEventListener('canplay',()=>syncMedia(media));
     media.addEventListener('playing',()=>showFilmVideo(media));
     media.addEventListener('waiting',()=>{if(media.readyState<2)showFilmFallback(media)});
+    media.addEventListener('stalled',()=>showFilmFallback(media));
+    media.addEventListener('error',()=>showFilmFallback(media));
     showFilmFallback(media);
   });
+  /* A muted inline video normally autoplays. If iOS Low Power Mode or a
+     transient policy decision rejects it, the next real user gesture retries
+     playback without changing the film frame or document geometry. */
+  const retryManagedMedia=()=>managedMedia.forEach(media=>{if(mediaInView.get(media)&&media.dataset.firstFrameReady!=='true')requestPlayback(media)});
+  window.addEventListener('pointerdown',retryManagedMedia,{passive:true});
+  window.addEventListener('touchstart',retryManagedMedia,{passive:true});
+  window.addEventListener('keydown',retryManagedMedia,{passive:true});
   document.addEventListener('visibilitychange',()=>managedMedia.forEach(syncMedia));
   window.addEventListener('pageshow',()=>managedMedia.forEach(syncMedia));
 }
