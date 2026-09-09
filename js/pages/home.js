@@ -242,6 +242,42 @@ if(expertiseShowcase){
   });
   expertiseShowcase.addEventListener('mouseleave',()=>activateExpertise(defaultExpertiseKey));
   activateExpertise(defaultExpertiseKey);
+  const mobileGallery=expertiseShowcase.querySelector('.expertise-showcase-gallery');
+  if(mobileGallery){
+    const mobileCards=[...mobileGallery.querySelectorAll('.expertise-showcase-card')];
+    let swipeStartX=0,swipeStartY=0,swipeStartIndex=0,snapTimer=0,touching=false;
+    const nearestCardIndex=()=>{
+      const galleryCenter=mobileGallery.scrollLeft+(mobileGallery.clientWidth/2);
+      let nearest=0,distance=Infinity;
+      mobileCards.forEach((card,index)=>{const nextDistance=Math.abs((card.offsetLeft+(card.offsetWidth/2))-galleryCenter);if(nextDistance<distance){distance=nextDistance;nearest=index}});
+      return nearest;
+    };
+    const centerCard=(index,behavior='smooth')=>{
+      const card=mobileCards[Math.max(0,Math.min(mobileCards.length-1,index))];
+      if(!card)return;
+      mobileGallery.scrollTo({left:card.offsetLeft-((mobileGallery.clientWidth-card.offsetWidth)/2),behavior});
+    };
+    const scheduleNearestSnap=()=>{
+      window.clearTimeout(snapTimer);
+      if(touching||!mobileViewportQuery.matches)return;
+      snapTimer=window.setTimeout(()=>centerCard(nearestCardIndex()),110);
+    };
+    mobileGallery.addEventListener('touchstart',event=>{
+      if(!mobileViewportQuery.matches||event.touches.length!==1)return;
+      const touch=event.touches[0];touching=true;swipeStartX=touch.clientX;swipeStartY=touch.clientY;swipeStartIndex=nearestCardIndex();window.clearTimeout(snapTimer);
+    },{passive:true});
+    mobileGallery.addEventListener('touchend',event=>{
+      if(!touching)return;
+      touching=false;
+      const touch=event.changedTouches[0],deltaX=touch.clientX-swipeStartX,deltaY=touch.clientY-swipeStartY;
+      if(Math.abs(deltaX)>=24&&Math.abs(deltaX)>Math.abs(deltaY)*1.1){
+        const direction=deltaX<0?1:-1;
+        window.setTimeout(()=>centerCard(swipeStartIndex+direction),35);
+      }else scheduleNearestSnap();
+    },{passive:true});
+    mobileGallery.addEventListener('touchcancel',()=>{touching=false;scheduleNearestSnap()},{passive:true});
+    mobileGallery.addEventListener('scroll',scheduleNearestSnap,{passive:true});
+  }
 }
 const numberStory=document.querySelector('[data-number-story]');
 if(numberStory){

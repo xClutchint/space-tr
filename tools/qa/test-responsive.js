@@ -328,6 +328,56 @@ async function inspectMobileHomepage() {
   return { ...JSON.parse(result.value), filmHeightAfterChromeResize: resizedResult.value };
 }
 
+async function inspectMobileExpertiseSwipe() {
+  const target = await openTarget(`${BASE_URL}/en/`);
+  const client = createCdpClient(target.webSocketDebuggerUrl);
+  await client.ready;
+  await client.send('Page.enable');
+  await client.send('Emulation.setDeviceMetricsOverride', {
+    width: 390,
+    height: 844,
+    deviceScaleFactor: 1,
+    mobile: true,
+    screenWidth: 390,
+    screenHeight: 844,
+  });
+  await client.send('Emulation.setTouchEmulationEnabled', { enabled: true });
+  await client.send('Page.navigate', { url: `${BASE_URL}/en/` });
+  await new Promise(resolve => setTimeout(resolve, 1800));
+  const { result: positionResult } = await client.send('Runtime.evaluate', {
+    expression: `(() => {
+      const gallery=document.querySelector('.expertise-showcase-gallery');
+      gallery.scrollIntoView({block:'center',behavior:'instant'});
+      gallery.scrollTo({left:0,behavior:'instant'});
+      const rect=gallery.getBoundingClientRect();
+      return JSON.stringify({x:rect.left+Math.min(280,rect.width*.72),y:Math.max(60,Math.min(innerHeight-60,rect.top+rect.height/2))});
+    })()`,
+    returnByValue: true,
+  });
+  const position = JSON.parse(positionResult.value);
+  await new Promise(resolve => setTimeout(resolve, 180));
+  await client.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: position.x, y: position.y }] });
+  for (const distance of [12, 24, 36]) {
+    await client.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: position.x - distance, y: position.y }] });
+    await new Promise(resolve => setTimeout(resolve, 55));
+  }
+  await client.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await new Promise(resolve => setTimeout(resolve, 900));
+  const { result } = await client.send('Runtime.evaluate', {
+    expression: `(() => {
+      const gallery=document.querySelector('.expertise-showcase-gallery');
+      const cards=[...gallery.querySelectorAll('.expertise-showcase-card')];
+      const center=gallery.scrollLeft+(gallery.clientWidth/2);
+      const distances=cards.map(card=>Math.abs((card.offsetLeft+(card.offsetWidth/2))-center));
+      const nearestIndex=distances.indexOf(Math.min(...distances));
+      return JSON.stringify({nearestIndex,centerError:Number(distances[nearestIndex].toFixed(2)),scrollLeft:Number(gallery.scrollLeft.toFixed(2)),clientWidth:gallery.clientWidth,scrollWidth:gallery.scrollWidth,cardOffsets:cards.map(card=>card.offsetLeft),snapType:getComputedStyle(gallery).scrollSnapType,snapStop:getComputedStyle(cards[nearestIndex]).scrollSnapStop});
+    })()`,
+    returnByValue: true,
+  });
+  client.close();
+  return JSON.parse(result.value);
+}
+
 async function inspectMobileTeamGrid() {
   const target = await openTarget(`${BASE_URL}/fr/`);
   const client = createCdpClient(target.webSocketDebuggerUrl);
@@ -467,6 +517,11 @@ async function main() {
     console.log(`mobile homepage refinement check: ${JSON.stringify(mobileHomepage)}`);
     if (mobileHomepage.filmHeadline !== 'Global Brands,<br>Local Reach' || mobileHomepage.filmFontSize < 43 || mobileHomepage.filmFontSize > 46 || mobileHomepage.filmPosition !== 'relative' || mobileHomepage.filmHeightBeforeChromeResize !== mobileHomepage.filmHeightAfterChromeResize || !/px$/.test(mobileHomepage.stableViewportValue) || mobileHomepage.mainOverflowAnchor !== 'none' || !/campaign-hero-static\.avif$/.test(mobileHomepage.filmFallbackSrc) || mobileHomepage.filmFallbackDisplay === 'none' || mobileHomepage.filmFallbackOpacity !== '1' || mobileHomepage.filmVideoDisplay === 'none' || mobileHomepage.filmMobileSourceReady !== true || mobileHomepage.emptyReservedHeight < 900 || mobileHomepage.visibleBeforeSevenSeconds !== true || mobileHomepage.hiddenInsideSevenSeconds !== true || mobileHomepage.visibleOpacity !== '1' || mobileHomepage.hiddenOpacity !== '0' || mobileHomepage.campaignCarousel !== 'none' || mobileHomepage.campaignBuiltSlides !== 0 || mobileHomepage.expertiseCue === 'none' || mobileHomepage.marketCardShadow !== 'none' || mobileHomepage.mobileExpertiseLink === 'none' || mobileHomepage.desktopExpertiseLink !== 'none' || !/\/en\/expertise\.html$/.test(mobileHomepage.mobileLinkHref) || !mobileHomepage.linkBelowGallery || mobileHomepage.initiallyRevealed !== false || mobileHomepage.brandWallRevealed !== true || mobileHomepage.brandDirectoryOpacity !== '1' || mobileHomepage.brandGridColumns !== 4 || mobileHomepage.brandGridBackground !== 'rgb(231, 225, 220)' || mobileHomepage.brandItemBorder !== '0px' || mobileHomepage.lancomeObjectFit !== 'cover' || mobileHomepage.feelNzuriKickerColor !== 'rgb(255, 255, 255)' || mobileHomepage.feelNzuriKickerOpacity !== '1') {
       failures.push({ page: 'mobile homepage refinements', ...mobileHomepage });
+    }
+    const mobileExpertiseSwipe = await inspectMobileExpertiseSwipe();
+    console.log(`mobile expertise short-swipe check: ${JSON.stringify(mobileExpertiseSwipe)}`);
+    if (mobileExpertiseSwipe.nearestIndex !== 1 || mobileExpertiseSwipe.centerError > 2 || mobileExpertiseSwipe.snapType !== 'x mandatory' || mobileExpertiseSwipe.snapStop !== 'always') {
+      failures.push({ page: 'mobile expertise short swipe', ...mobileExpertiseSwipe });
     }
     const mobileTeam = await inspectMobileTeamGrid();
     console.log(`mobile French team check: ${JSON.stringify(mobileTeam)}`);
