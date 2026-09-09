@@ -90,6 +90,7 @@ Article body formatting is restricted Markdown:
 - `*text*` creates italic emphasis.
 - Consecutive lines beginning with `- ` create a list.
 - `[label](https://example.com)` creates a safe external link.
+- `![Descriptive alt text](https://example.com/image.jpg)` inserts an image between text blocks. Add `*A short caption*` on the next line when needed.
 
 The legacy `/api/v1/blog-drafts` route remains an alias of `/api/v1/posts`.
 

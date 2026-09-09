@@ -789,6 +789,17 @@ input[type="range"] {
   line-height: 1.45;
 }
 
+.cms-article-body-field textarea {
+  min-height: 320px;
+}
+
+.cms-article-body-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .cms-url-control {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);

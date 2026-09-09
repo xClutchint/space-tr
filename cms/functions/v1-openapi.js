@@ -195,7 +195,7 @@ module.exports = async function handler(req, res) {
       type: 'object', required: ['title', 'body'],
       properties: {
         title: { type: 'string', maxLength: 200 }, slug: { type: 'string' },
-        body: { type: 'string', minLength: 80, maxLength: 60000, description: 'Restricted Markdown: blank lines are paragraphs; ## and ### are headings; **text** is bold; *text* is italic; consecutive - items are a list; [label](https://url) is a link.' },
+        body: { type: 'string', minLength: 80, maxLength: 60000, description: 'Restricted Markdown: blank lines are paragraphs; ## and ### are headings; **text** is bold; *text* is italic; consecutive - items are a list; [label](https://url) is a link; ![alt](https://image-url) inserts an inline image.' },
         excerpt: { type: 'string', maxLength: 300 }, imageUrl: { type: 'string' }, thumbnailUrl: { type: 'string' },
         seoTitle: { type: 'string', maxLength: 70 }, seoDescription: { type: 'string', maxLength: 170 },
         author: { type: 'string', maxLength: 120 }, language: { type: 'string', enum: ['en', 'fr'] },
@@ -203,7 +203,7 @@ module.exports = async function handler(req, res) {
       },
       examples: [{
         title: 'Why selective distribution matters', language: 'en', excerpt: 'A concise summary.',
-        body: 'Opening paragraph.\n\n## Market context\n\nUse **bold emphasis**.\n\n- First point\n- Second point',
+        body: 'Opening paragraph.\n\n## Market context\n\nUse **bold emphasis**.\n\n![Descriptive alt text](https://example.com/image.jpg)\n\n- First point\n- Second point',
         sourceId: 'weekly-editorial-2026-37'
       }]
     },
